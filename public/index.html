@@ -7,7 +7,7 @@
   <meta name="description" content="PilPod centralizes every audio and video tab into one precision control panel. Volume boosts up to 400%, live search, real-time tab sync, and zero telemetry." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=Syne:wght@700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300;0,14..32,400;0,14..32,500;0,14..32,600;0,14..32,700;1,14..32,400&family=DM+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="assets/style.css" />
 </head>
 <body>
@@ -15,7 +15,7 @@
   <!-- ══════════ ANNOUNCEMENT ══════════ -->
   <div class="announce">
     <span class="announce-dot"></span>
-    PilPod v2.0 · Manifest V3 · Now with Tab Sleep &amp; Wake API
+    PilPod v2.0 &nbsp;·&nbsp; Manifest V3 &nbsp;·&nbsp; Tab Sleep &amp; Wake API
   </div>
 
   <!-- ══════════ NAV ══════════ -->
@@ -29,8 +29,8 @@
       <li><a href="#features">Features</a></li>
       <li><a href="#privacy">Privacy</a></li>
     </ul>
-    <a href="#" class="nav-cta">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+    <a href="#" class="nav-cta" id="nav-cta-btn">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
       Add to Chrome
     </a>
   </nav>
@@ -38,30 +38,39 @@
   <!-- ══════════ HERO ══════════ -->
   <section class="hero" id="preview">
     <div class="hero-content">
-      <div class="hero-badge"><span class="hero-badge-dot"></span>Manifest V3 · Chrome Extension</div>
+      <div class="hero-badge">
+        <span class="hero-badge-dot"></span>
+        Manifest V3 · Chrome Extension
+      </div>
       <h1 class="hero-title">Your Browser's<br><span class="grad">Media Command</span><br>Center</h1>
-      <p class="hero-desc">PilPod consolidates every audio and video tab into one precision control panel — real-time volume boosts, timeline scrubbing, global sync, and instant search. Built for the kind of user who has 40 tabs open.</p>
+      <p class="hero-desc">PilPod consolidates every YouTube and YouTube Music tab into one precision control panel — precision volume control, timeline scrubbing, 1-click global mute/pause, Picture-in-Picture, and instant search. Built for the kind of user who has 40 tabs open.</p>
       <div class="hero-bullets">
         <div class="hero-bullet">
-          <div class="hb-icon"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-          Volume control up to 400% across all tabs simultaneously
+          <div class="hb-icon">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          Precision native volume control across all tabs simultaneously
         </div>
         <div class="hero-bullet">
-          <div class="hb-icon"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="hb-icon">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
           Live search jumps directly to any tab or media stream
         </div>
         <div class="hero-bullet">
-          <div class="hb-icon"><svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <div class="hb-icon">
+            <svg width="9" height="9" viewBox="0 0 24 24" fill="none" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
           100% local — zero telemetry, zero tracking, zero servers
         </div>
       </div>
       <div class="hero-ctas">
-        <a href="#" class="btn-primary">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        <a href="#" class="btn-primary" id="hero-cta-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Add to Chrome — Free
         </a>
-        <a href="#features" class="btn-ghost">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
+        <a href="#features" class="btn-ghost" id="hero-cta-secondary">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><polyline points="12 8 12 12 14 14"/></svg>
           How it works
         </a>
       </div>
@@ -120,10 +129,22 @@
 
   <!-- ══════════ STATS BAR ══════════ -->
   <div class="stats-bar">
-    <div class="stat"><div class="stat-val">0<span style="font-size:.5em;opacity:.55">B</span></div><div class="stat-lbl">Data Sent to Servers</div></div>
-    <div class="stat"><div class="stat-val">∞</div><div class="stat-lbl">Tabs Supported</div></div>
-    <div class="stat"><div class="stat-val">400<span style="font-size:.5em;opacity:.55">%</span></div><div class="stat-lbl">Max Volume Boost</div></div>
-    <div class="stat"><div class="stat-val">MV3</div><div class="stat-lbl">Manifest Version</div></div>
+    <div class="stat">
+      <div class="stat-val">0<span style="font-size:.5em;opacity:.5">B</span></div>
+      <div class="stat-lbl">Data Sent to Servers</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">∞</div>
+      <div class="stat-lbl">Tabs Supported</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">1-Click</div>
+      <div class="stat-lbl">Mute & Pause All</div>
+    </div>
+    <div class="stat">
+      <div class="stat-val">MV3</div>
+      <div class="stat-lbl">Manifest Version</div>
+    </div>
   </div>
 
   <!-- ══════════ FEATURES ══════════ -->
@@ -163,8 +184,16 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/></svg>
         </div>
         <div class="feat-title">Native Player Bridging</div>
-        <div class="feat-desc">Rather than hacking the Web Audio graph, PilPod simulates the exact keyboard events native players expect — pitch-correct volume steps, seek commands, playback toggles — delivering lossless precision control across YouTube, Spotify Web, SoundCloud, and any HTML5 player.</div>
+        <div class="feat-desc">Rather than hacking the Web Audio graph, PilPod simulates the exact keyboard events native players expect — pitch-correct volume steps, seek commands, playback toggles — delivering lossless precision control across YouTube and YouTube Music.</div>
         <div class="feat-tag">KeyboardEvent · Web Audio API</div>
+      </div>
+      <div class="feat-card reveal">
+        <div class="feat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+        </div>
+        <div class="feat-title">Global Action Hub</div>
+        <div class="feat-desc">Instantly silence or halt your entire browser. PilPod provides dedicated 1-click global commands to Mute All or Pause All tabs instantly, alongside native Picture-in-Picture (PiP) support for background videos.</div>
+        <div class="feat-tag">1-Click Control · Picture-in-Picture</div>
       </div>
     </div>
   </section>
@@ -173,12 +202,11 @@
   <section class="section privacy-sec" id="privacy">
     <div class="priv-inner">
       <div class="reveal">
-        <div class="sec-eyebrow" style="margin-bottom:16px">Privacy</div>
-        <h2 class="sec-title" style="text-align:left">Your Browser.<br>Your Data.<br><span style="background:linear-gradient(130deg,#4ade80,#22c55e);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Yours Alone.</span></h2>
-        <p style="font-size:15px;color:var(--text-2);margin-top:18px;line-height:1.75;max-width:430px;letter-spacing:-0.01em">PilPod is architected with a strict local-first, zero-server philosophy. The extension operates entirely within your browser process — no analytics SDK, no update pings, no crash reporting, no telemetry of any kind.</p>
-        <div style="margin-top:28px;display:flex;align-items:center;gap:10px;flex-wrap:wrap">
-          <span style="padding:8px 18px;background:rgba(34,197,94,0.1);border:1px solid rgba(34,197,94,0.22);border-radius:var(--r-pill);font-family:var(--ff-mono);font-size:11px;font-weight:600;color:#4ade80;letter-spacing:0.06em;text-transform:uppercase">✓ 100% Local-First</span>
-          <span style="padding:8px 18px;background:rgba(34,197,94,0.06);border:1px solid rgba(34,197,94,0.14);border-radius:var(--r-pill);font-family:var(--ff-mono);font-size:11px;font-weight:600;color:rgba(74,222,128,0.6);letter-spacing:0.06em;text-transform:uppercase">Open Source</span>
+        <div class="sec-eyebrow" style="margin-bottom:12px">Privacy</div>
+        <h2 class="sec-title" style="text-align:left">Your Browser.<br>Your Data.<br><span style="background:linear-gradient(110deg,var(--chrome-green),#56d47c);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Yours Alone.</span></h2>
+        <p style="font-size:14px;color:var(--text-2);margin-top:16px;line-height:1.75;max-width:420px;letter-spacing:-0.01em">PilPod is architected with a strict local-first, zero-server philosophy. The extension operates entirely within your browser process — no analytics SDK, no update pings, no crash reporting, no telemetry of any kind.</p>
+        <div style="margin-top:22px;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          <span class="priv-badge-local">✓ 100% Local-First</span>
         </div>
       </div>
       <div class="priv-shields reveal">
@@ -194,10 +222,7 @@
           <div class="priv-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
           <div><div class="priv-slabel">Local Processing</div><div class="priv-sdesc">All logic executes inside your browser, period</div></div>
         </div>
-        <div class="priv-shield">
-          <div class="priv-si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
-          <div><div class="priv-slabel">Open Source</div><div class="priv-sdesc">Full source on GitHub — audit it yourself</div></div>
-        </div>
+
       </div>
     </div>
   </section>
@@ -205,18 +230,15 @@
   <!-- ══════════ FINAL CTA ══════════ -->
   <section class="cta-sec">
     <div class="reveal">
-      <p style="font-family:var(--ff-mono);font-size:11.5px;text-transform:uppercase;letter-spacing:0.12em;color:var(--violet-bright);margin-bottom:16px">Ready to take control?</p>
-      <h2 style="font-family:var(--ff-display);font-size:clamp(28px,3.8vw,48px);font-weight:800;letter-spacing:-0.04em;color:var(--text-1);margin-bottom:20px;line-height:1.08">One extension.<br>Every media tab.</h2>
-      <p style="font-size:15px;color:var(--text-2);margin-bottom:34px;max-width:420px;margin-left:auto;margin-right:auto;line-height:1.72;letter-spacing:-0.01em">Free forever. No account. No subscription. Install and command your browser's media like a pro in under 10 seconds.</p>
-      <div style="display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap">
-        <a href="#" class="btn-primary" style="font-size:15px;padding:15px 32px">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      <p style="font-family:var(--ff-mono);font-size:10.5px;text-transform:uppercase;letter-spacing:0.12em;color:var(--chrome-blue);margin-bottom:14px">Ready to take control?</p>
+      <h2 style="font-family:var(--ff-display);font-size:clamp(24px,3.2vw,42px);font-weight:800;letter-spacing:-0.04em;color:var(--text-1);margin-bottom:16px;line-height:1.08">One extension.<br>Every media tab.</h2>
+      <p style="font-size:14px;color:var(--text-2);margin-bottom:28px;max-width:400px;margin-left:auto;margin-right:auto;line-height:1.72;letter-spacing:-0.01em">Free forever. No account. No subscription. Install and command your browser's media like a pro in under 10 seconds.</p>
+      <div style="display:flex;align-items:center;justify-content:center;gap:10px;flex-wrap:wrap">
+        <a href="#" class="btn-primary" id="cta-final-primary" style="font-size:14px;padding:13px 28px">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           Add to Chrome — It's Free
         </a>
-        <a href="#" class="btn-ghost">
-          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          View Source on GitHub
-        </a>
+
       </div>
     </div>
   </section>
@@ -231,17 +253,31 @@
       </div>
     </div>
     <div class="footer-links">
-      <a href="#">GitHub</a>
-      <a href="#">Chrome Web Store</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Changelog</a>
+
+      <a href="#" id="footer-store">Chrome Web Store</a>
+      <a href="privacy.html" id="footer-privacy">Privacy Policy</a>
+      <a href="#" id="footer-changelog">Changelog</a>
     </div>
-    <div class="footer-copy">Manifest V3 · © 2025 PilPod</div>
+    <div class="footer-copy">Manifest V3 · © 2026 PilPod</div>
   </footer>
 
   <!-- ══════════════════════════════════════
        MOCKUP LOGIC (inlined from mockup.js)
   ══════════════════════════════════════ -->
   <script src="assets/app.js"></script>
+
+  <!-- Reveal-on-scroll observer -->
+  <script>
+    (function(){
+      const els = document.querySelectorAll('.reveal');
+      if(!els.length) return;
+      const obs = new IntersectionObserver(function(entries){
+        entries.forEach(function(e){
+          if(e.isIntersecting){ e.target.classList.add('in'); obs.unobserve(e.target); }
+        });
+      }, { threshold: 0.08 });
+      els.forEach(function(el){ obs.observe(el); });
+    })();
+  </script>
 </body>
 </html>
