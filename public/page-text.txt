@@ -1,4 +1,4 @@
-PilPod v2.0 · Manifest V3 · Tab Sleep & Wake API
+PilPod v2.1.0 · Manifest V3 · Tab Sleep & Wake API
 
 PilPod
 Preview
