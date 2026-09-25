@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://s7.ma/sitemap.xml
