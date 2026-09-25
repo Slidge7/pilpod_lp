@@ -1,0 +1,24 @@
+{
+  "name": "s7-site",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "S7 — Service7. Studio site, built as a single-page application.",
+  "scripts": {
+    "dev": "vite",
+    "build": "npm run build:client && npm run build:ssr && npm run build:html",
+    "build:client": "vite build",
+    "build:ssr": "vite build --ssr src/ssr.ts --outDir .ssr --emptyOutDir",
+    "build:html": "node scripts/prerender.mjs",
+    "preview": "vite preview",
+    "typecheck": "tsc --noEmit",
+    "serve:dist": "node scripts/serve.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@types/node": "^22.20.4",
+    "typescript": "^5.6.0",
+    "vite": "^5.4.0"
+  }
+}

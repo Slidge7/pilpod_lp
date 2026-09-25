@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js" data-theme="s7" data-mode="dark" data-route="home">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>S7</title>
+<!--app-head-->
+
+<style>
+  /* Critical anti-FOUC: painted before external CSS arrives. */
+  body { opacity: 0 }
+  .skip { position: absolute; left: -9999px }
+  svg { max-width: 100% }
+</style>
+<!--app-preload-->
+
+<script>
+  /*
+   * Runs before first paint, so neither choice below can flash the wrong page.
+   *  1. no-js is dropped, which lets the reveal animations start hidden.
+   *  2. A saved light/dark choice is applied now, not after the stylesheet.
+   *  3. If this is an English URL but the visitor has chosen — or their
+   *     browser prefers — French, the page is marked so the router can swap
+   *     it before it is seen. An explicit /fr URL is always left alone.
+   */
+  (function () {
+    var d = document.documentElement;
+    d.classList.remove('no-js');
+    try {
+      var m = localStorage.getItem('s7.mode');
+      if (m === 'light' || m === 'dark') d.dataset.mode = m;
+    } catch (e) {}
+    try {
+      var p = location.pathname;
+      if (p !== '/fr' && p.indexOf('/fr/') !== 0) {
+        var saved = localStorage.getItem('s7.lang');
+        var want =
+          saved === 'fr' || saved === 'en'
+            ? saved
+            : String(
+                (navigator.languages && navigator.languages[0]) || navigator.language || 'en'
+              )
+                .toLowerCase()
+                .slice(0, 2);
+        if (want === 'fr') d.dataset.langPending = 'fr';
+      }
+    } catch (e) {}
+  })();
+</script>
+<script type="module" src="/src/main.ts"></script>
+</head>
+<body>
+<!--app-body-->
+</body>
+</html>

@@ -1,0 +1,19 @@
+# Build output
+dist/
+.ssr/
+
+# Firebase
+.firebase/
+firebase-debug.log
+firebase-debug.*.log
+ui-debug.log
+database-debug.log
+firestore-debug.log
+
+# Tooling
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini

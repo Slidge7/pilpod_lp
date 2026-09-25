@@ -1,0 +1,281 @@
+/* ============================================================
+   Nav + Morocco time strip
+   ============================================================ */
+
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  border-bottom: 1px solid transparent;
+  transition: background-color 0.4s var(--ease-soft), border-color 0.4s var(--ease-soft);
+}
+
+.nav.scrolled {
+  background: var(--nav-glass);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  border-bottom-color: var(--line-soft);
+}
+:root[data-theme='reqtone'] .nav.scrolled {
+  border-bottom-color: var(--line);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 72px;
+}
+
+.mark {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.mark svg {
+  width: 20px;
+  height: 20px;
+  color: var(--red);
+  transition: transform 0.6s var(--ease);
+}
+.mark:hover svg {
+  transform: rotate(45deg);
+}
+.mark .name {
+  font-size: 1.0625rem;
+  font-weight: 500;
+}
+.mark .sub {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  padding-left: 0.6rem;
+  border-left: 1px solid var(--line);
+  margin-left: 0.15rem;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: clamp(1.25rem, 3vw, 2.5rem);
+}
+.nav-links a {
+  font-size: 0.875rem;
+  color: var(--ink-3);
+  transition: color 0.3s var(--ease-soft);
+}
+.nav-links a:hover,
+.nav-links a[aria-current='page'] {
+  color: var(--ink);
+}
+
+@media (max-width: 640px) {
+  .mark .sub {
+    display: none;
+  }
+  .nav-links .hide-s {
+    display: none;
+  }
+}
+
+/* Route-change sweep: a hairline of the theme's brand colour runs along the
+   bottom of the bar as the page changes. It marks the moment; it is not a
+   loading indicator, because there is nothing to load. */
+.nav-progress {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  pointer-events: none;
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  background: linear-gradient(90deg, transparent, var(--brand-lift) 30%, var(--brand) 70%, transparent);
+}
+.nav-progress.sweep {
+  animation: sweep 0.75s var(--ease) both;
+}
+@keyframes sweep {
+  0% {
+    transform: scaleX(0);
+    opacity: 1;
+  }
+  60% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scaleX(1);
+    opacity: 0;
+  }
+}
+
+/* ============================================================
+   Morocco time strip — GMT+0, official from 20 Sep 2026
+   A slim world-clock ruler on top of the fixed nav. West of Morocco
+   sits on the left, east on the right; the flag badge is the axis.
+   It folds away as soon as the nav switches to its .scrolled state.
+   ============================================================ */
+
+.tz {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr;
+  background: var(--tz-veil);
+  transition: grid-template-rows 0.5s var(--ease), opacity 0.35s var(--ease-soft), visibility 0s;
+}
+.tz::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--line-soft);
+}
+
+.tz-scroll {
+  position: relative;
+  min-height: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  overscroll-behavior-x: contain;
+  scrollbar-width: none;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 28px,
+    #000 calc(100% - 28px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(90deg, transparent 0, #000 28px, #000 calc(100% - 28px), transparent 100%);
+}
+.tz-scroll::-webkit-scrollbar {
+  display: none;
+}
+.tz-scroll:focus-visible {
+  outline-offset: -3px;
+}
+
+/* Auto side-margins centre the track when it fits and collapse to 0 when it
+   overflows, so the same markup is a centred ruler on desktop and a
+   swipeable one on phones. */
+.tz-track {
+  display: flex;
+  align-items: center;
+  width: max-content;
+  height: 42px;
+  margin-inline: auto;
+  padding-inline: 28px;
+}
+.tz-side {
+  display: flex;
+  align-items: center;
+}
+
+.tz-city {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.14rem;
+  padding: 0.15rem 1rem;
+  font-family: var(--mono);
+  line-height: 1.15;
+  white-space: nowrap;
+}
+.tz-city + .tz-city {
+  border-left: 1px solid var(--line-soft);
+}
+.tz-name {
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.tz-val {
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+.tz-t {
+  font-size: 0.8125rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-2);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.25s var(--ease-soft);
+}
+.tz-o {
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  color: var(--ink-3);
+}
+.tz-city:hover .tz-t {
+  color: var(--ink);
+}
+
+/* Morocco — the axis. Always red, whatever the theme. */
+.tz-ma {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  height: 30px;
+  margin-inline: 1.1rem;
+  padding: 0 0.95rem 0 0.5rem;
+  border-radius: 100px;
+  border: 1px solid rgba(200, 50, 60, 0.4);
+  background: linear-gradient(180deg, rgba(200, 50, 60, 0.16), rgba(200, 50, 60, 0.06));
+  box-shadow: 0 8px 24px -10px var(--red-glow);
+  white-space: nowrap;
+}
+.tz-flag {
+  width: 24px;
+  height: 16px;
+  border-radius: 3px;
+  flex: none;
+  box-shadow: 0 0 0 1px rgb(var(--fg-rgb) / 0.2), 0 2px 6px rgba(0, 0, 0, 0.28);
+}
+.tz-gmt {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  color: #e9a2a8;
+}
+.tz-clock {
+  font-family: var(--mono);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+}
+.tz-sec {
+  color: var(--ink-3);
+}
+
+.nav.scrolled .tz {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  visibility: hidden;
+  transition: grid-template-rows 0.5s var(--ease), opacity 0.3s var(--ease-soft), visibility 0s 0.5s;
+}
+.no-js .tz {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .tz-city {
+    padding-inline: 0.8rem;
+  }
+  .tz-ma {
+    margin-inline: 0.8rem;
+  }
+}

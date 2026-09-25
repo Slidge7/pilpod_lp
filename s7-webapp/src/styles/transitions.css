@@ -1,0 +1,98 @@
+/* ============================================================
+   Route transitions
+   ============================================================
+
+   Two layers of motion, each doing one job:
+
+   1. The View Transitions API cross-fades the whole viewport from the old
+      page to the new one. Old and new use the *same* duration and easing, so
+      at every instant their opacities sum to exactly 1 — which means pixels
+      that are identical in both (the nav, the backdrop) stay perfectly still
+      while everything else dissolves. No element is snapshotted separately,
+      so nothing can slide, stretch or double up.
+
+   2. The new page's opening section then rises into place with the studio's
+      own easing, staggered child by child. Because the incoming half of a
+      view transition is a live render, this plays *during* the cross-fade,
+      not after it.
+
+   Browsers without the API get a short fade on <main> and the same rise.
+   With reduced motion, the swap is instant.
+   ============================================================ */
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.34s;
+  animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ---------------------------------------------------------- the rise ---- */
+
+@keyframes page-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 18px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* Only the first section rises; everything below the fold is handled by the
+   scroll reveal as the reader gets to it. Elements already driven by the
+   reveal (.rv) are left to it, so the two systems never fight over a
+   transform. */
+main.page-enter > section:first-of-type > *:not(.rv) {
+  animation: page-rise 0.8s var(--ease) both;
+}
+main.page-enter > section:first-of-type > *:not(.rv):nth-child(1) { animation-delay: 30ms; }
+main.page-enter > section:first-of-type > *:not(.rv):nth-child(2) { animation-delay: 90ms; }
+main.page-enter > section:first-of-type > *:not(.rv):nth-child(3) { animation-delay: 150ms; }
+main.page-enter > section:first-of-type > *:not(.rv):nth-child(4) { animation-delay: 210ms; }
+main.page-enter > section:first-of-type > *:not(.rv):nth-child(5) { animation-delay: 270ms; }
+main.page-enter > section:first-of-type > *:not(.rv):nth-child(6) { animation-delay: 330ms; }
+
+/* ------------------------------------------------------ fallback fade --- */
+
+main {
+  transition: opacity 0.15s var(--ease-soft);
+}
+main.is-leaving {
+  opacity: 0;
+}
+
+/* While a swap is in flight, the pointer shouldn't hit half-replaced links. */
+:root.is-navigating main {
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-group(*),
+  ::view-transition-old(*),
+  ::view-transition-new(*) {
+    animation: none !important;
+  }
+  main.page-enter > section:first-of-type > * {
+    animation: none;
+  }
+}
+
+/* --------------------------------------------- language decided pre-paint */
+
+/*
+ * Set by the inline script in <head> when this English document is about to be
+ * swapped to French (a saved choice, or a French browser). Hiding <main> for
+ * the few milliseconds until the router runs is what stops a flash of the
+ * wrong language. The animation is a dead man's switch: if the script never
+ * arrives, the content appears anyway.
+ */
+:root[data-lang-pending] main {
+  opacity: 0;
+  animation: lang-settle 0s linear 700ms forwards;
+}
+@keyframes lang-settle {
+  to {
+    opacity: 1;
+  }
+}

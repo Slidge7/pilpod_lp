@@ -1,0 +1,353 @@
+/* ============================================================
+   Ambient backdrop — rebuilt for the compositor
+   ============================================================
+
+   What made the old pages lag, in order of cost:
+
+   1. Three 60vw circles under `filter: blur(120px)`, animating transform AND
+      scale. A blur that size is a multi-pass convolution over roughly a
+      million pixels per glow, and because the element was scaling the
+      browser could not cache the result — it re-blurred on most frames.
+      → The blur is gone. Each glow paints a radial-gradient whose stops
+        reproduce the blurred shape (fall-off measured from a numerical model
+        of the original, see below). Painting it is one gradient fill, done
+        once; after that only its transform animates, on the GPU.
+
+   2. A grain layer at `inset: -50%` (four viewports of area) with
+      `mix-blend-mode: overlay`. A blend mode forces the compositor to read
+      back everything beneath it and re-blend, every frame anything beneath
+      it moves — and the glows beneath it never stopped moving.
+      → Viewport-sized, no blend mode, lower opacity. It rasterises once and
+        is cached as a static layer.
+
+   3. The zellige tessellation as an <svg> sized to the viewport with a
+      <pattern> fill. Any resize or scrollbar change re-rasterised the whole
+      thing.
+      → A 92px tile as a CSS background-image. The browser rasterises one
+        tile and repeats it on the GPU. Same geometry, same origin — the
+        pattern registers pixel-for-pixel where it did before.
+
+   4. No containment: any change inside the backdrop could invalidate layout
+      for the page above it.
+      → `contain: strict` on the backdrop and on every full-bleed layer. (The
+        glows are the exception — their light deliberately overhangs their
+        box — and they sit inside a strictly-contained parent anyway.)
+
+   5. The pointer light was a viewport-sized gradient whose centre followed
+      the cursor, so every mouse frame repainted the whole screen.
+      → A fixed-size disc moved by transform.
+
+   The visual design is unchanged. The cost of keeping it on screen is now a
+   handful of composited transforms.
+   ============================================================ */
+
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  contain: strict;
+  /* Deliberately unnamed for view transitions: it is part of the root
+     snapshot, identical on both sides, so the cross-fade leaves it still. */
+}
+
+/* Each theme's backdrop is a full-bleed stack; they cross-fade. */
+.amb {
+  position: absolute;
+  inset: 0;
+  contain: strict;
+  opacity: 0;
+  visibility: hidden;
+  /* Fade out, then drop to visibility:hidden so the GPU can release the
+     inactive theme's layers instead of compositing them at opacity 0. */
+  transition: opacity 0.7s var(--ease-soft), visibility 0s linear 0.7s;
+}
+:root[data-theme='s7'] .amb-s7,
+:root[data-theme='reqtone'] .amb-reqtone {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.7s var(--ease-soft), visibility 0s;
+}
+/* A backdrop that isn't showing shouldn't keep the GPU busy either. */
+:root[data-theme='s7'] .amb-reqtone .glow,
+:root[data-theme='reqtone'] .amb-s7 .glow {
+  animation-play-state: paused;
+}
+
+.ambient span {
+  display: block;
+}
+
+/* ---------------------------------------------------------------- glows --- */
+
+/*
+ * Each glow is positioned and animated exactly as before; only how it is
+ * painted has changed. The light is drawn on a ::before that overhangs the
+ * element by 30% on every side, with stops that trace the fall-off the old
+ * blur(120–130px) actually produced — modelled numerically, not eyeballed:
+ *
+ *   distance from centre   0    .2r  .4r  .6r  .8r  1r   1.2r  1.4r  1.6r
+ *   share of peak          1   .937 .77  .54  .33  .165 .065  .022  0
+ *
+ * and a peak that is the original alpha times the ~0.55–0.64 the blur left
+ * standing. Same shape, same brightness; zero filter cost.
+ */
+.glow {
+  position: absolute;
+  will-change: transform;
+  backface-visibility: hidden;
+}
+.glow::before {
+  content: '';
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgb(var(--c) / var(--a)) 0%,
+    rgb(var(--c) / calc(var(--a) * 0.937)) 12.5%,
+    rgb(var(--c) / calc(var(--a) * 0.77)) 25%,
+    rgb(var(--c) / calc(var(--a) * 0.54)) 37.5%,
+    rgb(var(--c) / calc(var(--a) * 0.33)) 50%,
+    rgb(var(--c) / calc(var(--a) * 0.165)) 62.5%,
+    rgb(var(--c) / calc(var(--a) * 0.065)) 75%,
+    rgb(var(--c) / calc(var(--a) * 0.022)) 87.5%,
+    rgb(var(--c) / 0) 100%
+  );
+}
+
+/* S7 — Moroccan red and emerald */
+.glow-a {
+  --c: 200 50 60;
+  --a: 0.179; /* .28 × .638 */
+  width: 60vw;
+  height: 60vw;
+  min-width: 520px;
+  min-height: 520px;
+  top: -22vw;
+  left: -8vw;
+  animation: driftA 46s var(--ease-soft) infinite alternate;
+}
+.glow-b {
+  --c: 46 158 107;
+  --a: 0.077; /* .14 × .550 */
+  width: 48vw;
+  height: 48vw;
+  min-width: 420px;
+  min-height: 420px;
+  top: 38vh;
+  right: -14vw;
+  animation: driftB 58s var(--ease-soft) infinite alternate;
+}
+.glow-c {
+  --c: 200 50 60;
+  --a: 0.077; /* .13 × .595 */
+  width: 52vw;
+  height: 52vw;
+  min-width: 420px;
+  min-height: 420px;
+  bottom: -18vw;
+  left: 22vw;
+  animation: driftA 64s var(--ease-soft) infinite alternate-reverse;
+}
+
+/* ReqTone — two blues */
+.rt-glow-a {
+  --c: 91 157 255;
+  --a: 0.093; /* .16 × .581 */
+  width: 56vw;
+  height: 56vw;
+  min-width: 480px;
+  min-height: 480px;
+  top: -24vw;
+  left: -6vw;
+  animation: driftA 52s var(--ease-soft) infinite alternate;
+}
+.rt-glow-b {
+  --c: 91 157 255;
+  --a: 0.041; /* .08 × .509 */
+  width: 46vw;
+  height: 46vw;
+  min-width: 400px;
+  min-height: 400px;
+  top: 46vh;
+  right: -14vw;
+  animation: driftB 64s var(--ease-soft) infinite alternate;
+}
+
+/*
+ * Light mode keeps the same geometry and motion; only the intensities drop,
+ * because a tint that reads as "glow" on near-black reads as "smudge" on
+ * paper. The lit lens also swaps to darker strokes — on a light surface the
+ * brighter palette would make the lens darken rather than brighten.
+ */
+:root[data-mode='light'] .glow-a { --a: 0.1; }
+:root[data-mode='light'] .glow-b { --a: 0.062; }
+:root[data-mode='light'] .glow-c { --a: 0.05; }
+:root[data-mode='light'] .rt-glow-a { --a: 0.072; }
+:root[data-mode='light'] .rt-glow-b { --a: 0.034; }
+
+@keyframes driftA {
+  from {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  to {
+    transform: translate3d(6vw, 7vh, 0) scale(1.14);
+  }
+}
+@keyframes driftB {
+  from {
+    transform: translate3d(0, 0, 0) scale(1.08);
+  }
+  to {
+    transform: translate3d(-7vw, -6vh, 0) scale(0.94);
+  }
+}
+
+/* ------------------------------------------------------ zellige (S7 only) - */
+
+/*
+ * The eight-point khatem: the upright square reads red, the rotated one green.
+ * One 92px tile, same origin as before (the top-left of the viewport).
+ *
+ * The tile URLs are written out literally rather than shared through a
+ * custom property: a background-image that goes through var() is re-resolved
+ * whenever an inherited custom property changes above it, and the browser
+ * then repaints the whole tiled layer.
+ */
+.zellige {
+  position: absolute;
+  inset: 0;
+  contain: strict;
+  opacity: var(--zellige-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92'%3E%3Cg fill='none' stroke-width='1'%3E%3Crect x='19' y='19' width='54' height='54' stroke='%23C8323C'/%3E%3Crect x='19' y='19' width='54' height='54' transform='rotate(45 46 46)' stroke='%232E9E6B'/%3E%3Cpath d='M46 0V8M46 84v8' stroke='%23C8323C'/%3E%3Cpath d='M0 46h8M84 46h8' stroke='%232E9E6B'/%3E%3Ccircle cx='46' cy='46' r='2.5' stroke='%23F2EFEA'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 92px 92px;
+  background-position: 0 0;
+  -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 32%, #000 5%, transparent 78%);
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 32%, #000 5%, transparent 78%);
+}
+
+/*
+ * The lens: a moving window over a counter-translated, brighter copy of the
+ * tessellation. Only two transforms change as the pointer moves; the mask and
+ * the tile are static, so nothing re-rasterises. The inner layer inherits the
+ * ambient fade, so lit lines never appear where the resting pattern has
+ * already faded out.
+ */
+.zellige-lens {
+  --lens: 250px;
+  --half: 125px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: var(--lens);
+  height: var(--lens);
+  margin: calc(var(--half) * -1) 0 0 calc(var(--half) * -1);
+  transform: translate3d(-9999px, -9999px, 0); /* parked until the first pointer move */
+  overflow: hidden;
+  opacity: 0;
+  contain: strict;
+  transition: opacity 0.7s var(--ease-soft);
+  will-change: transform, opacity;
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 50%,
+    #000 0%,
+    rgba(0, 0, 0, 0.62) 30%,
+    rgba(0, 0, 0, 0.18) 56%,
+    transparent 72%
+  );
+  mask-image: radial-gradient(
+    circle at 50% 50%,
+    #000 0%,
+    rgba(0, 0, 0, 0.62) 30%,
+    rgba(0, 0, 0, 0.18) 56%,
+    transparent 72%
+  );
+}
+
+.lens-inner {
+  /* The lit palette: same tile, brighter strokes. Counter-translated by JS so
+     the lit lines register exactly on the resting ones. */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  opacity: var(--lens-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92'%3E%3Cg fill='none' stroke-width='1'%3E%3Crect x='19' y='19' width='54' height='54' stroke='%23E04A54'/%3E%3Crect x='19' y='19' width='54' height='54' transform='rotate(45 46 46)' stroke='%233FBF83'/%3E%3Cpath d='M46 0V8M46 84v8' stroke='%23E04A54'/%3E%3Cpath d='M0 46h8M84 46h8' stroke='%233FBF83'/%3E%3Ccircle cx='46' cy='46' r='2.5' stroke='%23F2EFEA'/%3E%3C/g%3E%3C/svg%3E");
+  background-size: 92px 92px;
+  background-position: 0 0;
+  will-change: transform;
+  -webkit-mask-image: radial-gradient(ellipse 85% 70% at 50% 32%, #000 5%, transparent 78%);
+  mask-image: radial-gradient(ellipse 85% 70% at 50% 32%, #000 5%, transparent 78%);
+}
+
+:root[data-mode='light'] .lens-inner {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='92' height='92'%3E%3Cg fill='none' stroke-width='1'%3E%3Crect x='19' y='19' width='54' height='54' stroke='%23A81E28'/%3E%3Crect x='19' y='19' width='54' height='54' transform='rotate(45 46 46)' stroke='%231F7A50'/%3E%3Cpath d='M46 0V8M46 84v8' stroke='%23A81E28'/%3E%3Cpath d='M0 46h8M84 46h8' stroke='%231F7A50'/%3E%3Ccircle cx='46' cy='46' r='2.5' stroke='%2314110F'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ------------------------------------------------- dev grid (ReqTone only) */
+
+.dev-grid {
+  position: absolute;
+  inset: 0;
+  contain: strict;
+  background-image: linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 5%, transparent 72%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, #000 5%, transparent 72%);
+}
+
+/* ------------------------------------------------------------------ grain - */
+
+.grain {
+  position: absolute;
+  inset: 0;
+  contain: strict;
+  opacity: var(--grain-opacity);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ------------------------------------------------------ pointer light ----- */
+
+/*
+ * The old light was a viewport-sized gradient whose *centre* followed the
+ * cursor — so every pointer frame repainted the full screen. Now it is a fixed
+ * 1120px disc that moves by transform: painted once, then only composited.
+ * Same radius, same fall-off.
+ */
+.pointer-light {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1120px;
+  height: 1120px;
+  margin: -560px 0 0 -560px;
+  transform: translate3d(-9999px, -9999px, 0); /* parked until the first pointer move */
+  opacity: 0;
+  contain: strict;
+  will-change: transform, opacity;
+  transition: opacity 0.8s var(--ease-soft);
+  background: radial-gradient(closest-side, var(--pointer-light), transparent 62%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  /* Studio pages only — the ReqTone page never had a pointer light. */
+  :root[data-theme='s7'] body.pointer-active .pointer-light,
+  :root[data-theme='s7'] body.pointer-active .zellige-lens {
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pointer-light,
+  .zellige-lens {
+    display: none;
+  }
+  .glow {
+    animation: none;
+  }
+}

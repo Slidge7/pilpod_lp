@@ -1,0 +1,691 @@
+/* ============================================================
+   Home — hero, products, the S7 Standard, about
+   ============================================================ */
+
+/* ---------------------------------------------------------------- hero --- */
+
+.hero {
+  position: relative;
+  z-index: 1;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(9.5rem, 18vh, 11rem) clamp(4rem, 10vh, 7rem);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-self: flex-start;
+  align-items: center;
+  gap: 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding: 0.45rem 0.9rem 0.45rem 0.75rem;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: rgb(var(--fg-rgb) / 0.025);
+  margin-bottom: clamp(1.75rem, 4vw, 2.5rem);
+}
+.eyebrow .pulse {
+  position: relative;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--red);
+}
+/*
+ * The pulse ring. The original animated box-shadow, which cannot run on the
+ * compositor — it repainted the whole hero on every frame, forever, even with
+ * the page sitting idle. This is the same ring (5px dot → 6px spread, fading
+ * from .35 to 0 and back over 3.4s) drawn as a disc behind the dot and
+ * animated with transform and opacity only: zero paints after the first.
+ */
+.eyebrow .pulse::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: rgba(200, 50, 60, 0.35);
+  will-change: transform, opacity;
+  animation: pulse 3.4s var(--ease-soft) infinite;
+}
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(3.4); /* (5px + 2 × 6px) / 5px */
+    opacity: 0;
+  }
+}
+
+.hero h1 {
+  font-size: clamp(2.75rem, 8.2vw, 6.5rem);
+  line-height: 0.98;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  max-width: 16ch;
+}
+.hero h1 .muted {
+  color: var(--ink-3);
+}
+
+.hero-sub {
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  max-width: 46ch;
+  font-size: clamp(1.0625rem, 1rem + 0.45vw, 1.3125rem);
+  line-height: 1.6;
+  color: var(--ink-2);
+  font-weight: 300;
+}
+
+.hero-cta {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+}
+
+.hero-meta {
+  margin-top: clamp(3.5rem, 9vh, 6rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem clamp(1.5rem, 4vw, 3rem);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.hero-meta span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+.hero-meta span::before {
+  content: '';
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: var(--ink-4);
+}
+
+/* ------------------------------------------------------------ products --- */
+
+.section-head {
+  display: grid;
+  gap: 1.5rem clamp(2rem, 6vw, 5rem);
+  grid-template-columns: 1fr;
+  margin-bottom: clamp(3rem, 7vw, 4.5rem);
+}
+@media (min-width: 900px) {
+  .section-head {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    align-items: end;
+  }
+}
+.section-head p {
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 44ch;
+  font-size: 1.0625rem;
+}
+
+.products {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.25rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 820px) {
+  .products {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.product {
+  position: relative;
+  isolation: isolate;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+  min-height: clamp(300px, 34vw, 380px);
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  background: linear-gradient(
+    165deg,
+    rgb(var(--fg-rgb) / 0.035),
+    rgb(var(--fg-rgb) / 0.008) 42%,
+    transparent
+  );
+  overflow: hidden;
+  transition: border-color 0.45s var(--ease-soft), background 0.45s var(--ease-soft);
+}
+.product::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(420px circle at 15% 0%, var(--red-glow), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-soft);
+}
+.product::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 12%;
+  right: 12%;
+  height: 1px;
+  z-index: 1;
+  background: linear-gradient(90deg, transparent, var(--brand-lift), transparent);
+  opacity: 0;
+  transition: opacity 0.6s var(--ease-soft);
+}
+.product:hover {
+  border-color: rgb(var(--fg-rgb) / 0.15);
+  background: linear-gradient(
+    165deg,
+    rgb(var(--fg-rgb) / 0.055),
+    rgb(var(--fg-rgb) / 0.012) 42%,
+    transparent
+  );
+}
+.product:hover::before,
+.product:hover::after {
+  opacity: 1;
+}
+.product.is-soon::before {
+  background: radial-gradient(420px circle at 15% 0%, rgba(46, 158, 107, 0.16), transparent 62%);
+}
+.product.is-soon::after {
+  background: linear-gradient(90deg, transparent, rgba(46, 158, 107, 0.5), transparent);
+}
+.product.is-pre::before {
+  background: radial-gradient(420px circle at 15% 0%, rgba(201, 162, 39, 0.14), transparent 62%);
+}
+.product.is-pre::after {
+  background: linear-gradient(90deg, transparent, rgba(201, 162, 39, 0.45), transparent);
+}
+
+.product-top {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2rem);
+}
+.product-idx {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-4);
+}
+
+.badge {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.7rem;
+  border-radius: 100px;
+  white-space: nowrap;
+  border: 1px solid rgb(var(--fg-rgb) / 0.14);
+  color: var(--ink-3);
+}
+.badge.live {
+  color: #e9a2a8;
+  border-color: rgba(200, 50, 60, 0.35);
+  background: rgba(200, 50, 60, 0.09);
+}
+.badge.soon {
+  color: #8fd6b4;
+  border-color: rgba(46, 158, 107, 0.3);
+  background: rgba(46, 158, 107, 0.08);
+}
+.badge.pre {
+  color: #e4c86a;
+  border-color: rgba(201, 162, 39, 0.32);
+  background: rgba(201, 162, 39, 0.08);
+}
+
+.product-glyph {
+  width: 44px;
+  height: 44px;
+  color: var(--ink-3);
+  margin-bottom: auto;
+  transition: color 0.5s var(--ease-soft);
+}
+.product:hover .product-glyph {
+  color: var(--brand-lift);
+}
+.product.is-soon:hover .product-glyph {
+  color: #2e9e6b;
+}
+.product.is-pre:hover .product-glyph {
+  color: #c9a227;
+}
+
+/* Product mark in the product's own colours (ReqTone) */
+.product-glyph.brand {
+  width: 48px;
+  height: 48px;
+  color: inherit;
+  filter: saturate(0.92);
+  transition: transform 0.5s var(--ease-soft), filter 0.5s var(--ease-soft);
+}
+.product:hover .product-glyph.brand {
+  transform: translateY(-2px);
+  filter: saturate(1.06);
+}
+
+.product h3 {
+  margin-top: 1.5rem;
+  font-size: clamp(1.375rem, 1.2rem + 0.7vw, 1.75rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.product .kind {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+  margin-top: 0.6rem;
+}
+.product p:not(.kind) {
+  margin-top: 1rem;
+  color: var(--ink-2);
+  font-weight: 300;
+  font-size: 0.9688rem;
+  max-width: 38ch;
+}
+
+.product-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  transition: color 0.3s var(--ease-soft);
+}
+.product-link svg {
+  width: 11px;
+  height: 11px;
+  transition: transform 0.35s var(--ease);
+}
+.product-link:hover {
+  color: var(--brand);
+}
+.product-link:hover svg {
+  transform: translateX(3px);
+}
+
+/* ------------------------------------------------------------ services --- */
+
+.services {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.25rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 720px) {
+  .services {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.service {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2.25rem);
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  background: linear-gradient(165deg, rgb(var(--fg-rgb) / 0.03), transparent 55%);
+  transition: border-color 0.45s var(--ease-soft);
+}
+.service:hover {
+  border-color: rgb(var(--fg-rgb) / 0.15);
+}
+.service-idx {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  color: var(--ink-4);
+}
+.service h3 {
+  margin-top: 1.25rem;
+  font-size: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
+  font-weight: 500;
+  letter-spacing: -0.025em;
+  color: var(--ink);
+}
+.service p {
+  margin-top: 0.75rem;
+  color: var(--ink-2);
+  font-weight: 300;
+  font-size: 0.9688rem;
+  max-width: 44ch;
+}
+.service .service-stack {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.services-cta {
+  margin-top: clamp(1.75rem, 3vw, 2.5rem);
+}
+
+/* ----------------------------------------------------------- standard ---- */
+
+.standard {
+  position: relative;
+}
+.std-grid {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 980px) {
+  .std-grid {
+    grid-template-columns: minmax(0, 0.86fr) minmax(0, 1.14fr);
+    gap: clamp(3rem, 6vw, 6rem);
+  }
+  .std-aside {
+    position: sticky;
+    top: clamp(7rem, 20vh, 10rem);
+    align-self: start;
+  }
+}
+/* `contain: layout` on a section breaks position: sticky inside it. */
+.standard {
+  contain: none;
+}
+.std-aside h2 {
+  margin-bottom: 1.25rem;
+}
+.std-aside > p {
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 36ch;
+}
+
+.std-cap {
+  margin-top: 2rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.std-cap b {
+  color: var(--brand);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+.std-rail {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+  margin-top: 0.9rem;
+  max-width: 210px;
+}
+.std-rail i {
+  display: block;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--line);
+  transform-origin: left;
+  transition: background 0.5s var(--ease-soft), transform 0.5s var(--ease-soft);
+}
+.std-rail i.is-on {
+  background: rgb(var(--fg-rgb) / 0.32);
+}
+.std-rail i.is-active {
+  background: var(--brand);
+  transform: scaleY(2);
+}
+.no-js .std-rail i {
+  background: rgb(var(--fg-rgb) / 0.32);
+}
+
+.std-list {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--line-soft);
+  /* The original stylesheet never reset <ol>, so the ledger has always sat on
+     the browser's default list indent and margins. That offset is part of the
+     approved layout, so it is kept — deliberately, and in writing. */
+  margin-block: 1em;
+  padding-left: 40px;
+}
+.pr {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 0 clamp(1rem, 2.5vw, 1.75rem);
+  padding: clamp(1.25rem, 2.4vw, 1.6rem) 0;
+  border-bottom: 1px solid var(--line-soft);
+}
+@media (min-width: 980px) {
+  .pr {
+    padding-block: clamp(1.75rem, 3vw, 2.5rem);
+  }
+  /* tail room so the pinned column stays put through the last principle */
+  .std-list {
+    padding-bottom: clamp(2rem, 9vh, 5.5rem);
+  }
+}
+.pr::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 1px;
+  background: linear-gradient(90deg, var(--brand), transparent);
+  transform: scaleX(0);
+  transform-origin: left;
+  opacity: 0;
+  transition: transform 0.8s var(--ease), opacity 0.5s var(--ease-soft);
+}
+.pr:hover::after,
+.pr.is-active::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+.pr-n {
+  grid-row: 1 / span 2;
+  padding-top: 0.3rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--ink-4);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.45s var(--ease-soft);
+}
+.pr:hover .pr-n,
+.pr.is-active .pr-n {
+  color: var(--brand);
+}
+.pr-t {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.pr-d {
+  margin-top: 0.4rem;
+  max-width: 48ch;
+  color: var(--ink-3);
+  font-weight: 300;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  transition: color 0.45s var(--ease-soft);
+}
+.pr:hover .pr-d,
+.pr.is-active .pr-d {
+  color: var(--ink-2);
+}
+
+/* --------------------------------------------------------------- about --- */
+
+.about-grid {
+  display: grid;
+  gap: clamp(2.5rem, 6vw, 5rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .about-grid {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+}
+.about-lead {
+  font-size: clamp(1.375rem, 1.1rem + 1.4vw, 2.125rem);
+  line-height: 1.32;
+  font-weight: 300;
+  letter-spacing: -0.028em;
+  max-width: 26ch;
+  color: var(--ink);
+}
+.about-lead em {
+  font-style: normal;
+  color: var(--ink-3);
+}
+.about-body p {
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 42ch;
+}
+.about-body p + p {
+  margin-top: 1.25rem;
+}
+
+.facts {
+  margin-top: 2.5rem;
+  /* Browser-default <dl> bottom margin, kept from the original layout. */
+  margin-bottom: 1em;
+  border-top: 1px solid var(--line-soft);
+}
+.facts div {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--line-soft);
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.06em;
+}
+.facts dt {
+  color: var(--ink-4);
+  text-transform: uppercase;
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+}
+.facts dd {
+  margin: 0;
+  color: var(--ink-2);
+  text-align: right;
+}
+
+/* ------------------------------------------------- badges in light mode --- */
+
+/*
+ * The badge colours are chosen to sit on a near-black card. On paper the same
+ * hues wash out, so each gets a darker text colour and a slightly firmer tint.
+ */
+:root[data-mode='light'] .badge.live {
+  color: #a81e28;
+  border-color: rgba(200, 50, 60, 0.38);
+  background: rgba(200, 50, 60, 0.08);
+}
+:root[data-mode='light'] .badge.soon {
+  color: #15704a;
+  border-color: rgba(46, 158, 107, 0.4);
+  background: rgba(46, 158, 107, 0.1);
+}
+:root[data-mode='light'] .badge.pre {
+  color: #86620a;
+  border-color: rgba(201, 162, 39, 0.45);
+  background: rgba(201, 162, 39, 0.14);
+}
+:root[data-mode='light'] .product.is-soon:hover .product-glyph {
+  color: #15704a;
+}
+:root[data-mode='light'] .product.is-pre:hover .product-glyph {
+  color: #86620a;
+}
+:root[data-mode='light'] .product.is-soon::after {
+  background: linear-gradient(90deg, transparent, rgba(21, 112, 74, 0.55), transparent);
+}
+:root[data-mode='light'] .product.is-pre::after {
+  background: linear-gradient(90deg, transparent, rgba(134, 98, 10, 0.5), transparent);
+}
+
+/* -------------------------------------------------------- live product --- */
+
+/* PilPod is published: same green as the old "coming soon" treatment. */
+.product.is-live::before {
+  background: radial-gradient(420px circle at 15% 0%, rgba(46, 158, 107, 0.16), transparent 62%);
+}
+.product.is-live::after {
+  background: linear-gradient(90deg, transparent, rgba(46, 158, 107, 0.5), transparent);
+}
+.product.is-live:hover .product-glyph {
+  color: #2e9e6b;
+}
+:root[data-mode='light'] .product.is-live:hover .product-glyph {
+  color: #15704a;
+}
+:root[data-mode='light'] .product.is-live::after {
+  background: linear-gradient(90deg, transparent, rgba(21, 112, 74, 0.55), transparent);
+}
+
+/* ------------------------------------------------------------- contact --- */
+
+.contact {
+  max-width: 40rem;
+}
+.contact h2 {
+  margin-bottom: 1.25rem;
+}
+.contact > p:not(.contact-note) {
+  color: var(--ink-2);
+  font-weight: 300;
+  max-width: 44ch;
+  font-size: 1.0625rem;
+}
+.contact-mail {
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+}
+.contact-note {
+  margin-top: 1.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}

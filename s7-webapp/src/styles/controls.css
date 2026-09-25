@@ -1,0 +1,83 @@
+/* ============================================================
+   Nav controls — language switch and light/dark toggle
+   ============================================================
+
+   Both sit at the end of the nav bar, deliberately quiet: they are utilities,
+   not navigation. Together they take about 70px, which the bar still has at
+   360px wide.
+   ============================================================ */
+
+.ctl {
+  display: flex;
+  align-items: center;
+  gap: 0.15rem;
+  margin-left: clamp(0.5rem, 2vw, 1.25rem);
+  flex: none;
+}
+
+.ctl-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 30px;
+  min-width: 30px;
+  padding-inline: 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  line-height: 1;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: color 0.25s var(--ease-soft), background-color 0.25s var(--ease-soft),
+    border-color 0.25s var(--ease-soft);
+}
+.ctl-btn:hover {
+  color: var(--ink);
+  background: var(--btn-ghost-bg-hover);
+  border-color: var(--line);
+}
+.ctl-btn:active {
+  transform: scale(0.96);
+}
+
+.ctl-theme svg {
+  width: 15px;
+  height: 15px;
+}
+
+/*
+ * The icon shows the mode the button will switch *to*, which is the
+ * convention people expect from a two-state toggle: a sun on a dark page, a
+ * moon on a light one.
+ */
+.ctl-theme .i-moon {
+  display: none;
+}
+:root[data-mode='light'] .ctl-theme .i-sun {
+  display: none;
+}
+:root[data-mode='light'] .ctl-theme .i-moon {
+  display: block;
+}
+
+/* Without scripting the toggle cannot do anything, so it is not offered.
+   The language switch is a real link, so it stays. */
+.no-js .ctl-theme {
+  display: none;
+}
+
+@media (max-width: 420px) {
+  .ctl-btn {
+    padding-inline: 0.4rem;
+    min-width: 28px;
+  }
+  .nav-links {
+    gap: 1rem;
+  }
+}
