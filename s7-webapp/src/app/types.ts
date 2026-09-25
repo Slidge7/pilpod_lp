@@ -10,7 +10,7 @@ import type { Dict, Lang } from '../i18n';
  * both languages.
  */
 
-export type Theme = 's7' | 'reqtone';
+export type Theme = 's7' | 'reqtone' | 'pilpod';
 export type Mode = 'dark' | 'light';
 
 /** Everything a renderer is given. Nothing is read from globals. */

@@ -1,5 +1,5 @@
 import type { Dict } from './en';
-import type { Pair, Feature, Service } from './types';
+import type { Pair, Feature } from './types';
 
 /**
  * Français.
@@ -29,13 +29,15 @@ export const fr: Dict = {
     themeToDark: 'Passer au thème sombre',
     themeToLight: 'Passer au thème clair',
     language: 'Langue',
+    openMenu: 'Ouvrir le menu',
+    closeMenu: 'Fermer le menu',
     switchToFrench: 'Passer en français',
     switchToEnglish: 'Switch to English',
   },
 
   nav: {
-    services: 'Services',
     products: 'Produits',
+    services: 'Services',
     standard: 'Le Standard',
     about: 'À propos',
     contact: 'Contact',
@@ -63,7 +65,7 @@ export const fr: Dict = {
   },
 
   footer: {
-    tagline: "Intégrations ERP et logiciels d'exception, conçus et développés pour durer.",
+    tagline: "Des logiciels d'exception, conçus et développés pour durer.",
     products: 'Produits',
     studio: 'Studio',
     madeIn: 'Fabriqué au Maroc',
@@ -72,102 +74,67 @@ export const fr: Dict = {
 
   home: {
     meta: {
-      title: 'S7 — Intégrations Sage X3 et logiciels natifs, développés au Maroc',
+      title: "S7 — Des logiciels d'exception, conçus et développés au Maroc",
       description:
-        "S7 est un studio logiciel indépendant basé au Maroc. Nous développons en Java et en Rust les backends qui relient Sage X3 au reste de votre activité, et nous éditons nos propres outils de bureau natifs.",
-      ogTitle: 'S7 — Intégrations Sage X3 et logiciels natifs',
+        "S7 est un studio logiciel indépendant qui conçoit des applications de bureau, des outils pour développeurs et des logiciels de productivité haut de gamme. Priorité au local, respect de la vie privée, rapidité par conception.",
+      ogTitle: "S7 — Des logiciels d'exception, conçus et développés au Maroc",
       ogDescription:
-        "Des backends Java et Rust qui relient Sage X3 à vos systèmes e-commerce, CRM et logistique, par un studio indépendant basé au Maroc.",
+        "Un studio logiciel indépendant qui conçoit des applications de bureau, des outils pour développeurs et des logiciels de productivité haut de gamme.",
       jsonLdDescription:
-        "Un studio logiciel indépendant qui développe des backends d'intégration Sage X3 et des logiciels de bureau natifs.",
+        "Un studio logiciel indépendant qui conçoit des applications de bureau, des outils pour développeurs et des logiciels de productivité haut de gamme.",
     },
     eyebrow: 'Studio logiciel indépendant',
-    h1: "Intégrations ERP.<br><span class=\"muted\">Des logiciels conçus pour durer.</span>",
-    sub: "S7 développe les backends qui relient Sage X3 à vos systèmes e-commerce, CRM et logistique, et édite ses propres outils de bureau natifs. Conçu et développé au Maroc.",
-    ctaContact: 'Démarrer un projet',
-    ctaServices: 'Nos services',
+    h1: "Des logiciels d'exception.<br><span class=\"muted\">Conçus pour durer.</span>",
+    sub: "S7 conçoit et développe des applications de bureau et des outils pour développeurs : rapides, fonctionnant d'abord en local, et dont les données n'appartiennent qu'à vous — depuis le Maroc, pour le monde entier.",
+    ctaProducts: 'Découvrir nos produits',
+    ctaStandard: 'Le Standard S7',
     meta1: 'Basé au Maroc',
-    meta2: 'Intégration Sage X3',
-    meta3: 'Java · Rust',
-    meta4: 'À distance, partout',
+    meta2: 'Priorité au local',
+    meta3: 'Respect de la vie privée',
+    meta4: 'Deux produits en développement',
 
-    servicesLabel: '01 — Services',
-    servicesHeading: 'Des intégrations qui tiennent la charge.',
-    servicesLead:
-      "La plupart des problèmes d'ERP sont des problèmes d'intégration : des données qui arrivent en retard, en double ou jamais, et une base qui ralentit dès que le trafic monte. C'est notre métier.",
-    services: [
-      [
-        'Intégration Sage X3',
-        "Relier X3 à vos outils e-commerce, CRM, WMS et finance via ses web services. Commandes, stocks, clients et factures restent synchronisés, sans export manuel.",
-        'Sage X3 · REST · SOAP',
-      ],
-      [
-        "Backends d'intégration",
-        "Des services placés entre X3 et le monde extérieur, avec files d'attente, reprises, validation et journaux, pour qu'aucune donnée invalide n'atteigne l'ERP.",
-        'Java · Spring Boot · Rust',
-      ],
-      [
-        'Performance et stabilisation',
-        "Des intégrations qui surchargent le serveur ou bloquent la base de l'ERP lors des pics de trafic. Nous trouvons la cause, repensons le flux et allégeons la charge.",
-        'Profilage · SQL Server · cache',
-      ],
-      [
-        'Outils de bureau et internes',
-        "Des applications de bureau natives et des outils internes pour les équipes qui ont besoin de plus rapide et plus léger qu'une énième application web.",
-        'Rust · Tauri · React',
-      ],
-    ] as Service[],
-    servicesCta: 'Parlons de votre intégration',
-
-    productsLabel: '02 — Produits',
+    productsLabel: '01 — Produits',
     productsHeading: 'Un studio. Un écosystème.',
     productsLead:
-      "En parallèle du travail client, S7 conçoit et publie ses propres logiciels. Tous reposent sur les mêmes fondations : mêmes comportements, et cette impression qu'ils ont été façonnés par la même main.",
-    badgeLive: 'Disponible',
+      "Tous les produits S7 reposent sur les mêmes fondations : mêmes comportements, mêmes limites respectées, et cette impression qu'ils ont été façonnés par la même main.",
+    badgeSoon: 'Bientôt disponible',
     badgePre: 'Préversion',
+    badgeLive: 'Disponible',
     pilpodKind: 'Contrôle multimédia du navigateur',
     pilpodBody:
-      "Tous les onglets qui lisent du son ou de la vidéo, dans un seul panneau : volume amplifié, sourdine en un clic, recherche d'onglets en direct. Gratuit, local, sans traçage.",
-    pilpodLink: 'Voir pilpod.ma',
+      "Tous les onglets multimédias de votre navigateur sur un seul panneau — volume, timeline, coupure du son et Picture-in-Picture, d'où que vienne le son.",
     reqtoneKind: 'Client API natif',
     reqtoneBody:
       'REST, GraphQL et Server-Sent Events dans une application de bureau native. Chaque collection, variable et identifiant dans un seul fichier SQLite local qui vous appartient.',
     productOverview: 'Présentation du produit',
 
-    standardLabel: '03 — Le Standard S7',
+    standardLabel: '02 — Le Standard S7',
     standardHeading: 'Sept engagements derrière chaque version.',
     standardLead:
       "Ce n'est pas un manifeste, mais un ensemble de contraintes d'ingénierie que nous nous imposons — parce que ce sont elles qui font qu'un logiciel reste agréable dix ans après sa sortie.",
     standardCap: '/ 07 — sept, tenus',
     principles: [
-      ['Rapide par conception', "La performance est une décision de conception prise tôt, pas une optimisation ajoutée à la fin."],
-      ['Maintenable sur la durée', "Écrit pour être compris dans des années, par celui ou celle qui ouvrira le fichier ensuite."],
-      ['La simplicité plutôt que la complexité', "Le vrai travail consiste à décider ce que l'on ne construira pas. Nous le faisons avant d'écrire la moindre ligne."],
-      ['Un minimum de dépendances', "Chaque dépendance est un passif dont nous héritons. Nous en prenons très peu, et nous les choisissons lentement."],
       ["Le local d'abord", "Vos données vivent sur votre machine. Le réseau est un plus, jamais une condition."],
       ["La vie privée d'abord", "Aucun traçage, aucun profilage, aucune collecte silencieuse. Ce qui se passe sur votre appareil y reste."],
+      ['Rapide par conception', "La performance est une décision de conception prise tôt, pas une optimisation ajoutée à la fin."],
+      ['Un minimum de dépendances', "Chaque dépendance est un passif dont nous héritons. Nous en prenons très peu, et nous les choisissons lentement."],
+      ['Maintenable sur la durée', "Écrit pour être compris dans des années, par celui ou celle qui ouvrira le fichier ensuite."],
       ["L'utilisateur est propriétaire", "Formats ouverts, export simple, aucun verrouillage. Vous devez pouvoir partir à tout moment."],
+      ['La simplicité plutôt que la complexité', "Le vrai travail consiste à décider ce que l'on ne construira pas. Nous le faisons avant d'écrire la moindre ligne."],
     ] as Pair[],
 
-    aboutLabel: '04 — À propos',
+    aboutLabel: '03 — À propos',
     aboutLead: 'S7 est un studio logiciel indépendant,<br><em>conçu et développé au Maroc.</em>',
     aboutP1:
-      "Nous développons des backends d'intégration pour les entreprises qui utilisent Sage X3, ainsi qu'un catalogue restreint de nos propres outils de bureau et pour développeurs, façonnés avec soin et maintenus sur le long terme.",
+      "Nous créons des applications de bureau haut de gamme, des outils pour développeurs et des logiciels de productivité — un catalogue restreint, façonné avec soin et maintenu sur le long terme.",
     aboutP2:
       "L'indépendance est un choix. Aucun investisseur pour dicter la feuille de route, aucune courbe de croissance pour décider de ce qui sort. Nous construisons ce que nous aurions envie d'utiliser, et nous continuons de le faire.",
     facts: [
       ['Studio', 'S7 — Service7'],
       ['Implanté au', 'Maroc'],
-      ['Spécialité', 'Intégration ERP · outils de bureau'],
-      ['Travail', 'À distance, partout'],
+      ['Spécialité', 'Applications de bureau et outils dev'],
       ['Modèle', 'Indépendant'],
     ] as Pair[],
-
-    contactLabel: '05 — Contact',
-    contactHeading: 'Une intégration à construire ou à réparer ?',
-    contactBody:
-      "Dites-nous ce que vous connectez, ce qui casse et ce que le système doit faire. Un court e-mail suffit pour commencer.",
-    contactNote: 'À distance, depuis le Maroc',
   },
 
   reqtone: {
@@ -372,6 +339,233 @@ export const fr: Dict = {
       ['Version', 'v0.1.0 — préversion'],
       ['Construit avec', 'Rust · Tauri v2 · SQLite'],
     ] as Pair[],
+  },
+
+  pilpod: {
+    meta: {
+      title: 'PilPod — Le centre de commande multimédia de votre navigateur | S7',
+      description:
+        "PilPod est une extension Chrome qui réunit tous vos onglets multimédias dans un seul panneau de contrôle : volume précis, navigation dans la timeline, coupure globale, Picture-in-Picture et recherche instantanée. Gratuit, entièrement local, sans compte. Un produit S7.",
+      ogTitle: 'PilPod — Le centre de commande multimédia de votre navigateur',
+      ogDescription:
+        'Tous les onglets multimédias dans un seul panneau de contrôle. Gratuit, 100 % local, aucune télémétrie.',
+      jsonLdDescription:
+        "Une extension Chrome qui réunit tous les onglets multimédias dans un seul panneau de contrôle, avec réglage précis du volume, navigation dans la timeline, coupure globale et Picture-in-Picture.",
+    },
+    crumbProducts: 'Produits S7',
+    crumbCurrent: '01 — PilPod',
+    kind: 'Contrôle multimédia du navigateur — Extension Chrome (MV3)',
+    lead: "Douze onglets font du bruit et <b>c'est l'un d'eux que vous cherchez</b>. PilPod réunit tous les onglets multimédias — YouTube, YouTube Music, tout ce qui joue de l'audio ou de la vidéo — dans un seul panneau de contrôle : volume, timeline, coupure du son, Picture-in-Picture et recherche instantanée.",
+    specs: [
+      ['Enveloppe', 'Extension Chrome (MV3)'],
+      ['Cœur', "Service worker + registre d'onglets"],
+      ['Audio', 'Web Audio API'],
+      ['Version', '2.1.0'],
+    ] as Pair[],
+    ctaInstall: 'Ajouter à Chrome — gratuit',
+    ctaSite: 'Visiter pilpod.ma',
+    ctaAll: 'Tous les produits S7',
+    statusPill: 'Disponible · v2.1.0 · gratuit, sans compte',
+
+    productLabel: 'Le produit',
+    productHeading: 'Chaque onglet qui fait du bruit, sur un seul panneau.',
+    productP1:
+      "Le multimédia ne reste pas où on l'a laissé. Une vidéo dans une fenêtre, une playlist dans une autre, une publicité qui démarre toute seule quelque part où vous ne la trouvez pas. La solution habituelle consiste à fouiller les onglets jusqu'à ce que le bruit s'arrête.",
+    productP2:
+      "<b>PilPod les réunit tous sur un seul panneau.</b> Chaque onglet en lecture obtient sa ligne, avec son volume et sa timeline. La recherche en direct vous amène directement à l'onglet ou au flux. Un clic coupe le son ou met tout en pause.",
+    productP3:
+      "Tout fonctionne à l'intérieur de votre navigateur. Aucun compte, aucun abonnement, et rien ne quitte la machine.",
+    panelBar: 'dans le panneau',
+    panel: [
+      ['Trouver', 'recherche en direct dans tous les onglets en lecture'],
+      ['Contrôler', 'volume, timeline et coupure du son, onglet par onglet'],
+      ['Regarder', 'Picture-in-Picture sans quitter la page'],
+      ['Mettre en veille', 'endormir les onglets inactifs, les réveiller au retour'],
+    ] as Pair[],
+
+    engineeringLabel: 'Ingénierie',
+    engineeringHeading: 'Pensé pour les utilisateurs exigeants. Conçu pour durer.',
+    engineeringLead:
+      "Un contrôleur multimédia est facile à simuler avec des raccourcis clavier. Le faire correctement suppose de dialoguer avec la page.",
+    decisions: [
+      [
+        'Un registre en direct, pas une supposition',
+        `Un service worker Manifest V3 tient à jour un registre de chaque onglet
+         possédant un élément multimédia. Le panneau montre ce qui joue
+         maintenant — pas ce qui jouait au moment où vous l'avez ouvert.`,
+      ],
+      [
+        'Dialogue direct avec le lecteur natif',
+        `PilPod pilote <code>HTMLMediaElement</code> et la Web Audio API
+         directement : les contrôles sont ceux de la page elle-même, et non un
+         raccourci envoyé au hasard. Les amplifications de volume jusqu'à 400 %
+         empruntent le même chemin, ce qui explique qu'elles fonctionnent sur des
+         sites qui ignorent le mixeur système.`,
+      ],
+      [
+        'Veille et réveil des onglets',
+        `Les onglets multimédias inactifs sont libérés via
+         <code>chrome.tabs.discard</code> puis restaurés à la demande : un mur
+         d'onglets ouverts cesse de payer pour une mémoire qu'il n'utilise pas.`,
+      ],
+      [
+        'Une application compagnon, optionnelle et désactivée',
+        `Une application compagnon Windows peut faire le pont avec l'audio
+         système. Elle fonctionne en loopback uniquement, reste désactivée par
+         défaut, et l'extension est complète sans elle — un ajout pour qui le
+         souhaite, jamais une dépendance.`,
+      ],
+      [
+        'Un seul hub, deux secondes',
+        `Un clic coupe le son ou met tout en pause ; un seul champ cherche dans
+         tous les onglets. Le panneau est fait pour être ouvert, utilisé et
+         refermé avant que vous ne perdiez le fil de ce que vous faisiez.`,
+      ],
+    ] as Pair[],
+
+    privacyLabel: 'Vie privée',
+    privacyHeading: "Votre navigateur. Vos données. Rien qu'à vous.",
+    privacyBody:
+      "PilPod n'a aucun serveur où envoyer quoi que ce soit. Aucune télémétrie, aucune analyse d'audience, aucun script tiers, aucun compte à créer. Chaque réglage reste dans le stockage de votre navigateur.",
+    privacyPoints: [
+      ['Aucune télémétrie', "Rien n'est mesuré, donc rien ne peut être envoyé."],
+      ['Aucun tiers', 'Aucune analyse, aucun contenu intégré, aucun script externe.'],
+      ['Traitement local', "L'audio et l'état des onglets ne quittent jamais le navigateur."],
+    ] as Pair[],
+
+    statusLabel: 'Où en est le projet',
+    statusHeading: 'Publié, et gratuit.',
+    statusBody:
+      "PilPod est sur le Chrome Web Store en v2.1.0 — gratuit, sans compte et sans abonnement. L'application compagnon Windows est un téléchargement séparé et facultatif.",
+    statusNote: 'État tel que publié sur pilpod.ma',
+    platforms: [
+      ['Chrome', 'Publié — Chrome Web Store'],
+      ['Compagnon Windows', 'Téléchargement optionnel'],
+      ['Version', 'v2.1.0'],
+      ['Prix', 'Gratuit — sans compte'],
+      ['Construit avec', 'Manifest V3 · Web Audio API'],
+    ] as Pair[],
+  },
+
+  services: {
+    meta: {
+      title: 'Services — Développement sur mesure, intégration Sage X3 et performance Rust | S7',
+      description:
+        "S7 développe des logiciels sur mesure pour les entreprises au Maroc et ailleurs : systèmes full-stack Java Spring Boot et React intégrés à Sage X3, backends Rust haute performance pour le traitement de gros volumes, et outils pour développeurs.",
+      ogTitle: 'Services — S7',
+      ogDescription:
+        'Développement sur mesure, intégration Sage X3, backends Rust et outils pour développeurs, au Standard S7.',
+      jsonLdDescription:
+        "Développement de logiciels sur mesure, intégration Sage X3 avec Java Spring Boot et React, backends Rust haute performance et outils pour développeurs.",
+    },
+    label: 'Services',
+    h1: 'Des logiciels taillés pour<br><span class="muted">l\'entreprise que vous dirigez.</span>',
+    lead: "S7 développe des logiciels sur mesure pour les entreprises que leurs tableurs et leurs outils standards ne suffisent plus à servir — et les relie proprement aux systèmes dont elles dépendent déjà.",
+    ctaStart: 'Démarrer un projet',
+    ctaStandard: 'Le Standard S7',
+    stat1: 'Développement sur mesure',
+    stat2: 'Intégration Sage X3',
+    stat3: 'Optimisation Rust',
+    stat4: 'Outils pour développeurs',
+
+    offerLabel: '01 — Ce que nous faisons',
+    offerHeading: 'Quatre types de missions.',
+    offerLead:
+      'Des problèmes différents, un seul standard. Quoi que nous construisions, vous repartez propriétaire du code, du schéma et du déploiement.',
+    offers: [
+      [
+        'Développement de logiciels sur mesure',
+        "Applications de bureau, web et internes, développées selon votre cahier des charges et selon le Standard S7 : rapides par conception, compréhensibles des années plus tard, et entièrement à vous — code, données et tout le reste.",
+      ],
+      [
+        'Intégration Sage X3',
+        "Des systèmes full-stack Java (Spring Boot) et React qui lisent et écrivent dans Sage X3. Stocks, commandes, facturation et reporting, présentés dans une interface que vos équipes utiliseront vraiment — sans se battre avec l'ERP ni attendre le traitement de nuit.",
+      ],
+      [
+        'Backends haute performance en Rust',
+        "Quand le service JVM devient le goulot d'étranglement, le chemin critique passe en Rust : un binaire unique de moins de 3 Mo, une fraction du CPU, et une mémoire qui se compte en mégaoctets plutôt qu'en gigaoctets — sur les mêmes données Sage, aux mêmes volumes, avec les mêmes règles métier.",
+      ],
+      [
+        'Outils et automatisation pour développeurs',
+        "Outils internes, utilitaires en ligne de commande, extensions de navigateur et intégrations : le travail qui retire une heure récurrente à la semaine d'une équipe, chaque semaine. C'est de là que viennent PilPod et ReqTone.",
+      ],
+    ] as Pair[],
+
+    processLabel: '02 — Comment se déroule le travail',
+    processHeading: 'Quatre étapes, et aucune surprise à la démo.',
+    processLead:
+      'Toujours la même séquence, parce que les erreurs coûteuses se produisent toutes avant la première ligne de code.',
+    process: [
+      ['Comprendre', "Nous commençons par le processus, pas par le logiciel : ce qui est réellement lent, qui cela bloque, et à quoi ressemblerait « terminé » pour vous."],
+      ['Prototyper', "Quelque chose de cliquable dès les premières semaines, sur vos vraies données, pour que la discussion sur le périmètre ait lieu tôt et à moindre coût."],
+      ['Construire', "Des cycles courts, un logiciel qui fonctionne à la fin de chacun, et une démo dont vous avez déjà vu la forme."],
+      ['Transmettre', "Code, schéma, déploiement et documentation. Vous pouvez continuer sans nous — c'est la mesure d'un travail terminé."],
+    ] as Pair[],
+
+    stackLabel: '03 — Technologies',
+    stackHeading: 'Ce avec quoi nous construisons.',
+    stackLead:
+      "Choisies lentement, et conservées. Chacune tourne en production chez nous ; ce ne sont pas des expériences isolées.",
+    stack: [
+      ['Backend', 'Java · Spring Boot · Rust · PostgreSQL · SQLite'],
+      ['Frontend', 'React · TypeScript · Vite'],
+      ['Bureau', 'Tauri · Rust'],
+      ['ERP', 'Sage X3 — intégration REST et base de données'],
+    ] as Pair[],
+
+    closeHeading: 'Dites-nous ce qui ralentit votre activité.',
+    closeBody:
+      "Quelques lignes suffisent pour commencer. Nous vous dirons honnêtement si nous sommes le bon studio pour ce projet — y compris quand ce n'est pas le cas.",
+  },
+
+  contact: {
+    meta: {
+      title: 'Contact — S7',
+      description:
+        "Parlez-nous de votre projet. Logiciels sur mesure, intégration Sage X3, optimisation Rust et outils pour développeurs, depuis le Maroc.",
+      ogTitle: 'Contact — S7',
+      ogDescription: 'Parlez-nous de votre projet. Nous répondons à chaque message.',
+    },
+    label: 'Contact',
+    h1: 'Parlez-nous de votre projet.',
+    lead: "Quelques lignes suffisent pour commencer. Nous lisons chaque message et nous répondons — y compris lorsque la réponse est que nous ne sommes pas le bon studio.",
+    emailLabel: 'E-mail',
+    email: 'contact@s7.ma',
+    details: [
+      ['Basé au', "Maroc — GMT, toute l'année"],
+      ['Délai de réponse', 'Sous deux jours ouvrés'],
+      ['Nous travaillons avec', 'Des équipes au Maroc, en Europe et au-delà'],
+      ['Langues', 'Français · English · العربية'],
+    ] as Pair[],
+
+    formTitle: 'Envoyer un message',
+    fName: 'Votre nom',
+    fEmail: 'E-mail',
+    fCompany: 'Société',
+    fCompanyHint: 'facultatif',
+    fTopic: "De quoi s'agit-il",
+    fMessage: 'Message',
+    fMessageHint: 'Ce que vous construisez, ce qui bloque, et toute échéance qui compte.',
+    topics: [
+      'Logiciel sur mesure',
+      'Intégration Sage X3',
+      'Performance / Rust',
+      'Outils pour développeurs',
+      'Autre sujet',
+    ],
+    submit: 'Envoyer le message',
+    sending: 'Envoi…',
+    successTitle: 'Message envoyé.',
+    successBody: "Merci — nous l'avons bien reçu et nous répondrons sous deux jours ouvrés.",
+    successAgain: 'Envoyer un autre message',
+    errorTitle: "L'envoi a échoué.",
+    errorBody:
+      "Quelque chose s'est mal passé en chemin. Écrivez-nous directement à contact@s7.ma et nous reprendrons là.",
+    vRequired: 'Ce champ est obligatoire.',
+    vEmail: "Cela ne ressemble pas à une adresse e-mail.",
+    vMessage: "Un peu plus de détail, s'il vous plaît — 20 caractères au minimum.",
+    privacyNote:
+      "Ce que vous envoyez est stocké dans notre propre base de données et sert uniquement à vous répondre. Pas de newsletter, aucun tiers, aucun traçage.",
   },
 
   notFound: {

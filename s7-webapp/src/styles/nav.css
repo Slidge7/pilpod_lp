@@ -279,3 +279,110 @@
     margin-inline: 0.8rem;
   }
 }
+
+/* ============================================================
+   Phone menu
+   ============================================================
+
+   Five destinations plus two controls stopped fitting on a narrow bar. Above
+   the breakpoint the links sit in the bar as before; below it they move into
+   a panel under the nav. Both are the same links in the DOM, so a language
+   change updates them together.
+   ============================================================ */
+
+.menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 30px;
+  margin-left: 0.15rem;
+  flex: none;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--ink-2);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  transition: color 0.25s var(--ease-soft), background-color 0.25s var(--ease-soft),
+    border-color 0.25s var(--ease-soft);
+}
+.menu-btn:hover {
+  color: var(--ink);
+  background: var(--btn-ghost-bg-hover);
+  border-color: var(--line);
+}
+
+.menu-bars {
+  display: block;
+  width: 16px;
+}
+.menu-bars i {
+  display: block;
+  height: 1.5px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 0.32s var(--ease), opacity 0.2s var(--ease-soft);
+}
+.menu-bars i + i {
+  margin-top: 4px;
+}
+/* The two bars cross into a close mark. */
+.menu-btn[aria-expanded='true'] .menu-bars i:first-child {
+  transform: translateY(2.75px) rotate(45deg);
+}
+.menu-btn[aria-expanded='true'] .menu-bars i:last-child {
+  transform: translateY(-2.75px) rotate(-45deg);
+}
+
+.menu-panel {
+  overflow: hidden;
+  border-top: 1px solid var(--line-soft);
+  background: var(--nav-glass);
+  -webkit-backdrop-filter: blur(20px) saturate(1.4);
+  backdrop-filter: blur(20px) saturate(1.4);
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.34s var(--ease), opacity 0.24s var(--ease-soft);
+}
+.nav.menu-open .menu-panel {
+  max-height: 22rem;
+  opacity: 1;
+}
+
+.menu-links {
+  display: flex;
+  flex-direction: column;
+  padding: 0.5rem var(--gutter) 1.1rem;
+}
+.menu-links a {
+  padding: 0.85rem 0;
+  font-size: 1.0625rem;
+  letter-spacing: -0.02em;
+  color: var(--ink-2);
+  border-bottom: 1px solid var(--line-soft);
+  transition: color 0.25s var(--ease-soft);
+}
+.menu-links a:last-child {
+  border-bottom: 0;
+}
+.menu-links a:hover,
+.menu-links a[aria-current='page'] {
+  color: var(--ink);
+}
+
+/* Without scripting the panel can never open, so the button is not offered;
+   the footer carries the same destinations. */
+.no-js .menu-btn {
+  display: none !important;
+}
+
+@media (max-width: 860px) {
+  .nav-links {
+    display: none;
+  }
+  .menu-btn {
+    display: inline-flex;
+  }
+}

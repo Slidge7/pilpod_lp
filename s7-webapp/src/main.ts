@@ -14,7 +14,9 @@ import './styles/nav.css';
 import './styles/controls.css';
 import './styles/transitions.css';
 import './styles/home.css';
-import './styles/reqtone.css';
+import './styles/product.css';
+import './styles/services.css';
+import './styles/contact.css';
 import './styles/notfound.css';
 
 import { Router, type RouterMode } from './router/router';
@@ -24,6 +26,7 @@ import { initNav } from './ui/nav';
 import { initClock } from './ui/clock';
 import { initAmbient } from './ui/ambient';
 import { initTheme } from './ui/controls';
+import { initMenu } from './ui/menu';
 
 const main = document.getElementById('main');
 
@@ -42,6 +45,7 @@ if (main) {
   initClock(dict(docLang));
   initAmbient();
   initTheme(liveDict);
+  initMenu(liveDict);
 
   const yr = document.getElementById('yr');
   if (yr) yr.textContent = String(new Date().getFullYear());

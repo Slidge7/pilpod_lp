@@ -83,7 +83,9 @@ if (CSP) {
     `style-src 'self' 'unsafe-inline'`,
     `img-src 'self' data:`,
     `font-src 'self'`,
-    `connect-src 'self'`,
+    // The contact form posts to Firestore's REST endpoint; nothing else is
+    // allowed to be contacted from the page.
+    `connect-src 'self' https://firestore.googleapis.com`,
     `object-src 'none'`,
     `base-uri 'self'`,
     `form-action 'none'`,

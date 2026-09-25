@@ -30,19 +30,10 @@ export const arrowThin = (cls = '') => /* html */ `
 
 /** Moroccan flag — the axis of the time strip. */
 export const flagMA = (cls = '') => /* html */ `
-<svg${cls ? ` class="${cls}"` : ''} viewBox="0 0 30 20" width="24" height="16" aria-hidden="true">
+<svg${cls ? ` class="${cls}"` : ''} viewBox="0 0 30 20" aria-hidden="true">
   <rect width="30" height="20" fill="#C1272D"/>
   <path d="M15 4l3.53 10.85L9.29 8.15h11.42l-9.24 6.7Z" fill="none" stroke="#0A7C46"
         stroke-width="1.1" stroke-linejoin="miter"/>
-</svg>`;
-
-/** PilPod — desktop media control. */
-export const pilpodGlyph = (cls = '') => /* html */ `
-<svg${cls ? ` class="${cls}"` : ''} viewBox="0 0 44 44" fill="none" stroke="currentColor"
-     stroke-width="1.25" aria-hidden="true">
-  <rect x="4.5" y="8.5" width="35" height="24" rx="3"/>
-  <path d="M16 36.5h12M22 32.5v4"/>
-  <path d="M18.5 16.5v8l7-4z" stroke-linejoin="round"/>
 </svg>`;
 
 /** The three glyph paths of the ReqTone mark, at its native 1024 scale. */
@@ -91,4 +82,30 @@ export const moonIcon = (cls = '') => /* html */ `
 <svg${cls ? ` class="${cls}"` : ''} viewBox="0 0 24 24" fill="none" stroke="currentColor"
      stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
   <path d="M20.5 14.4A8.6 8.6 0 1 1 9.6 3.5a6.9 6.9 0 0 0 10.9 10.9Z"/>
+</svg>`;
+
+/**
+ * The PilPod mark — a flat reduction of the product icon: three stacked media
+ * cards rising out of the blue pod. Drawn rather than shipped as the 250 kB
+ * PNG, so it stays crisp from 16px to the hero and costs a few hundred bytes.
+ */
+export const pilpodMark = (cls = '', label = 'PilPod') => /* html */ `
+<svg${cls ? ` class="${cls}"` : ''} viewBox="0 0 512 512" role="img" aria-label="${label}">
+  <ellipse cx="256" cy="286" rx="246" ry="52" fill="#1D4ED8"/>
+  <rect x="212" y="16" width="252" height="400" rx="42" fill="#10B981" transform="rotate(4 338 216)"/>
+  <rect x="126" y="58" width="252" height="366" rx="42" fill="#FFC20E" transform="rotate(2 252 241)"/>
+  <rect x="42" y="102" width="252" height="330" rx="42" fill="#F53838"/>
+  <path d="M146 210 L232 266 L146 322 Z" fill="#FFFFFF" stroke="#FFFFFF"
+        stroke-width="18" stroke-linejoin="round"/>
+  <path d="M10 286 a246 52 0 0 0 492 0 v82 a126 126 0 0 1 -126 126 h-240 a126 126 0 0 1 -126 -126 z"
+        fill="#3B82F6"/>
+  <path d="M10 286 a246 52 0 0 0 492 0" fill="none" stroke="#60A5FA" stroke-width="10"
+        stroke-linecap="round" opacity=".55"/>
+</svg>`;
+
+/** Chrome Web Store / extension puzzle piece, for the PilPod call to action. */
+export const puzzleIcon = (cls = '') => /* html */ `
+<svg${cls ? ` class="${cls}"` : ''} viewBox="0 0 16 16" fill="none" stroke="currentColor"
+     stroke-width="1.4" stroke-linejoin="round" aria-hidden="true">
+  <path d="M6.2 2.2a1.5 1.5 0 0 1 3 0V3h2.3a.7.7 0 0 1 .7.7V6h.8a1.5 1.5 0 0 1 0 3h-.8v2.3a.7.7 0 0 1-.7.7H9.2v-.8a1.5 1.5 0 0 0-3 0v.8H3.9a.7.7 0 0 1-.7-.7V9.7h.8a1.5 1.5 0 0 0 0-3h-.8V3.7a.7.7 0 0 1 .7-.7h2.3z"/>
 </svg>`;

@@ -43,6 +43,20 @@
   --r-sm: 6px;
   --r-md: 10px;
   --r-lg: 14px;
+
+  /* Form validation — one set for every theme, flipped by mode below. */
+  --err: #ff6b6b;
+  --err-glow: rgba(255, 107, 107, 0.18);
+  --err-line: rgba(255, 107, 107, 0.3);
+  --err-bg: rgba(255, 107, 107, 0.07);
+}
+
+/* An error colour has to clear the contrast floor on paper too. */
+:root[data-mode='light'] {
+  --err: #c0261f;
+  --err-glow: rgba(192, 38, 31, 0.16);
+  --err-line: rgba(192, 38, 31, 0.32);
+  --err-bg: rgba(192, 38, 31, 0.06);
 }
 
 /* ============================================================ S7 — dark === */
@@ -262,6 +276,113 @@
   --row-hover: rgb(var(--fg-rgb) / 0.03);
   --grain-opacity: 0.03;
   --pointer-light: rgba(11, 95, 204, 0.05);
+}
+
+/* ====================================================== PilPod — dark === */
+
+/*
+ * PilPod's own palette, as published: a deep navy surface, the red of the
+ * front card as the accent, and the pod's blue for secondary marks. The text
+ * red is lifted from #F53838 to #FF6B6B because the product red is a fill
+ * colour — at 14px on navy it lands under the contrast floor.
+ */
+:root[data-theme='pilpod'] {
+  color-scheme: dark;
+
+  --well: #0b1120;
+  --rail: #17233d;
+  --raised: #273549;
+
+  --surface: #0f172a;
+  --surface-raised: #1e293b;
+  --fg-rgb: 255 255 255;
+
+  --line: #2a3958;
+  --line-soft: rgb(var(--fg-rgb) / 0.06);
+  --line-strong: #3b4d70;
+  --grid-line: rgb(var(--fg-rgb) / 0.03);
+
+  --ink: #f1f5f9;
+  --ink-2: #cbd5e1;
+  --ink-3: #94a3b8;
+  --ink-4: #7c8aa1;
+  --body-ink: var(--ink-2);
+
+  --pp-red: #f53838;
+  --pp-amber: #ffc20e;
+  --pp-green: #10b981;
+  --pp-blue: #3b82f6;
+
+  --accent: #ff6b6b;
+  --accent-hover: #ff8f8f;
+  --accent-ink: #ffffff;
+
+  --brand: var(--accent);
+  --brand-lift: var(--accent-hover);
+  --brand-glow: rgba(245, 56, 56, 0.2);
+
+  --select-bg: #f53838;
+  --select-ink: #ffffff;
+  --focus: #ff6b6b;
+
+  --code-bg: rgb(var(--fg-rgb) / 0.05);
+  --tz-veil: linear-gradient(180deg, rgba(8, 13, 26, 0.66), rgba(8, 13, 26, 0.32));
+  --nav-glass: rgba(15, 23, 42, 0.8);
+
+  --r-btn: var(--r-md);
+  --btn-primary-bg: #e11d1d;
+  --btn-primary-bg-hover: #c81717;
+  --btn-primary-ink: #ffffff;
+  --btn-ghost-ink: var(--ink-2);
+  --btn-ghost-bg: var(--surface-raised);
+  --btn-ghost-bg-hover: var(--raised);
+  --btn-ghost-border-hover: var(--line-strong);
+
+  --row-hover: rgb(var(--fg-rgb) / 0.02);
+  --grain-opacity: 0.05;
+  --pointer-light: rgba(245, 56, 56, 0.06);
+
+  --section-y: clamp(4.5rem, 11vh, 8rem);
+}
+
+/* ===================================================== PilPod — light === */
+
+:root[data-theme='pilpod'][data-mode='light'] {
+  color-scheme: light;
+
+  --well: #eef2f8;
+  --rail: #f1f5f9;
+  --raised: #e9eef6;
+
+  --surface: #f8fafc;
+  --surface-raised: #ffffff;
+  --fg-rgb: 15 23 42;
+
+  --line: #e2e8f0;
+  --line-soft: rgb(var(--fg-rgb) / 0.07);
+  --line-strong: #cbd5e1;
+  --grid-line: rgb(var(--fg-rgb) / 0.045);
+
+  --ink: #0f172a;
+  --ink-2: #334155;
+  --ink-3: #566277;
+  --ink-4: #626d82;
+  --body-ink: var(--ink-2);
+
+  --accent: #c81e1e;
+  --accent-hover: #a81717;
+  --accent-ink: #ffffff;
+
+  --brand-glow: rgba(245, 56, 56, 0.14);
+  --select-bg: #c81e1e;
+
+  --code-bg: rgb(var(--fg-rgb) / 0.06);
+  --tz-veil: linear-gradient(180deg, rgba(248, 250, 252, 0.74), rgba(248, 250, 252, 0.36));
+  --nav-glass: rgba(248, 250, 252, 0.8);
+
+  --row-hover: rgb(var(--fg-rgb) / 0.03);
+  --grain-opacity: 0.03;
+  --pointer-light: rgba(200, 30, 30, 0.05);
 }
 
 /* ------------------------------------------------------------------ fonts -- */

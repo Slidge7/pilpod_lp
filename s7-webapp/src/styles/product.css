@@ -1,16 +1,24 @@
 /* ============================================================
-   ReqTone — the product's own palette, on an S7 page.
-   Surfaces, ink and accent come from the reqtone theme tokens; S7 red
-   survives only where it means S7 (the studio mark) or Morocco (the flag
-   badge in the time strip).
+   Product pages — ReqTone and PilPod
+   ============================================================
+
+   Both wear their own product palette on an S7 page: surfaces, ink and accent
+   come from that product's theme tokens, while S7 red survives only where it
+   means S7 (the studio mark) or Morocco (the flag in the time strip).
+
+   Layout is shared, so the `pd-` classes below belong to any product page.
+   Anything genuinely specific to one product (ReqTone's HTTP method chips,
+   PilPod's privacy row) is marked as such.
    ============================================================ */
 
-:root[data-theme='reqtone'] h2 {
+:root[data-theme='reqtone'] h2,
+:root[data-theme='pilpod'] h2 {
   font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.75rem);
   line-height: 1.08;
   max-width: 20ch;
 }
-:root[data-theme='reqtone'] .label {
+:root[data-theme='reqtone'] .label,
+:root[data-theme='pilpod'] .label {
   color: var(--ink-3);
   margin-bottom: clamp(2rem, 5vw, 3rem);
 }
@@ -27,7 +35,7 @@
 
 /* ---------------------------------------------------------------- hero --- */
 
-.rt-hero {
+.pd-hero {
   padding-block: clamp(9.5rem, 18vh, 11rem) clamp(2.5rem, 6vh, 4rem);
 }
 
@@ -51,27 +59,27 @@
   color: var(--accent);
 }
 
-.rt-head {
+.pd-head {
   display: flex;
   align-items: flex-start;
   gap: clamp(1.25rem, 3vw, 2rem);
   flex-wrap: wrap;
 }
-.rt-mark {
+.pd-mark {
   width: clamp(64px, 9vw, 88px);
   height: clamp(64px, 9vw, 88px);
   flex: none;
 }
-.rt-titles {
+.pd-titles {
   min-width: min(100%, 18rem);
 }
-.rt-hero h1 {
+.pd-hero h1 {
   font-size: clamp(2.75rem, 7vw, 5rem);
   line-height: 1;
   font-weight: 400;
   letter-spacing: -0.045em;
 }
-.rt-kind {
+.pd-kind {
   margin-top: 0.9rem;
   font-family: var(--mono);
   font-size: 0.6875rem;
@@ -79,7 +87,7 @@
   text-transform: uppercase;
   color: var(--ink-3);
 }
-.rt-lead {
+.pd-lead {
   margin-top: clamp(2rem, 5vw, 3rem);
   max-width: 54ch;
   font-size: clamp(1.125rem, 1rem + 0.6vw, 1.5rem);
@@ -88,7 +96,7 @@
   color: var(--ink-2);
   letter-spacing: -0.02em;
 }
-.rt-lead b {
+.pd-lead b {
   color: var(--ink);
   font-weight: 400;
 }
@@ -122,7 +130,7 @@
   color: var(--ink-2);
 }
 
-/* method chips */
+/* method chips — ReqTone only */
 .methods {
   margin-top: 1rem;
   display: flex;
@@ -159,14 +167,14 @@
   background: rgb(var(--del) / 0.1);
 }
 
-.rt-cta {
+.pd-cta {
   margin-top: clamp(2.25rem, 5vw, 3rem);
   display: flex;
   flex-wrap: wrap;
   gap: 0.75rem 1rem;
   align-items: center;
 }
-.rt-cta .btn svg {
+.pd-cta .btn svg {
   opacity: 0.6;
 }
 
@@ -398,18 +406,18 @@
 
 /* -------------------------------------------------------------- status --- */
 
-.rt-status {
+.pd-status {
   display: grid;
   gap: clamp(2rem, 5vw, 4rem);
   grid-template-columns: 1fr;
   align-items: start;
 }
 @media (min-width: 900px) {
-  .rt-status {
+  .pd-status {
     grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
   }
 }
-.rt-status > div > p {
+.pd-status > div > p {
   margin-top: 1.25rem;
   color: var(--ink-3);
   font-weight: 300;
@@ -449,7 +457,7 @@
 .plat .v {
   color: rgb(var(--post));
 }
-.rt-status .note {
+.pd-status .note {
   margin-top: 1.5rem;
   font-family: var(--mono);
   font-size: 0.6875rem;
@@ -458,11 +466,82 @@
   color: var(--ink-4);
 }
 
-/* ReqTone's reveal is a touch shorter than the studio's */
-:root[data-theme='reqtone'] .rv {
+/* A product page's reveal is a touch shorter than the studio's */
+:root[data-theme='reqtone'] .rv,
+:root[data-theme='pilpod'] .rv {
   transform: translateY(20px);
 }
-:root[data-theme='reqtone'] .rv-on {
+:root[data-theme='reqtone'] .rv-on,
+:root[data-theme='pilpod'] .rv-on {
   transform: none;
   transition-duration: 0.9s;
+}
+
+/* ============================================================
+   PilPod-specific blocks
+   ============================================================ */
+
+/* A live product's status pill reads green, not amber. */
+.status-pill.is-live {
+  border-color: rgba(16, 185, 129, 0.34);
+  background: rgba(16, 185, 129, 0.08);
+}
+.status-pill.is-live i {
+  background: #10b981;
+}
+:root[data-mode='light'] .status-pill.is-live {
+  border-color: rgba(15, 122, 74, 0.38);
+  background: rgba(15, 122, 74, 0.1);
+}
+:root[data-mode='light'] .status-pill.is-live i {
+  background: #0f7a4a;
+}
+
+/* "Published" in the platform table is good news, so it is not amber either. */
+.plat .ok {
+  color: #34d399;
+}
+:root[data-mode='light'] .plat .ok {
+  color: #0f7a4a;
+}
+
+/* The three privacy claims */
+.pp-privacy {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.25rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 760px) {
+  .pp-privacy {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.pp-card {
+  padding: clamp(1.4rem, 2.6vw, 1.8rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  transition: border-color 0.4s var(--ease-soft), background 0.4s var(--ease-soft);
+}
+.pp-card:hover {
+  border-color: var(--line-strong);
+  background: var(--raised);
+}
+.pp-card h3 {
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.pp-card p {
+  margin-top: 0.6rem;
+  color: var(--ink-3);
+  font-weight: 300;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+}
+
+/* PilPod's mark carries its own colours, so it must not be tinted. */
+.pd-mark {
+  filter: none;
 }

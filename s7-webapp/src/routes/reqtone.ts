@@ -73,18 +73,18 @@ export const reqtone: Route = {
 
     return /* html */ `
   <!-- ============ HERO ============ -->
-  <section class="rt-hero wrap" id="top">
+  <section class="pd-hero wrap" id="top">
     <p class="crumb"><a href="${href('/#products')}">${r.crumbProducts}</a> <span>/</span> <span>${r.crumbCurrent}</span></p>
 
-    <div class="rt-head rv">
-      ${reqtoneMark('rt-hero-grad', 'rt-mark')}
-      <div class="rt-titles">
+    <div class="pd-head rv">
+      ${reqtoneMark('pd-hero-grad', 'pd-mark')}
+      <div class="pd-titles">
         <h1>ReqTone</h1>
-        <p class="rt-kind">${r.kind}</p>
+        <p class="pd-kind">${r.kind}</p>
       </div>
     </div>
 
-    <p class="rt-lead rv" style="--d:80ms">${r.lead}</p>
+    <p class="pd-lead rv" style="--d:80ms">${r.lead}</p>
 
     <dl class="spec rv" style="--d:140ms">
       ${r.specs.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('\n      ')}
@@ -98,7 +98,7 @@ export const reqtone: Route = {
       <span class="m-del">DELETE</span>
     </p>
 
-    <div class="rt-cta rv" style="--d:220ms">
+    <div class="pd-cta rv" style="--d:220ms">
       <a class="btn btn-primary" href="https://reqtone.com/" target="_blank" rel="noopener">
         ${r.ctaVisit}
         ${arrow()}
@@ -159,7 +159,7 @@ export const reqtone: Route = {
   <section class="wrap">
     <p class="label rv"><span class="dot"></span> ${r.statusLabel}</p>
 
-    <div class="rt-status">
+    <div class="pd-status">
       <div class="rv">
         <h2>${r.statusHeading}</h2>
         <p>${r.statusBody}</p>

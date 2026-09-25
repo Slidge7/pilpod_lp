@@ -64,15 +64,23 @@
   transition: opacity 0.7s var(--ease-soft), visibility 0s linear 0.7s;
 }
 :root[data-theme='s7'] .amb-s7,
-:root[data-theme='reqtone'] .amb-reqtone {
+:root[data-theme='reqtone'] .amb-reqtone,
+:root[data-theme='pilpod'] .amb-pilpod {
   opacity: 1;
   visibility: visible;
   transition: opacity 0.7s var(--ease-soft), visibility 0s;
 }
-/* A backdrop that isn't showing shouldn't keep the GPU busy either. */
-:root[data-theme='s7'] .amb-reqtone .glow,
-:root[data-theme='reqtone'] .amb-s7 .glow {
+/*
+ * A backdrop that isn't showing shouldn't keep the GPU busy. Stated as
+ * "paused unless active" so adding a fourth theme is one selector, not four.
+ */
+.amb .glow {
   animation-play-state: paused;
+}
+:root[data-theme='s7'] .amb-s7 .glow,
+:root[data-theme='reqtone'] .amb-reqtone .glow,
+:root[data-theme='pilpod'] .amb-pilpod .glow {
+  animation-play-state: running;
 }
 
 .ambient span {
@@ -176,6 +184,30 @@
   animation: driftB 64s var(--ease-soft) infinite alternate;
 }
 
+/* PilPod — the front card's red and the pod's blue */
+.pp-glow-a {
+  --c: 245 56 56;
+  --a: 0.1;
+  width: 58vw;
+  height: 58vw;
+  min-width: 480px;
+  min-height: 480px;
+  top: -24vw;
+  left: -8vw;
+  animation: driftA 50s var(--ease-soft) infinite alternate;
+}
+.pp-glow-b {
+  --c: 59 130 246;
+  --a: 0.085;
+  width: 50vw;
+  height: 50vw;
+  min-width: 420px;
+  min-height: 420px;
+  top: 44vh;
+  right: -14vw;
+  animation: driftB 62s var(--ease-soft) infinite alternate;
+}
+
 /*
  * Light mode keeps the same geometry and motion; only the intensities drop,
  * because a tint that reads as "glow" on near-black reads as "smudge" on
@@ -187,6 +219,8 @@
 :root[data-mode='light'] .glow-c { --a: 0.05; }
 :root[data-mode='light'] .rt-glow-a { --a: 0.072; }
 :root[data-mode='light'] .rt-glow-b { --a: 0.034; }
+:root[data-mode='light'] .pp-glow-a { --a: 0.07; }
+:root[data-mode='light'] .pp-glow-b { --a: 0.05; }
 
 @keyframes driftA {
   from {

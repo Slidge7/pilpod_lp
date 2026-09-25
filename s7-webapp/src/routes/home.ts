@@ -1,13 +1,10 @@
 import type { RenderCtx, Route, RouteMeta } from '../app/types';
 import { alternates, localePath } from '../i18n';
-import { arrow, arrowThin, pilpodGlyph, reqtoneMark } from '../lib/icons';
+import { arrow, arrowThin, pilpodMark, reqtoneMark } from '../lib/icons';
 import { initReveal } from '../ui/reveal';
 import { initStandard } from '../ui/standard';
 
 const pad = (n: number): string => (n < 10 ? '0' : '') + n;
-
-/** The studio's public address. One place, so the page and the JSON-LD agree. */
-const CONTACT_EMAIL = 'contact@s7.ma';
 
 export const home: Route = {
   id: 'home',
@@ -31,7 +28,6 @@ export const home: Route = {
         alternateName: 'Service7',
         url: 'https://s7.ma/',
         description: t.home.meta.jsonLdDescription,
-        email: CONTACT_EMAIL,
         address: { '@type': 'PostalAddress', addressCountry: 'MA' },
       },
     };
@@ -49,18 +45,6 @@ export const home: Route = {
       )
       .join('');
 
-    const services = t.home.services
-      .map(
-        ([title, body, stack], i) => /* html */ `
-        <article class="service rv" style="--d:${i * 80}ms">
-          <span class="service-idx">${pad(i + 1)}</span>
-          <h3>${title}</h3>
-          <p>${body}</p>
-          <p class="service-stack">${stack}</p>
-        </article>`,
-      )
-      .join('');
-
     const facts = t.home.facts
       .map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`)
       .join('\n          ');
@@ -75,11 +59,11 @@ export const home: Route = {
     <p class="hero-sub">${t.home.sub}</p>
 
     <div class="hero-cta">
-      <a class="btn btn-primary" href="${href('/#contact')}">
-        ${t.home.ctaContact}
+      <a class="btn btn-primary" href="${href('/#products')}">
+        ${t.home.ctaProducts}
         ${arrow()}
       </a>
-      <a class="btn btn-ghost" href="${href('/#services')}">${t.home.ctaServices}</a>
+      <a class="btn btn-ghost" href="${href('/#standard')}">${t.home.ctaStandard}</a>
     </div>
 
     <p class="hero-meta">
@@ -88,24 +72,6 @@ export const home: Route = {
       <span>${t.home.meta3}</span>
       <span>${t.home.meta4}</span>
     </p>
-  </section>
-
-  <!-- ============ SERVICES ============ -->
-  <section id="services" class="wrap">
-    <p class="label rv"><span class="dot"></span> ${t.home.servicesLabel}</p>
-
-    <div class="section-head">
-      <h2 class="rv">${t.home.servicesHeading}</h2>
-      <p class="rv" style="--d:80ms">${t.home.servicesLead}</p>
-    </div>
-
-    <div class="services">${services}
-    </div>
-
-    <a class="product-link services-cta rv" href="${href('/#contact')}">
-      ${t.home.servicesCta}
-      ${arrowThin()}
-    </a>
   </section>
 
   <!-- ============ PRODUCTS ============ -->
@@ -121,14 +87,14 @@ export const home: Route = {
       <article class="product is-live rv" style="--d:0ms">
         <div class="product-top">
           <span class="product-idx">01</span>
-          <span class="badge soon">${t.home.badgeLive}</span>
+          <span class="badge live">${t.home.badgeLive}</span>
         </div>
-        ${pilpodGlyph('product-glyph')}
+        ${pilpodMark('product-glyph brand')}
         <h3>PilPod</h3>
         <p class="kind">${t.home.pilpodKind}</p>
         <p>${t.home.pilpodBody}</p>
-        <a class="product-link" href="https://pilpod.ma" target="_blank" rel="noopener">
-          ${t.home.pilpodLink}
+        <a class="product-link" href="${href('/pilpod')}">
+          ${t.home.productOverview}
           ${arrowThin()}
         </a>
       </article>
@@ -182,21 +148,6 @@ export const home: Route = {
           ${facts}
         </dl>
       </div>
-    </div>
-  </section>
-
-  <!-- ============ CONTACT ============ -->
-  <section id="contact" class="wrap">
-    <p class="label rv"><span class="dot"></span> ${t.home.contactLabel}</p>
-
-    <div class="contact rv">
-      <h2>${t.home.contactHeading}</h2>
-      <p>${t.home.contactBody}</p>
-      <a class="btn btn-primary contact-mail" href="mailto:${CONTACT_EMAIL}">
-        ${CONTACT_EMAIL}
-        ${arrow()}
-      </a>
-      <p class="contact-note">${t.home.contactNote}</p>
     </div>
   </section>`;
   },

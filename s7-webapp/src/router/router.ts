@@ -77,6 +77,8 @@ export class Router {
   private teardown: (() => void) | null = null;
   private key = 0;
   private navigating = false;
+  /** A navigation that arrived while one was already in flight. */
+  private queued: (() => void) | null = null;
 
   constructor(opts: RouterOptions) {
     this.routes = opts.routes;
@@ -343,7 +345,15 @@ export class Router {
     scrollY: number,
     direction: 'forward' | 'back',
   ): Promise<void> {
-    if (this.navigating) return;
+    // Two transitions cannot run at once. Rather than drop the second — which
+    // is what a plain guard does, and which leaves the URL pointing at a page
+    // the reader cannot see after a fast Back — remember it and run it as soon
+    // as this one lands. Only the newest is kept: with three presses in a
+    // second, the middle one is a place nobody asked to stop at.
+    if (this.navigating) {
+      this.queued = () => void this.commit(route, lang, hash, scrollY, direction);
+      return;
+    }
     this.navigating = true;
 
     const root = document.documentElement;
@@ -425,6 +435,10 @@ export class Router {
     if (live) live.textContent = dict(lang).a11y.pageLoaded(route.meta(this.ctx()).title);
 
     this.navigating = false;
+
+    const next = this.queued;
+    this.queued = null;
+    next?.();
   }
 
   /** Restart the hairline sweep under the nav. */

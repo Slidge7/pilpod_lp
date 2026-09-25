@@ -36,6 +36,11 @@ export function renderAmbient(): string {
     <span class="glow rt-glow-b"></span>
     <span class="dev-grid"></span>
   </div>
+  <div class="amb amb-pilpod">
+    <span class="glow pp-glow-a"></span>
+    <span class="glow pp-glow-b"></span>
+    <span class="dev-grid"></span>
+  </div>
   <span class="grain"></span>
   <span class="pointer-light"></span>
 </div>`;
@@ -71,18 +76,19 @@ function renderControls(ctx: RenderCtx): string {
 /* ---------------------------------------------------------------------- nav */
 
 const NAV_LINKS = [
-  { href: '/#services', key: 'services', cls: '' },
-  { href: '/#products', key: 'products', cls: 'hide-s' },
-  { href: '/#standard', key: 'standard', cls: 'hide-s' },
-  { href: '/#contact', key: 'contact', cls: '' },
+  { href: '/#products', key: 'products' },
+  { href: '/services', key: 'services' },
+  { href: '/#standard', key: 'standard' },
+  { href: '/#about', key: 'about' },
+  { href: '/contact', key: 'contact' },
 ] as const;
 
 export function renderNav(ctx: RenderCtx): string {
   const links = NAV_LINKS.map(
     (l) =>
-      `<a href="${ctx.href(l.href)}" data-app-href="${l.href}"${
-        l.cls ? ` class="${l.cls}"` : ''
-      } data-nav="${l.key}">${ctx.t.nav[l.key]}</a>`,
+      `<a href="${ctx.href(l.href)}" data-app-href="${l.href}" data-nav="${l.key}">${
+        ctx.t.nav[l.key]
+      }</a>`,
   ).join('\n        ');
 
   return /* html */ `
@@ -111,6 +117,15 @@ export function renderNav(ctx: RenderCtx): string {
         ${links}
     </nav>
     ${renderControls(ctx)}
+    <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false"
+            aria-controls="menuPanel" aria-label="${ctx.t.a11y.openMenu}">
+      <span class="menu-bars" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+  <div class="menu-panel" id="menuPanel" hidden>
+    <nav class="menu-links" aria-label="${ctx.t.a11y.primaryNav}">
+        ${links}
+    </nav>
   </div>
   <span class="nav-progress" aria-hidden="true"></span>
 </header>`;
@@ -119,7 +134,7 @@ export function renderNav(ctx: RenderCtx): string {
 /* ------------------------------------------------------------------- footer */
 
 const FOOT_PRODUCTS = [
-  { href: '/#products', text: 'PilPod' },
+  { href: '/pilpod', text: 'PilPod' },
   { href: '/reqtone', text: 'ReqTone' },
 ] as const;
 
@@ -150,10 +165,10 @@ export function renderFooter(ctx: RenderCtx, year: number): string {
         <div>
           <h4 data-foot="studio">${ctx.t.footer.studio}</h4>
           <ul>
-            <li><a href="${ctx.href('/#services')}" data-app-href="/#services" data-nav="services">${ctx.t.nav.services}</a></li>
+            <li><a href="${ctx.href('/services')}" data-app-href="/services" data-nav="services">${ctx.t.nav.services}</a></li>
             <li><a href="${ctx.href('/#standard')}" data-app-href="/#standard" data-nav="standard">${ctx.t.nav.standard}</a></li>
             <li><a href="${ctx.href('/#about')}" data-app-href="/#about" data-nav="about">${ctx.t.nav.about}</a></li>
-            <li><a href="${ctx.href('/#contact')}" data-app-href="/#contact" data-nav="contact">${ctx.t.nav.contact}</a></li>
+            <li><a href="${ctx.href('/contact')}" data-app-href="/contact" data-nav="contact">${ctx.t.nav.contact}</a></li>
           </ul>
         </div>
       </div>
@@ -222,10 +237,12 @@ export function translateShell(ctx: RenderCtx): void {
     const key = a.dataset.nav as keyof typeof t.nav;
     if (t.nav[key]) a.textContent = t.nav[key];
   });
-  document.querySelectorAll<HTMLAnchorElement>('.nav-links a, .foot-nav a, .mark').forEach((a) => {
-    const raw = a.dataset.appHref;
-    if (raw) a.setAttribute('href', ctx.href(raw));
-  });
+  document
+    .querySelectorAll<HTMLAnchorElement>('.nav-links a, .menu-links a, .foot-nav a, .mark')
+    .forEach((a) => {
+      const raw = a.dataset.appHref;
+      if (raw) a.setAttribute('href', ctx.href(raw));
+    });
 
   setAttr('#tzScroll', 'aria-label', t.clock.stripLabel);
   setAttr('#tzMa', 'aria-label', t.clock.badgeLabel);
@@ -237,6 +254,14 @@ export function translateShell(ctx: RenderCtx): void {
   setText('[data-foot="by"]', t.footer.by);
   const made = document.querySelector('.foot-bottom .made');
   if (made) made.innerHTML = `<i></i> ${t.footer.madeIn}`;
+
+  const menu = document.getElementById('menuBtn');
+  if (menu) {
+    const open = menu.getAttribute('aria-expanded') === 'true';
+    const label = open ? t.a11y.closeMenu : t.a11y.openMenu;
+    menu.setAttribute('aria-label', label);
+    menu.setAttribute('title', label);
+  }
 
   const theme = document.getElementById('themeBtn');
   if (theme) {

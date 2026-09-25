@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="PilPod">
+  <!-- inner wall of the pod, visible above the cards -->
+  <ellipse cx="256" cy="286" rx="246" ry="52" fill="#1D4ED8"/>
+
+  <!-- the media stack, back to front, fanned like the original -->
+  <g>
+    <rect x="212" y="16" width="252" height="400" rx="42" fill="#10B981"
+          transform="rotate(4 338 216)"/>
+    <rect x="126" y="58" width="252" height="366" rx="42" fill="#FFC20E"
+          transform="rotate(2 252 241)"/>
+    <rect x="42" y="102" width="252" height="330" rx="42" fill="#F53838"/>
+  </g>
+
+  <!-- play mark -->
+  <path d="M146 210 L232 266 L146 322 Z" fill="#FFFFFF" stroke="#FFFFFF"
+        stroke-width="18" stroke-linejoin="round"/>
+
+  <!-- front wall of the pod -->
+  <path d="M10 286 a246 52 0 0 0 492 0 v82 a126 126 0 0 1 -126 126 h-240 a126 126 0 0 1 -126 -126 z"
+        fill="#3B82F6"/>
+  <!-- rim highlight along the front lip -->
+  <path d="M10 286 a246 52 0 0 0 492 0" fill="none" stroke="#60A5FA" stroke-width="10"
+        stroke-linecap="round" opacity=".55"/>
+</svg>

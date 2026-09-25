@@ -334,64 +334,6 @@
   transform: translateX(3px);
 }
 
-/* ------------------------------------------------------------ services --- */
-
-.services {
-  display: grid;
-  gap: clamp(1rem, 2vw, 1.25rem);
-  grid-template-columns: 1fr;
-}
-@media (min-width: 720px) {
-  .services {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-.service {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  padding: clamp(1.5rem, 3vw, 2.25rem);
-  border: 1px solid var(--line-soft);
-  border-radius: 18px;
-  background: linear-gradient(165deg, rgb(var(--fg-rgb) / 0.03), transparent 55%);
-  transition: border-color 0.45s var(--ease-soft);
-}
-.service:hover {
-  border-color: rgb(var(--fg-rgb) / 0.15);
-}
-.service-idx {
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
-  color: var(--ink-4);
-}
-.service h3 {
-  margin-top: 1.25rem;
-  font-size: clamp(1.1875rem, 1.1rem + 0.4vw, 1.375rem);
-  font-weight: 500;
-  letter-spacing: -0.025em;
-  color: var(--ink);
-}
-.service p {
-  margin-top: 0.75rem;
-  color: var(--ink-2);
-  font-weight: 300;
-  font-size: 0.9688rem;
-  max-width: 44ch;
-}
-.service .service-stack {
-  margin-top: auto;
-  padding-top: 1.5rem;
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-.services-cta {
-  margin-top: clamp(1.75rem, 3vw, 2.5rem);
-}
-
 /* ----------------------------------------------------------- standard ---- */
 
 .standard {
@@ -645,47 +587,40 @@
   background: linear-gradient(90deg, transparent, rgba(134, 98, 10, 0.5), transparent);
 }
 
-/* -------------------------------------------------------- live product --- */
+/* ---------------------------------------------- the whole card is a link -- */
 
-/* PilPod is published: same green as the old "coming soon" treatment. */
+/*
+ * A "stretched link": the real anchor keeps the accessible name and the single
+ * tab stop, while a transparent overlay makes the entire card the click
+ * target. Better than wrapping the card in an <a>, which would swallow the
+ * heading and the badge into one long link name.
+ */
+.product:has(.product-link) {
+  cursor: pointer;
+}
+.product-link::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+}
+/* The card, not just the small link, shows the focus ring. */
+.product:has(.product-link:focus-visible) {
+  outline: 1.5px solid var(--focus);
+  outline-offset: 4px;
+}
+.product-link:focus-visible {
+  outline: none;
+}
+
+/* A shipped product gets the studio's own accent rather than a status colour. */
 .product.is-live::before {
-  background: radial-gradient(420px circle at 15% 0%, rgba(46, 158, 107, 0.16), transparent 62%);
+  background: radial-gradient(420px circle at 15% 0%, var(--red-glow), transparent 62%);
 }
 .product.is-live::after {
-  background: linear-gradient(90deg, transparent, rgba(46, 158, 107, 0.5), transparent);
+  background: linear-gradient(90deg, transparent, var(--brand-lift), transparent);
 }
 .product.is-live:hover .product-glyph {
-  color: #2e9e6b;
-}
-:root[data-mode='light'] .product.is-live:hover .product-glyph {
-  color: #15704a;
-}
-:root[data-mode='light'] .product.is-live::after {
-  background: linear-gradient(90deg, transparent, rgba(21, 112, 74, 0.55), transparent);
-}
-
-/* ------------------------------------------------------------- contact --- */
-
-.contact {
-  max-width: 40rem;
-}
-.contact h2 {
-  margin-bottom: 1.25rem;
-}
-.contact > p:not(.contact-note) {
-  color: var(--ink-2);
-  font-weight: 300;
-  max-width: 44ch;
-  font-size: 1.0625rem;
-}
-.contact-mail {
-  margin-top: clamp(1.75rem, 4vw, 2.5rem);
-}
-.contact-note {
-  margin-top: 1.5rem;
-  font-family: var(--mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--brand-lift);
 }

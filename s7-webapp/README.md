@@ -4,8 +4,11 @@ The studio site, as a single-page application in English and French, dark and
 light. Internal links never reload the page, and the backdrop no longer drops
 frames.
 
+Pages: home, **Services**, **PilPod**, ReqTone, **Contact**, 404 — each in both
+languages, each prerendered.
+
 - **No framework, no runtime dependencies.** TypeScript + Vite, pure CSS.
-  About 21 kB of JS and 9 kB of CSS once gzipped, both languages included.
+  About 32 kB of JS and 11 kB of CSS once gzipped — six pages, two languages.
 - **Every route is prerendered to real HTML in both languages**, so crawlers,
   link previews and visitors without JavaScript get the whole site, with
   hreflang alternates and JSON-LD.
@@ -35,11 +38,14 @@ src/
   router/scroll.ts      per-entry scroll restoration, anchor offsets
   app/shell.ts          nav, time strip, backdrop, footer (rendered once)
   app/head.ts           per-route <head>: build time and runtime
-  routes/               home, reqtone, notfound; each has render() and mount()
+  routes/               home, services, pilpod, reqtone, contact, notfound
   i18n/                 en.ts is the source dictionary, fr.ts must match its shape
-  ui/                   clock, nav, reveal, standard ledger, pointer lens, theme toggle
-  styles/               tokens (2 themes × 2 modes), base, ambient, nav,
-                        controls, transitions, pages
+  ui/                   clock, nav, menu, reveal, standard ledger, pointer lens,
+                        theme toggle, contact form
+  lib/                  icons, contact-submit (Firestore over REST)
+  styles/               tokens (3 themes × 2 modes), base, ambient, nav, controls,
+                        transitions, home, product, services, contact, notfound
+firestore.rules         who may write to the messages collection
 scripts/prerender.mjs   writes dist/index.html, dist/reqtone/index.html, dist/404.html,
                         sitemap.xml, font preloads, CSP
 scripts/serve.mjs       local Firebase-like static server
@@ -103,6 +109,38 @@ Causes, in order of cost:
    self-hosted, content-hashed and preloaded.
 
 The zellige lattice is pixel-identical to the original (verified by diff).
+
+## The contact form
+
+The form on `/contact` writes straight to Firestore over its REST API — one
+`fetch`, no SDK. The Firebase JavaScript SDK would have been about 100 kB
+gzipped, three times the whole rest of the site, to do one POST.
+
+**To switch it on:**
+
+1. In the Firebase console, create a Firestore database in the `service7-8bd8b`
+   project (production mode).
+2. Copy `.env.example` to `.env` and paste your Firebase **web API key** into
+   `VITE_FIREBASE_API_KEY`. Console → Project settings → General → Your apps →
+   Web app → `apiKey`. This key is not a secret; it is visible in every
+   Firebase web app and grants nothing on its own.
+3. Deploy the rules: `firebase deploy --only firestore:rules`.
+4. Rebuild and deploy the site.
+
+Messages land in the `messages` collection and are readable in the Firebase
+console. **Until the key is set, the form still works** — it falls back to
+opening a pre-filled email to contact@s7.ma instead of storing the message, so
+nothing is ever silently lost.
+
+`firestore.rules` is what actually protects the data: a document may be
+created only if it has exactly the expected fields, with sane lengths, a
+plausible email and a timestamp close to now. Reading, updating and deleting
+are refused outright, so nobody can enumerate the messages with the public key.
+
+Spam defences, in order of how much they inconvenience a real person (none of
+them do): a hidden honeypot field; a send that is held back until the form has
+been open three seconds; length limits enforced twice, in the page and in the
+rules.
 
 ## Languages
 
@@ -186,7 +224,13 @@ and re-run the audit.
   reset `<ol>`, so that indent came from the browser default. It is now set
   explicitly.
 - The nav carries two small controls at its right edge: the language switch and
-  the light/dark toggle. Together they are about 70 px and still fit at 360 px.
+  the light/dark toggle. With five destinations the links move into a phone
+  menu below 860 px; above it, the bar is unchanged.
+- PilPod is a **Chrome extension**, and it is **published**. The old card
+  described it as a coming-soon desktop app, which is now wrong on both counts.
+- Product cards are clickable across their whole surface (a stretched link, so
+  the accessible name stays on the "Product overview" link rather than
+  swallowing the heading and badge).
 - `404.html` is served by Firebase for every unmatched path, so it ships in
   English; the router switches it to French immediately for a French visitor.
   It is `noindex`, so this has no search consequence.
@@ -202,5 +246,5 @@ and re-run the audit.
    at http://localhost:4173 — try `/fr`, the language switch, and the theme
    toggle.
 5. Run `firebase deploy`.
-6. In Google Search Console, resubmit `sitemap.xml` so the French URLs are
-   discovered.
+6. In Google Search Console, resubmit `sitemap.xml` — it now lists 10 URLs
+   across both languages.
