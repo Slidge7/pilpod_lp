@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face {
+    font-family: 'Geist';
+    src: url('c:/Users/T14/Desktop/s7/s7 site/s7-webapp/src/assets/fonts/geist-latin.woff2') format('woff2-variations');
+    font-weight: 100 900;
+  }
+  @font-face {
+    font-family: 'Geist Mono';
+    src: url('c:/Users/T14/Desktop/s7/s7 site/s7-webapp/src/assets/fonts/geist-mono-latin.woff2') format('woff2-variations');
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1024px;
+    height: 1024px;
+    overflow: hidden;
+    background: #0A0A0B;
+    color: #F2EFEA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: relative;
+    
+  }
+
+  .glow-bg {
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(200, 50, 60, 0.22) 0%, rgba(200, 50, 60, 0.06) 45%, transparent 70%);
+    border-radius: 50%;
+  }
+
+  /* Facebook circular safe guide (920px diameter inside 1024px) */
+  .fb-safe-guide {
+    position: absolute;
+    width: 900px;
+    height: 900px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.02);
+    pointer-events: none;
+  }
+
+  
+        .center-col {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+        }
+        .mark-wrap-md {
+            width: 250px;
+            height: 250px;
+            filter: drop-shadow(0 0 28px rgba(200, 50, 60, 0.45));
+        }
+        .lockup-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+        .brand-name {
+            font-size: 88px;
+            font-weight: 700;
+            color: #F2EFEA;
+            letter-spacing: -0.03em;
+            line-height: 1;
+        }
+        .divider-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #C8323C, transparent);
+        }
+        .sub-name {
+            font-family: 'Geist Mono', monospace;
+            font-size: 26px;
+            font-weight: 500;
+            color: rgba(242, 239, 234, 0.72);
+            letter-spacing: 0.28em;
+            text-indent: 0.28em;
+            text-transform: uppercase;
+        }
+        
+</style>
+</head>
+<body>
+  <div class="fb-safe-guide"></div>
+  
+        <div class="glow-bg"></div>
+        <div class="center-col">
+            <div class="mark-wrap-md">
+                <svg class="khatem-svg" viewBox="0 0 100 100">
+                    <g fill="none" stroke="#C8323C" stroke-width="5.5" stroke-linejoin="round">
+                        <rect x="26" y="26" width="48" height="48" rx="2" />
+                        <rect x="26" y="26" width="48" height="48" rx="2" transform="rotate(45 50 50)" />
+                    </g>
+                    <circle cx="50" cy="50" r="3.5" fill="#E04A54" />
+                </svg>
+            </div>
+            <div class="lockup-text">
+                <div class="brand-name">S7</div>
+                <div class="divider-line"></div>
+                <div class="sub-name">SERVICE7</div>
+            </div>
+        </div>
+        
+</body>
+</html>

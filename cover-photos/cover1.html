@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face {
+    font-family: 'Geist';
+    src: url('c:/Users/T14/Desktop/s7/s7 site/s7-webapp/src/assets/fonts/geist-latin.woff2') format('woff2-variations');
+    font-weight: 100 900;
+  }
+  @font-face {
+    font-family: 'Geist Mono';
+    src: url('c:/Users/T14/Desktop/s7/s7 site/s7-webapp/src/assets/fonts/geist-mono-latin.woff2') format('woff2-variations');
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1640px;
+    height: 624px;
+    overflow: hidden;
+    background: #0A0A0B;
+    color: #F2EFEA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: relative;
+    
+  }
+
+  
+        .glow-left {
+            position: absolute;
+            left: -150px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(200, 50, 60, 0.16) 0%, transparent 65%);
+            border-radius: 50%;
+        }
+        .glow-right {
+            position: absolute;
+            right: 40px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(200, 50, 60, 0.22) 0%, transparent 65%);
+            border-radius: 50%;
+        }
+        .grid-overlay {
+            position: absolute;
+            inset: 0;
+            background-image: 
+                linear-gradient(to right, rgba(242, 239, 234, 0.02) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(242, 239, 234, 0.02) 1px, transparent 1px);
+            background-size: 40px 40px;
+        }
+        .cover-content {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 110px;
+        }
+        .left-hero {
+            max-width: 820px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .eyebrow-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px;
+            background: rgba(200, 50, 60, 0.1);
+            border: 1px solid rgba(200, 50, 60, 0.25);
+            border-radius: 999px;
+            font-family: 'Geist Mono', monospace;
+            font-size: 13px;
+            color: #E04A54;
+            letter-spacing: 0.15em;
+            width: fit-content;
+        }
+        .live-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #E04A54;
+            box-shadow: 0 0 8px #E04A54;
+        }
+        .hero-h1 {
+            font-size: 58px;
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.035em;
+            color: #F2EFEA;
+        }
+        .hero-sub-text {
+            color: rgba(242, 239, 234, 0.45);
+        }
+        .hero-desc {
+            font-size: 19px;
+            line-height: 1.5;
+            color: rgba(242, 239, 234, 0.7);
+            max-width: 660px;
+        }
+        .tags-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .tag-chip {
+            font-family: 'Geist Mono', monospace;
+            font-size: 12px;
+            padding: 5px 12px;
+            background: rgba(242, 239, 234, 0.05);
+            border: 1px solid rgba(242, 239, 234, 0.1);
+            border-radius: 6px;
+            color: rgba(242, 239, 234, 0.8);
+            letter-spacing: 0.08em;
+        }
+        .tag-chip.domain {
+            border-color: rgba(200, 50, 60, 0.4);
+            color: #F2EFEA;
+            background: rgba(200, 50, 60, 0.15);
+        }
+        .right-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .emblem-card {
+            position: relative;
+            width: 280px;
+            height: 280px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: rgba(15, 15, 17, 0.85);
+            border: 1px solid rgba(242, 239, 234, 0.08);
+            border-radius: 24px;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+        }
+        .emblem-halo {
+            position: absolute;
+            width: 190px;
+            height: 190px;
+            background: #C8323C;
+            filter: blur(55px);
+            opacity: 0.35;
+            border-radius: 50%;
+        }
+        .khatem-large {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            filter: drop-shadow(0 0 16px rgba(200, 50, 60, 0.5));
+        }
+        .emblem-sub {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 14px;
+            gap: 2px;
+            z-index: 5;
+        }
+        .brand-monogram {
+            font-size: 26px;
+            font-weight: 700;
+            color: #F2EFEA;
+            letter-spacing: -0.02em;
+        }
+        .brand-subname {
+            font-family: 'Geist Mono', monospace;
+            font-size: 11px;
+            color: rgba(242, 239, 234, 0.5);
+            letter-spacing: 0.22em;
+        }
+        
+</style>
+</head>
+<body>
+  
+        <!-- Ambient decorative grids & glows -->
+        <div class="glow-left"></div>
+        <div class="glow-right"></div>
+        <div class="grid-overlay"></div>
+
+        <div class="cover-content">
+            <div class="left-hero">
+                <div class="eyebrow-pill">
+                    <span class="live-dot"></span>
+                    <span>INDEPENDENT SOFTWARE STUDIO &bull; MOROCCO</span>
+                </div>
+                <h1 class="hero-h1">
+                    Premium software.<br>
+                    <span class="hero-sub-text">Built to last.</span>
+                </h1>
+                <p class="hero-desc">
+                    Desktop applications, developer tools & custom engineering built local-first, privacy-conscious and fast by design.
+                </p>
+                <div class="tags-row">
+                    <span class="tag-chip">PILPOD</span>
+                    <span class="tag-chip">REQTONE</span>
+                    <span class="tag-chip">CUSTOM ENGINEERING</span>
+                    <span class="tag-chip domain">S7.MA</span>
+                </div>
+            </div>
+
+            <div class="right-visual">
+                <div class="emblem-card">
+                    <div class="emblem-halo"></div>
+                    <svg class="khatem-large" viewBox="0 0 100 100">
+                        <g fill="none" stroke="#C8323C" stroke-width="4.2" stroke-linejoin="round">
+                            <rect x="26" y="26" width="48" height="48" rx="2" />
+                            <rect x="26" y="26" width="48" height="48" rx="2" transform="rotate(45 50 50)" />
+                        </g>
+                        <circle cx="50" cy="50" r="3.5" fill="#E04A54" />
+                    </svg>
+                    <div class="emblem-sub">
+                        <span class="brand-monogram">S7</span>
+                        <span class="brand-subname">SERVICE7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+</body>
+</html>

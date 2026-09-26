@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service7 (S7) — Facebook Profile Picture Kit</title>
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --card: #121215;
+    --border: rgba(242, 239, 234, 0.08);
+    --red: #c8323c;
+    --red-lift: #e04a54;
+    --text: #f2efea;
+    --sub: rgba(242, 239, 234, 0.6);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 3rem 1.5rem;
+    line-height: 1.5;
+  }
+  .header {
+    max-width: 1100px;
+    margin: 0 auto 3rem auto;
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(200, 50, 60, 0.15);
+    color: var(--red-lift);
+    border: 1px solid rgba(200, 50, 60, 0.3);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  p.lead {
+    color: var(--sub);
+    font-size: 1.1rem;
+    max-width: 650px;
+    margin: 0 auto;
+  }
+  .grid {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(200, 50, 60, 0.4);
+  }
+  .rec-tag {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: var(--red);
+    color: #fff;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.2rem 0.6rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+  .preview-wrapper {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    margin: 1.5rem 0;
+  }
+  .preview-img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6), 0 0 0 2px rgba(255, 255, 255, 0.05);
+  }
+  .fb-simulator {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 8px 14px;
+    border-radius: 10px;
+    width: 100%;
+    margin-bottom: 1.25rem;
+  }
+  .fb-mini-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+  .fb-meta {
+    text-align: left;
+    font-size: 0.85rem;
+  }
+  .fb-name {
+    font-weight: 600;
+    color: #fff;
+  }
+  .fb-sub {
+    font-size: 0.72rem;
+    color: var(--sub);
+  }
+  .card-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+  .card-desc {
+    color: var(--sub);
+    font-size: 0.85rem;
+    text-align: center;
+    min-height: 48px;
+    margin-bottom: 1.25rem;
+  }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0.75rem 1rem;
+    background: #fff;
+    color: #0a0a0b;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .btn-download:hover {
+    background: var(--red);
+    color: #fff;
+  }
+  .specs-box {
+    max-width: 1100px;
+    margin: 3.5rem auto 0 auto;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+  }
+  .specs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+  .spec-item dt {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: var(--sub);
+    letter-spacing: 0.05em;
+  }
+  .spec-item dd {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text);
+    margin-top: 0.2rem;
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="badge">Facebook Profile Picture Kit</div>
+    <h1>Service7 (S7) Brand Assets</h1>
+    <p class="lead">
+      Exported at 1024 &times; 1024 px master resolution with circular crop safe-zones, crafted specifically for the official <strong>Service7</strong> Facebook page.
+    </p>
+  </header>
+
+  <main class="grid">
+
+    <!-- Card 1 -->
+    <div class="card">
+      <span class="rec-tag">Recommended #1</span>
+      <div class="preview-wrapper">
+        <img class="preview-img" src="./1_s7_icon_minimal.png" alt="S7 Minimalist Studio Mark">
+      </div>
+      <div class="fb-simulator">
+        <img class="fb-mini-avatar" src="./1_s7_icon_minimal.png" alt="Feed preview">
+        <div class="fb-meta">
+          <div class="fb-name">Service7</div>
+          <div class="fb-sub">Feed & Comment view (38px)</div>
+        </div>
+      </div>
+      <h2 class="card-title">1. Minimalist Studio Mark</h2>
+      <p class="card-desc">The signature Moroccan 8-point geometric Khatem with ambient crimson glow. Maximum clarity across mobile feeds & small comments.</p>
+      <a class="btn-download" href="./1_s7_icon_minimal.png" download>Download 1024&times;1024 PNG</a>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="card">
+      <span class="rec-tag">Recommended #2</span>
+      <div class="preview-wrapper">
+        <img class="preview-img" src="./4_s7_circular_tech_badge.png" alt="Circular Tech Badge">
+      </div>
+      <div class="fb-simulator">
+        <img class="fb-mini-avatar" src="./4_s7_circular_tech_badge.png" alt="Feed preview">
+        <div class="fb-meta">
+          <div class="fb-name">Service7</div>
+          <div class="fb-sub">Feed & Comment view (38px)</div>
+        </div>
+      </div>
+      <h2 class="card-title">2. Circular Tech Badge</h2>
+      <p class="card-desc">Concentric halo rings aligning perfectly with Facebook's circular crop, featuring SERVICE7 and the Khatem core.</p>
+      <a class="btn-download" href="./4_s7_circular_tech_badge.png" download>Download 1024&times;1024 PNG</a>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="card">
+      <div class="preview-wrapper">
+        <img class="preview-img" src="./3_service7_full_lockup.png" alt="Service7 Full Lockup">
+      </div>
+      <div class="fb-simulator">
+        <img class="fb-mini-avatar" src="./3_service7_full_lockup.png" alt="Feed preview">
+        <div class="fb-meta">
+          <div class="fb-name">Service7</div>
+          <div class="fb-sub">Feed & Comment view (38px)</div>
+        </div>
+      </div>
+      <h2 class="card-title">3. Full Lockup (S7 + Service7)</h2>
+      <p class="card-desc">The complete identity lockup with the Khatem emblem, bold S7 monogram, and uppercase SERVICE7 subline.</p>
+      <a class="btn-download" href="./3_service7_full_lockup.png" download>Download 1024&times;1024 PNG</a>
+    </div>
+
+    <!-- Card 4 -->
+    <div class="card">
+      <div class="preview-wrapper">
+        <img class="preview-img" src="./2_s7_mark_and_name.png" alt="S7 Mark and Name">
+      </div>
+      <div class="fb-simulator">
+        <img class="fb-mini-avatar" src="./2_s7_mark_and_name.png" alt="Feed preview">
+        <div class="fb-meta">
+          <div class="fb-name">Service7</div>
+          <div class="fb-sub">Feed & Comment view (38px)</div>
+        </div>
+      </div>
+      <h2 class="card-title">4. S7 Monogram & Mark</h2>
+      <p class="card-desc">Bold and direct: the Moroccan Khatem paired with prominent S7 Geist typography.</p>
+      <a class="btn-download" href="./2_s7_mark_and_name.png" download>Download 1024&times;1024 PNG</a>
+    </div>
+
+    <!-- Card 5 -->
+    <div class="card">
+      <div class="preview-wrapper">
+        <img class="preview-img" src="./5_s7_light_paper_edition.png" alt="Light Paper Edition">
+      </div>
+      <div class="fb-simulator">
+        <img class="fb-mini-avatar" src="./5_s7_light_paper_edition.png" alt="Feed preview">
+        <div class="fb-meta">
+          <div class="fb-name">Service7</div>
+          <div class="fb-sub">Feed & Comment view (38px)</div>
+        </div>
+      </div>
+      <h2 class="card-title">5. Light / Warm Paper Edition</h2>
+      <p class="card-desc">Light mode inverted design: warm paper (#F6F3EE), deep charcoal typography, and tuned contrast red (#A81E28).</p>
+      <a class="btn-download" href="./5_s7_light_paper_edition.png" download>Download 1024&times;1024 PNG</a>
+    </div>
+
+  </main>
+
+  <footer class="specs-box">
+    <h3 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Facebook Profile Picture Guidelines & Specs</h3>
+    <div class="specs-grid">
+      <div class="spec-item">
+        <dt>Resolution</dt>
+        <dd>1024 &times; 1024 px (Hi-DPI)</dd>
+      </div>
+      <div class="spec-item">
+        <dt>Aspect Ratio</dt>
+        <dd>1:1 (Square upload)</dd>
+      </div>
+      <div class="spec-item">
+        <dt>Crop Mask</dt>
+        <dd>Circular (100% Safe Zone)</dd>
+      </div>
+      <div class="spec-item">
+        <dt>Brand Colors</dt>
+        <dd>#0A0A0B &bull; #C8323C</dd>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

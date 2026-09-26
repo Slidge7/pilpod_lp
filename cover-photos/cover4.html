@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face {
+    font-family: 'Geist';
+    src: url('c:/Users/T14/Desktop/s7/s7 site/s7-webapp/src/assets/fonts/geist-latin.woff2') format('woff2-variations');
+    font-weight: 100 900;
+  }
+  @font-face {
+    font-family: 'Geist Mono';
+    src: url('c:/Users/T14/Desktop/s7/s7 site/s7-webapp/src/assets/fonts/geist-mono-latin.woff2') format('woff2-variations');
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1640px;
+    height: 624px;
+    overflow: hidden;
+    background: #0A0A0B;
+    color: #F2EFEA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: relative;
+    background: #F6F3EE; color: #14110F;
+  }
+
+  
+        .light-cover {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 110px;
+        }
+        .left-hero {
+            max-width: 820px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .light-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 6px 14px;
+            background: rgba(168, 30, 40, 0.08);
+            border: 1px solid rgba(168, 30, 40, 0.2);
+            border-radius: 999px;
+            font-family: 'Geist Mono', monospace;
+            font-size: 13px;
+            color: #A81E28;
+            letter-spacing: 0.14em;
+            font-weight: 600;
+            width: fit-content;
+        }
+        .light-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: #A81E28;
+        }
+        .light-h1 {
+            font-size: 58px;
+            font-weight: 700;
+            line-height: 1.08;
+            letter-spacing: -0.035em;
+            color: #14110F;
+        }
+        .light-sub-text {
+            color: rgba(20, 17, 15, 0.55);
+        }
+        .light-desc {
+            font-size: 19px;
+            line-height: 1.5;
+            color: rgba(20, 17, 15, 0.75);
+            max-width: 660px;
+        }
+        .light-tags {
+            display: flex;
+            gap: 12px;
+            margin-top: 6px;
+        }
+        .lt-chip {
+            font-family: 'Geist Mono', monospace;
+            font-size: 12px;
+            padding: 5px 12px;
+            background: rgba(20, 17, 15, 0.05);
+            border: 1px solid rgba(20, 17, 15, 0.12);
+            border-radius: 6px;
+            color: #14110F;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+        .lt-chip.brand {
+            background: #A81E28;
+            color: #FFFFFF;
+            border-color: #A81E28;
+        }
+        .light-card {
+            width: 260px;
+            height: 260px;
+            background: #FFFFFF;
+            border: 1px solid rgba(20, 17, 15, 0.1);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.06);
+            gap: 10px;
+        }
+        .lc-name {
+            font-size: 20px;
+            font-weight: 700;
+            color: #14110F;
+            letter-spacing: 0.06em;
+        }
+        .lc-loc {
+            font-family: 'Geist Mono', monospace;
+            font-size: 11px;
+            color: rgba(20, 17, 15, 0.5);
+            letter-spacing: 0.22em;
+        }
+        
+</style>
+</head>
+<body>
+  
+        <div class="light-cover">
+            <div class="left-hero">
+                <div class="light-eyebrow">
+                    <span class="light-dot"></span>
+                    <span>SERVICE7 &bull; INDEPENDENT SOFTWARE STUDIO</span>
+                </div>
+                <h1 class="light-h1">
+                    Premium software.<br>
+                    <span class="light-sub-text">Built to last.</span>
+                </h1>
+                <p class="light-desc">
+                    Fast, local-first and privately yours &mdash; designed and engineered in Morocco, for everyone.
+                </p>
+                <div class="light-tags">
+                    <span class="lt-chip">PILPOD</span>
+                    <span class="lt-chip">REQTONE</span>
+                    <span class="lt-chip">SERVICES</span>
+                    <span class="lt-chip brand">S7.MA</span>
+                </div>
+            </div>
+
+            <div class="right-badge">
+                <div class="light-card">
+                    <svg width="120" height="120" viewBox="0 0 100 100">
+                        <g fill="none" stroke="#A81E28" stroke-width="4.5" stroke-linejoin="round">
+                            <rect x="26" y="26" width="48" height="48" rx="2" />
+                            <rect x="26" y="26" width="48" height="48" rx="2" transform="rotate(45 50 50)" />
+                        </g>
+                        <circle cx="50" cy="50" r="3.5" fill="#8E1720" />
+                    </svg>
+                    <div class="lc-name">SERVICE7</div>
+                    <div class="lc-loc">MOROCCO</div>
+                </div>
+            </div>
+        </div>
+        
+</body>
+</html>

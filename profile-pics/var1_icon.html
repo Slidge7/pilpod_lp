@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face {
+    font-family: 'Geist';
+    src: url('../s7-webapp/src/assets/fonts/geist-latin.woff2') format('woff2-variations');
+    font-weight: 100 900;
+  }
+  @font-face {
+    font-family: 'Geist Mono';
+    src: url('../s7-webapp/src/assets/fonts/geist-mono-latin.woff2') format('woff2-variations');
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1024px;
+    height: 1024px;
+    overflow: hidden;
+    background: #0A0A0B;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+
+  /* Ambient atmospheric background matching s7 site */
+  .bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      radial-gradient(circle at 50% 50%, rgba(200, 50, 60, 0.15) 0%, rgba(200, 50, 60, 0.05) 40%, transparent 70%),
+      radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.02) 0%, transparent 60%),
+      #0A0A0B;
+  }
+
+  /* Subtle border ring that sits right inside Facebook circular crop safe zone */
+  .safe-ring {
+    position: absolute;
+    width: 960px;
+    height: 960px;
+    border-radius: 50%;
+    border: 1px solid rgba(242, 239, 234, 0.04);
+  }
+
+  .content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* The 8-point geometric khatem icon */
+  .mark-wrap {
+    position: relative;
+    width: 380px;
+    height: 380px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .glow-back {
+    position: absolute;
+    width: 260px;
+    height: 260px;
+    background: #C8323C;
+    filter: blur(80px);
+    opacity: 0.35;
+    border-radius: 50%;
+  }
+
+  svg.khatem {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 24px rgba(200, 50, 60, 0.4));
+  }
+</style>
+</head>
+<body>
+  <div class="bg"></div>
+  <div class="safe-ring"></div>
+  <div class="content">
+    <div class="mark-wrap">
+      <div class="glow-back"></div>
+      <svg class="khatem" viewBox="0 0 100 100">
+        <g fill="none" stroke="#C8323C" stroke-width="4.8" stroke-linejoin="round">
+          <rect x="28" y="28" width="44" height="44" rx="2" />
+          <rect x="28" y="28" width="44" height="44" rx="2" transform="rotate(45 50 50)" />
+        </g>
+        <!-- Center core accent point -->
+        <circle cx="50" cy="50" r="3.2" fill="#E04A54" />
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

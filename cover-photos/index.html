@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Service7 — Facebook Cover Photo Kit</title>
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --card: #121215;
+    --border: rgba(242, 239, 234, 0.08);
+    --red: #c8323c;
+    --red-lift: #e04a54;
+    --text: #f2efea;
+    --sub: rgba(242, 239, 234, 0.6);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    padding: 3rem 1.5rem;
+    line-height: 1.5;
+  }
+  .header {
+    max-width: 1200px;
+    margin: 0 auto 3rem auto;
+    text-align: center;
+  }
+  .badge {
+    display: inline-block;
+    padding: 0.25rem 0.75rem;
+    background: rgba(200, 50, 60, 0.15);
+    color: var(--red-lift);
+    border: 1px solid rgba(200, 50, 60, 0.3);
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+  h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+  }
+  p.lead {
+    color: var(--sub);
+    font-size: 1.1rem;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+  .cover-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    transition: border-color 0.2s;
+  }
+  .cover-card:hover {
+    border-color: rgba(200, 50, 60, 0.4);
+  }
+  .card-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+  }
+  .title-group h2 {
+    font-size: 1.4rem;
+    font-weight: 600;
+  }
+  .title-group p {
+    color: var(--sub);
+    font-size: 0.9rem;
+    margin-top: 0.2rem;
+  }
+  .btn-download {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0.65rem 1.25rem;
+    background: #fff;
+    color: #0a0a0b;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    transition: background-color 0.2s, color 0.2s;
+  }
+  .btn-download:hover {
+    background: var(--red);
+    color: #fff;
+  }
+  .cover-preview-box {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 1640 / 624;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.6);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
+  .cover-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  /* Live Facebook Page Header Simulator */
+  .fb-page-mockup {
+    position: relative;
+    background: #18191a;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+  }
+  .fb-mock-cover {
+    width: 100%;
+    aspect-ratio: 1640 / 624;
+    object-fit: cover;
+    display: block;
+  }
+  .fb-mock-bar {
+    padding: 1.25rem 2rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    background: #242526;
+  }
+  .fb-mock-avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    border: 4px solid #242526;
+    margin-top: -65px;
+    background: #0a0a0b;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    z-index: 10;
+  }
+  .fb-mock-info {
+    flex: 1;
+  }
+  .fb-mock-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #e4e6eb;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .fb-check {
+    color: #2e89ff;
+    font-size: 1rem;
+  }
+  .fb-mock-likes {
+    color: #b0b3b8;
+    font-size: 0.85rem;
+    margin-top: 2px;
+  }
+  .fb-mock-btns {
+    display: flex;
+    gap: 10px;
+  }
+  .fb-btn-blue {
+    background: #0866ff;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+  }
+  .fb-btn-gray {
+    background: #3a3b3c;
+    color: #e4e6eb;
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    border: none;
+  }
+  .rec-badge {
+    background: var(--red);
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+</style>
+</head>
+<body>
+
+  <header class="header">
+    <div class="badge">Facebook Cover Photo Kit</div>
+    <h1>Service7 Cover Photos</h1>
+    <p class="lead">
+      Exported at master resolution (<strong>1640 &times; 624 px</strong>) matching s7.ma's dark studio aesthetics, built with responsive mobile & desktop safe areas.
+    </p>
+  </header>
+
+  <div class="container">
+
+    <!-- Mockup Preview with Recommended Setup -->
+    <div class="fb-page-mockup">
+      <img class="fb-mock-cover" src="./1_s7_cover_studio_hero.png" alt="Facebook Cover Simulator">
+      <div class="fb-mock-bar">
+        <img class="fb-mock-avatar" src="../profile-pics/4_s7_circular_tech_badge.png" alt="Service7 Avatar">
+        <div class="fb-mock-info">
+          <div class="fb-mock-title">Service7 <span class="fb-check">&check;</span></div>
+          <div class="fb-mock-likes">Software Company &bull; s7.ma</div>
+        </div>
+        <div class="fb-mock-btns">
+          <button class="fb-btn-blue">Contact Us</button>
+          <button class="fb-btn-gray">Message</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Variant 1 -->
+    <div class="cover-card">
+      <div class="card-top">
+        <div class="title-group">
+          <div style="display:flex; align-items:center; gap:10px;">
+            <h2>1. Studio Hero (Official Brand Banner)</h2>
+            <span class="rec-badge">Recommended</span>
+          </div>
+          <p>Features "Premium software. Built to last.", product tags (PilPod, ReqTone, Engineering), s7.ma domain, and floating emblem card.</p>
+        </div>
+        <a class="btn-download" href="./1_s7_cover_studio_hero.png" download>Download 1640&times;624 PNG</a>
+      </div>
+      <div class="cover-preview-box">
+        <img class="cover-img" src="./1_s7_cover_studio_hero.png" alt="Studio Hero Cover">
+      </div>
+    </div>
+
+    <!-- Variant 2 -->
+    <div class="cover-card">
+      <div class="card-top">
+        <div class="title-group">
+          <h2>2. Engineering Studio & Products</h2>
+          <p>Focuses on technical craftsmanship, featuring live product chips (ReqTone & PilPod) and code manifest.</p>
+        </div>
+        <a class="btn-download" href="./2_s7_cover_engineering_focus.png" download>Download 1640&times;624 PNG</a>
+      </div>
+      <div class="cover-preview-box">
+        <img class="cover-img" src="./2_s7_cover_engineering_focus.png" alt="Engineering Studio Cover">
+      </div>
+    </div>
+
+    <!-- Variant 3 -->
+    <div class="cover-card">
+      <div class="card-top">
+        <div class="title-group">
+          <h2>3. The S7 Standard (Commitments Manifesto)</h2>
+          <p>Highlights the core pillars: Local First, Privacy First, Fast by Design, User Ownership.</p>
+        </div>
+        <a class="btn-download" href="./3_s7_cover_the_standard.png" download>Download 1640&times;624 PNG</a>
+      </div>
+      <div class="cover-preview-box">
+        <img class="cover-img" src="./3_s7_cover_the_standard.png" alt="The Standard Cover">
+      </div>
+    </div>
+
+    <!-- Variant 4 -->
+    <div class="cover-card">
+      <div class="card-top">
+        <div class="title-group">
+          <h2>4. Light / Warm Paper Edition</h2>
+          <p>Warm paper (#F6F3EE) light-mode design with deep charcoal typography (#14110F) and crimson mark.</p>
+        </div>
+        <a class="btn-download" href="./4_s7_cover_light_paper.png" download>Download 1640&times;624 PNG</a>
+      </div>
+      <div class="cover-preview-box">
+        <img class="cover-img" src="./4_s7_cover_light_paper.png" alt="Light Paper Cover">
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>

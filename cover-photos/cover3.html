@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<style>
+  @font-face {
+    font-family: 'Geist';
+    src: url('c:/Users/T14/Desktop/s7/s7 site/s7-webapp/src/assets/fonts/geist-latin.woff2') format('woff2-variations');
+    font-weight: 100 900;
+  }
+  @font-face {
+    font-family: 'Geist Mono';
+    src: url('c:/Users/T14/Desktop/s7/s7 site/s7-webapp/src/assets/fonts/geist-mono-latin.woff2') format('woff2-variations');
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    width: 1640px;
+    height: 624px;
+    overflow: hidden;
+    background: #0A0A0B;
+    color: #F2EFEA;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    position: relative;
+    
+  }
+
+  
+        .standard-cover {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 110px;
+        }
+        .std-left {
+            max-width: 620px;
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+        .std-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Geist Mono', monospace;
+            font-size: 13px;
+            color: #C8323C;
+            letter-spacing: 0.18em;
+            font-weight: 600;
+        }
+        .std-h2 {
+            font-size: 46px;
+            font-weight: 700;
+            line-height: 1.15;
+            letter-spacing: -0.03em;
+            color: #F2EFEA;
+        }
+        .std-p {
+            font-size: 17px;
+            line-height: 1.6;
+            color: rgba(242, 239, 234, 0.65);
+        }
+        .std-url {
+            font-family: 'Geist Mono', monospace;
+            font-size: 13px;
+            color: rgba(242, 239, 234, 0.4);
+            letter-spacing: 0.2em;
+            margin-top: 8px;
+        }
+        .std-pillars {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 500px;
+        }
+        .pillar-row {
+            display: flex;
+            align-items: center;
+            padding: 14px 20px;
+            background: rgba(255, 255, 255, 0.025);
+            border: 1px solid rgba(242, 239, 234, 0.07);
+            border-radius: 12px;
+            gap: 16px;
+        }
+        .p-num {
+            font-family: 'Geist Mono', monospace;
+            font-size: 13px;
+            color: #C8323C;
+            font-weight: 600;
+        }
+        .p-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #F2EFEA;
+            width: 140px;
+        }
+        .p-desc {
+            font-size: 13px;
+            color: rgba(242, 239, 234, 0.5);
+            margin-left: auto;
+        }
+        
+</style>
+</head>
+<body>
+  
+        <div class="standard-cover">
+            <div class="std-left">
+                <div class="std-eyebrow">
+                    <svg width="18" height="18" viewBox="0 0 32 32">
+                        <g fill="none" stroke="#C8323C" stroke-width="2">
+                            <rect x="9" y="9" width="14" height="14"/>
+                            <rect x="9" y="9" width="14" height="14" transform="rotate(45 16 16)"/>
+                        </g>
+                    </svg>
+                    <span>THE S7 STANDARD</span>
+                </div>
+                <h2 class="std-h2">Seven commitments behind every release.</h2>
+                <p class="std-p">A set of engineering constraints we hold ourselves to, because they are what make software still feel good ten years after it shipped.</p>
+                <div class="std-url">VISIT S7.MA</div>
+            </div>
+
+            <div class="std-pillars">
+                <div class="pillar-row">
+                    <span class="p-num">01</span>
+                    <span class="p-title">Local First</span>
+                    <span class="p-desc">Your data stays on your machine</span>
+                </div>
+                <div class="pillar-row">
+                    <span class="p-num">02</span>
+                    <span class="p-title">Privacy First</span>
+                    <span class="p-desc">No tracking, no profiling</span>
+                </div>
+                <div class="pillar-row">
+                    <span class="p-num">03</span>
+                    <span class="p-title">Fast by Design</span>
+                    <span class="p-desc">Performance is an early choice</span>
+                </div>
+                <div class="pillar-row">
+                    <span class="p-num">04</span>
+                    <span class="p-title">User Ownership</span>
+                    <span class="p-desc">Open formats, zero lock-in</span>
+                </div>
+            </div>
+        </div>
+        
+</body>
+</html>
