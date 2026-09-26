@@ -282,6 +282,19 @@
   filter: saturate(0.92);
   transition: transform 0.5s var(--ease-soft), filter 0.5s var(--ease-soft);
 }
+img.product-glyph.brand {
+  object-fit: contain;
+  border-radius: 8px;
+}
+/*
+ * A shipped logo is a brand asset, not a decoration: no saturation grading on
+ * it, so PilPod's reds and greens are exactly the ones in the PNG. The lift on
+ * hover stays. (Drawn marks keep the grading — they are ours to tune.)
+ */
+img.product-glyph.brand,
+.product:hover img.product-glyph.brand {
+  filter: none;
+}
 .product:hover .product-glyph.brand {
   transform: translateY(-2px);
   filter: saturate(1.06);
@@ -587,31 +600,32 @@
   background: linear-gradient(90deg, transparent, rgba(134, 98, 10, 0.5), transparent);
 }
 
-/* ---------------------------------------------- the whole card is a link -- */
+/* ----------------------------------------- clickable elements in the card -- */
 
 /*
- * A "stretched link": the real anchor keeps the accessible name and the single
- * tab stop, while a transparent overlay makes the entire card the click
- * target. Better than wrapping the card in an <a>, which would swallow the
- * heading and the badge into one long link name.
+ * Only the icon, the title and the "Product overview" link are click targets.
+ * The card hover effects (glow, border lift) are purely cosmetic.
  */
-.product:has(.product-link) {
-  cursor: pointer;
+.product-glyph-link {
+  display: inline-block;
+  line-height: 0;
+  text-decoration: none;
+  color: inherit;
 }
-.product-link::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  border-radius: inherit;
+.product h3 a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s var(--ease-soft);
 }
-/* The card, not just the small link, shows the focus ring. */
-.product:has(.product-link:focus-visible) {
-  outline: 1.5px solid var(--focus);
-  outline-offset: 4px;
+.product h3 a:hover {
+  color: var(--brand);
 }
+.product h3 a:focus-visible,
+.product-glyph-link:focus-visible,
 .product-link:focus-visible {
-  outline: none;
+  outline: 1.5px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 /* A shipped product gets the studio's own accent rather than a status colour. */

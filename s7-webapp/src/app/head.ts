@@ -14,6 +14,13 @@ const absolute = (path: string): string => ORIGIN + (path === '/' ? '/' : path);
 const HREFLANG: Record<Lang, string> = { en: 'en', fr: 'fr' };
 const OG_LOCALE: Record<Lang, string> = { en: 'en_US', fr: 'fr_FR' };
 
+/**
+ * The favicon's MIME type. Product routes swap the icon per page, and a PNG
+ * announced as SVG is dropped by some browsers, so the type follows the file.
+ */
+const iconType = (href: string): string =>
+  href.endsWith('.png') ? 'image/png' : href.endsWith('.ico') ? 'image/x-icon' : 'image/svg+xml';
+
 /* ------------------------------------------------------- build-time <head> */
 
 /**
@@ -57,7 +64,7 @@ export function headTags(meta: RouteMeta, lang: Lang): HeadTags {
     `<meta name="twitter:title" content="${esc(meta.ogTitle)}">`,
     `<meta name="twitter:description" content="${esc(meta.ogDescription)}">`,
     ``,
-    `<link rel="icon" id="favicon" href="${meta.icon ?? S7_FAVICON}"${meta.icon ? ' type="image/svg+xml"' : ''}>`,
+    `<link rel="icon" id="favicon" href="${meta.icon ?? S7_FAVICON}" type="${iconType(meta.icon ?? S7_FAVICON)}">`,
   );
 
   if (meta.jsonLd) {
@@ -122,7 +129,11 @@ export function applyMeta(meta: RouteMeta, lang: Lang): void {
   }
 
   const icon = document.getElementById('favicon');
-  if (icon) icon.setAttribute('href', meta.icon ?? S7_FAVICON);
+  if (icon) {
+    const href = meta.icon ?? S7_FAVICON;
+    icon.setAttribute('href', href);
+    icon.setAttribute('type', iconType(href));
+  }
 
   // Structured data: the only head tag that can legitimately appear or vanish
   // between routes (the 404 has none).

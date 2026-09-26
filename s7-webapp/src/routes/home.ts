@@ -89,8 +89,8 @@ export const home: Route = {
           <span class="product-idx">01</span>
           <span class="badge live">${t.home.badgeLive}</span>
         </div>
-        ${pilpodMark('product-glyph brand')}
-        <h3>PilPod</h3>
+        <a class="product-glyph-link" href="${href('/pilpod')}">${pilpodMark('product-glyph brand')}</a>
+        <h3><a href="${href('/pilpod')}">PilPod</a></h3>
         <p class="kind">${t.home.pilpodKind}</p>
         <p>${t.home.pilpodBody}</p>
         <a class="product-link" href="${href('/pilpod')}">
@@ -104,8 +104,8 @@ export const home: Route = {
           <span class="product-idx">02</span>
           <span class="badge pre">${t.home.badgePre}</span>
         </div>
-        ${reqtoneMark('rt-card', 'product-glyph brand')}
-        <h3>ReqTone</h3>
+        <a class="product-glyph-link" href="${href('/reqtone')}">${reqtoneMark('rt-card', 'product-glyph brand')}</a>
+        <h3><a href="${href('/reqtone')}">ReqTone</a></h3>
         <p class="kind">${t.home.reqtoneKind}</p>
         <p>${t.home.reqtoneBody}</p>
         <a class="product-link" href="${href('/reqtone')}">

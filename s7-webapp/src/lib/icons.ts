@@ -85,23 +85,17 @@ export const moonIcon = (cls = '') => /* html */ `
 </svg>`;
 
 /**
- * The PilPod mark — a flat reduction of the product icon: three stacked media
- * cards rising out of the blue pod. Drawn rather than shipped as the 250 kB
- * PNG, so it stays crisp from 16px to the hero and costs a few hundred bytes.
+ * The PilPod mark — the real product logo, shipped as a raster PNG.
+ *
+ * `pilpod.png` is the 512px master. `pilpod-176.png` is the same image scaled
+ * down (33 kB rather than 244 kB) and is what the card and the hero actually
+ * need: 176 is 2x the largest CSS size the mark is ever drawn at. The master
+ * stays in the srcset for displays beyond 2x.
  */
 export const pilpodMark = (cls = '', label = 'PilPod') => /* html */ `
-<svg${cls ? ` class="${cls}"` : ''} viewBox="0 0 512 512" role="img" aria-label="${label}">
-  <ellipse cx="256" cy="286" rx="246" ry="52" fill="#1D4ED8"/>
-  <rect x="212" y="16" width="252" height="400" rx="42" fill="#10B981" transform="rotate(4 338 216)"/>
-  <rect x="126" y="58" width="252" height="366" rx="42" fill="#FFC20E" transform="rotate(2 252 241)"/>
-  <rect x="42" y="102" width="252" height="330" rx="42" fill="#F53838"/>
-  <path d="M146 210 L232 266 L146 322 Z" fill="#FFFFFF" stroke="#FFFFFF"
-        stroke-width="18" stroke-linejoin="round"/>
-  <path d="M10 286 a246 52 0 0 0 492 0 v82 a126 126 0 0 1 -126 126 h-240 a126 126 0 0 1 -126 -126 z"
-        fill="#3B82F6"/>
-  <path d="M10 286 a246 52 0 0 0 492 0" fill="none" stroke="#60A5FA" stroke-width="10"
-        stroke-linecap="round" opacity=".55"/>
-</svg>`;
+<img${cls ? ` class="${cls}"` : ''} src="/icons/pilpod-176.png"
+     srcset="/icons/pilpod-176.png 176w, /icons/pilpod.png 512w" sizes="88px"
+     width="176" height="176" alt="${label}" decoding="async" />`;
 
 /** Chrome Web Store / extension puzzle piece, for the PilPod call to action. */
 export const puzzleIcon = (cls = '') => /* html */ `

@@ -22,7 +22,7 @@ export const pilpod: Route = {
       ogDescription: t.pilpod.meta.ogDescription,
       themeColor: '#0F172A',
       themeColorLight: '#F8FAFC',
-      icon: '/icons/pilpod.svg',
+      icon: '/icons/pilpod-64.png',
       alternates: alternates('/pilpod'),
       jsonLd: {
         '@context': 'https://schema.org',

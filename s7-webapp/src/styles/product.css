@@ -545,3 +545,7 @@
 .pd-mark {
   filter: none;
 }
+img.pd-mark {
+  object-fit: contain;
+  border-radius: 14px;
+}
