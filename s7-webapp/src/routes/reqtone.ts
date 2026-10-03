@@ -2,10 +2,12 @@ import type { RenderCtx, Route, RouteMeta } from '../app/types';
 import { alternates, localePath } from '../i18n';
 import { arrow, reqtoneMark } from '../lib/icons';
 import { initReveal } from '../ui/reveal';
+import { REQTONE_DOWNLOAD, REQTONE_VERSION } from '../app/releases';
 
 const pad = (n: number): string => (n < 10 ? '0' : '') + n;
 
-/** Rows of the platform table that carry a "not ready yet" colour. */
+/** Row 0 (Windows) is published and reads green; rows 1–2 (macOS, Linux)
+    carry the "not ready yet" colour. */
 const WARN_ROWS = 3;
 
 export const reqtone: Route = {
@@ -29,9 +31,11 @@ export const reqtone: Route = {
         '@type': 'SoftwareApplication',
         name: 'ReqTone',
         applicationCategory: 'DeveloperApplication',
-        operatingSystem: 'Windows, macOS, Linux',
-        softwareVersion: '0.1.0',
+        operatingSystem: 'Windows',
+        softwareVersion: REQTONE_VERSION,
         url: 'https://reqtone.com/',
+        downloadUrl: REQTONE_DOWNLOAD,
+        offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
         description: t.reqtone.meta.jsonLdDescription,
         publisher: { '@type': 'Organization', name: 'S7', url: 'https://s7.ma/' },
       },
@@ -99,12 +103,16 @@ export const reqtone: Route = {
     </p>
 
     <div class="pd-cta rv" style="--d:220ms">
-      <a class="btn btn-primary" href="https://reqtone.com/" target="_blank" rel="noopener">
+      <a class="btn btn-primary" href="${REQTONE_DOWNLOAD}" target="_blank" rel="noopener">
+        ${r.ctaDownload}
+        ${arrow()}
+      </a>
+      <a class="btn btn-ghost" href="https://reqtone.com/" target="_blank" rel="noopener">
         ${r.ctaVisit}
         ${arrow()}
       </a>
       <a class="btn btn-ghost" href="${href('/#products')}">${r.ctaAll}</a>
-      <span class="status-pill"><i></i> ${r.statusPill}</span>
+      <span class="status-pill is-live"><i></i> ${r.statusPill}</span>
     </div>
   </section>
 
@@ -170,7 +178,7 @@ export const reqtone: Route = {
         ${r.platforms
           .map(
             ([k, v], i) =>
-              `<div><dt>${k}</dt><dd${i < WARN_ROWS ? ' class="v"' : ''}>${v}</dd></div>`,
+              `<div><dt>${k}</dt><dd${i === 0 ? ' class="ok"' : i < WARN_ROWS ? ' class="v"' : ''}>${v}</dd></div>`,
           )
           .join('\n        ')}
       </dl>

@@ -99,10 +99,10 @@ export const home: Route = {
         </a>
       </article>
 
-      <article class="product is-pre rv" style="--d:120ms">
+      <article class="product is-live rv" style="--d:120ms">
         <div class="product-top">
           <span class="product-idx">02</span>
-          <span class="badge pre">${t.home.badgePre}</span>
+          <span class="badge live">${t.home.badgeLive}</span>
         </div>
         <a class="product-glyph-link" href="${href('/reqtone')}">${reqtoneMark('rt-card', 'product-glyph brand')}</a>
         <h3><a href="${href('/reqtone')}">ReqTone</a></h3>

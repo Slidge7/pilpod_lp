@@ -1,5 +1,6 @@
 import type { Dict } from './en';
 import type { Pair, Feature } from './types';
+import { REQTONE_VERSION } from '../app/releases';
 
 /**
  * Français.
@@ -91,7 +92,7 @@ export const fr: Dict = {
     meta1: 'Basé au Maroc',
     meta2: 'Priorité au local',
     meta3: 'Respect de la vie privée',
-    meta4: 'Deux produits en développement',
+    meta4: 'Deux produits publiés',
 
     productsLabel: '01 — Produits',
     productsHeading: 'Un studio. Un écosystème.',
@@ -156,11 +157,12 @@ export const fr: Dict = {
       ['Enveloppe', 'Tauri v2'],
       ['Cœur', 'Rust + reqwest'],
       ['Stockage', 'SQLite'],
-      ['Version', '0.1.0'],
+      ['Version', REQTONE_VERSION],
     ] as Pair[],
+    ctaDownload: 'Télécharger pour Windows',
     ctaVisit: 'Visiter reqtone.com',
     ctaAll: 'Tous les produits S7',
-    statusPill: 'Préversion · v0.1.0 non publiée',
+    statusPill: `Disponible · v${REQTONE_VERSION} pour Windows · gratuit`,
 
     productLabel: 'Le produit',
     productHeading: 'Pensé pour la boucle que vous faites vraiment.',
@@ -328,15 +330,16 @@ export const fr: Dict = {
     ] as Feature[],
 
     statusLabel: 'Où en est le projet',
-    statusHeading: 'Transparent sur son état d’avancement.',
+    statusHeading: 'Disponible sur Windows. Transparent sur le reste.',
     statusBody:
-      "ReqTone est en préversion 0.1.0 et n'a pas encore été publié. L'application se compile, mais la signature de code reste le seul obstacle entre elle et un lien de téléchargement — et S7 ne distribue pas de binaires non signés à ceux qui lui font confiance.",
+      `ReqTone v${REQTONE_VERSION} est publié pour Windows 10 et 11 — gratuit, sans compte. L'installeur n'est pas encore signé : Windows SmartScreen affiche donc un avertissement avant de le lancer. La page de téléchargement sur reqtone.com montre les deux clics pour passer cet avertissement et le SHA-256 pour vérifier le fichier avant. macOS et Linux ne sont pas encore publiés.`,
     statusNote: 'État tel que publié sur reqtone.com',
     platforms: [
-      ['Windows', 'Compile, non publié'],
+      ['Windows', 'Publié — installeur .exe, pas encore signé'],
       ['macOS', 'Chaîne de build non vérifiée'],
       ['Linux', 'Pas encore de pipeline'],
-      ['Version', 'v0.1.0 — préversion'],
+      ['Version', `v${REQTONE_VERSION}`],
+      ['Prix', 'Gratuit — sans compte'],
       ['Construit avec', 'Rust · Tauri v2 · SQLite'],
     ] as Pair[],
   },

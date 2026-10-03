@@ -10,6 +10,7 @@
  * never put user input in a dictionary.
  */
 import type { Pair, Feature } from './types';
+import { REQTONE_VERSION } from '../app/releases';
 
 export const en = {
   /** BCP-47 tag for <html lang> and Intl. */
@@ -88,7 +89,7 @@ export const en = {
     meta1: 'Est. Morocco',
     meta2: 'Local-first',
     meta3: 'Privacy-conscious',
-    meta4: 'Two products in build',
+    meta4: 'Two products shipped',
 
     productsLabel: '01 — Products',
     productsHeading: 'One studio. One ecosystem.',
@@ -153,11 +154,12 @@ export const en = {
       ['Shell', 'Tauri v2'],
       ['Core', 'Rust + reqwest'],
       ['Storage', 'SQLite'],
-      ['Version', '0.1.0'],
+      ['Version', REQTONE_VERSION],
     ] as Pair[],
+    ctaDownload: 'Download for Windows',
     ctaVisit: 'Visit reqtone.com',
     ctaAll: 'All S7 products',
-    statusPill: 'Pre-release · v0.1.0 not published',
+    statusPill: `Available · v${REQTONE_VERSION} for Windows · free`,
 
     productLabel: 'The product',
     productHeading: 'Built for the loop you actually run.',
@@ -320,15 +322,16 @@ export const en = {
     ] as Feature[],
 
     statusLabel: 'Where it stands',
-    statusHeading: 'Honest about the stage it is at.',
+    statusHeading: 'Out on Windows. Honest about the rest.',
     statusBody:
-      'ReqTone is pre-release at v0.1.0 and has not been published. The application builds, but code signing is the blocker standing between it and a download link — and S7 does not ship unsigned binaries to people who trust it.',
+      `ReqTone v${REQTONE_VERSION} is published for Windows 10 and 11 — free, with no account. The installer is not code-signed yet, so Windows SmartScreen warns before it runs; the download page on reqtone.com shows the two clicks past that warning and the SHA-256 to check the file against first. macOS and Linux are not published yet.`,
     statusNote: 'Status as published on reqtone.com',
     platforms: [
-      ['Windows', 'Builds, not published'],
+      ['Windows', 'Published — setup .exe, not yet signed'],
       ['macOS', 'Build job unverified'],
       ['Linux', 'No pipeline yet'],
-      ['Version', 'v0.1.0 — pre-release'],
+      ['Version', `v${REQTONE_VERSION}`],
+      ['Price', 'Free — no account'],
       ['Built with', 'Rust · Tauri v2 · SQLite'],
     ] as Pair[],
   },
