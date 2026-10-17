@@ -14,3 +14,14 @@ export type Lang = 'en' | 'fr';
 export const LANGS: readonly Lang[] = ['en', 'fr'];
 
 export const isLang = (v: unknown): v is Lang => v === 'en' || v === 'fr';
+
+/** Three related strings: a flow step (where, what, detail) or a screenshot (tag, caption, alt). */
+export type Triple = readonly [string, string, string];
+
+/** A section of a long-form page: an anchor id, a heading, paragraphs, then an optional list. */
+export interface DocSection {
+  readonly id: string;
+  readonly title: string;
+  readonly paras: readonly string[];
+  readonly list: readonly string[];
+}

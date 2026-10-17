@@ -103,3 +103,12 @@ export const puzzleIcon = (cls = '') => /* html */ `
      stroke-width="1.4" stroke-linejoin="round" aria-hidden="true">
   <path d="M6.2 2.2a1.5 1.5 0 0 1 3 0V3h2.3a.7.7 0 0 1 .7.7V6h.8a1.5 1.5 0 0 1 0 3h-.8v2.3a.7.7 0 0 1-.7.7H9.2v-.8a1.5 1.5 0 0 0-3 0v.8H3.9a.7.7 0 0 1-.7-.7V9.7h.8a1.5 1.5 0 0 0 0-3h-.8V3.7a.7.7 0 0 1 .7-.7h2.3z"/>
 </svg>`;
+
+/**
+ * The X3Companion mark — the desktop app's own icon (512px master, 176px for
+ * the card and the hero, 64px for the favicon).
+ */
+export const x3Mark = (cls = '', label = 'X3Companion') => /* html */ `
+<img${cls ? ` class="${cls}"` : ''} src="/icons/x3companion-176.png"
+     srcset="/icons/x3companion-176.png 176w, /icons/x3companion.png 512w" sizes="88px"
+     width="176" height="176" alt="${label}" decoding="async" />`;

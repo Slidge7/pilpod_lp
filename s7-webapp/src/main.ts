@@ -16,6 +16,7 @@ import './styles/transitions.css';
 import './styles/home.css';
 import './styles/product.css';
 import './styles/services.css';
+import './styles/x3companion.css';
 import './styles/contact.css';
 import './styles/notfound.css';
 

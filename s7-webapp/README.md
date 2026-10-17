@@ -4,7 +4,7 @@ The studio site, as a single-page application in English and French, dark and
 light. Internal links never reload the page, and the backdrop no longer drops
 frames.
 
-Pages: home, **Services**, **PilPod**, ReqTone, **Contact**, 404 — each in both
+Pages: home, **Services**, **PilPod**, ReqTone, **Contact**, 404 (plus the unlisted X3Companion section, below) — each in both
 languages, each prerendered.
 
 - **No framework, no runtime dependencies.** TypeScript + Vite, pure CSS.
@@ -38,13 +38,13 @@ src/
   router/scroll.ts      per-entry scroll restoration, anchor offsets
   app/shell.ts          nav, time strip, backdrop, footer (rendered once)
   app/head.ts           per-route <head>: build time and runtime
-  routes/               home, services, pilpod, reqtone, contact, notfound
+  routes/               home, services, pilpod, reqtone, x3companion, contact, notfound
   i18n/                 en.ts is the source dictionary, fr.ts must match its shape
   ui/                   clock, nav, menu, reveal, standard ledger, pointer lens,
                         theme toggle, contact form
   lib/                  icons, contact-submit (Firestore over REST)
-  styles/               tokens (3 themes × 2 modes), base, ambient, nav, controls,
-                        transitions, home, product, services, contact, notfound
+  styles/               tokens (4 themes × 2 modes), base, ambient, nav, controls,
+                        transitions, home, product, x3companion, services, contact, notfound
 firestore.rules         who may write to the messages collection
 scripts/prerender.mjs   writes dist/index.html, dist/reqtone/index.html, dist/404.html,
                         sitemap.xml, font preloads, CSP
@@ -248,3 +248,43 @@ and re-run the audit.
 5. Run `firebase deploy`.
 6. In Google Search Console, resubmit `sitemap.xml` — it now lists 10 URLs
    across both languages.
+
+## X3Companion section (unlisted)
+
+**Not announced yet.** These pages are reachable by their URL only: nothing on
+the rest of the site links to them (no home card, no footer link, no contact
+topic), every page carries `noindex, nofollow`, and they are left out of
+`sitemap.xml`. To launch: remove `robots: X3_ROBOTS` in `src/routes/x3/shared.ts`
+and `privacy-extension.ts`, then add the home card, the footer link and the
+contact topic back.
+
+X3Companion is a small site inside this one, with its own sticky product bar
+under the studio nav:
+
+| Page | Path | Route file |
+|---|---|---|
+| Overview | `/x3companion` | `src/routes/x3/home.ts` |
+| Features | `/x3companion/features` | `src/routes/x3/features.ts` |
+| Docs | `/x3companion/docs` | `src/routes/x3/docs.ts` |
+| Privacy policy | `/x3companion/privacy` | `src/routes/x3/privacy.ts` |
+
+Each exists in French under `/fr/…`. Everything the pages share — the product
+bar, head tags, the closing call to action, the docs layout with its table of
+contents — is in `src/routes/x3/shared.ts`. To add a page: add its strings
+under `x3` in both dictionaries, add its key to `PAGES`/`X3_PATH` and to
+`nav` in the dictionaries, create the route file, and list it in
+`src/routes/index.ts`.
+
+- Theme `x3` (tokens in `tokens.css`, backdrop in `ambient.css`, styles in
+  `styles/x3companion.css`).
+- The product pages are written for business buyers and never say
+  "extension"; features are "added" or "streamed" into Sage X3. The docs and
+  the privacy policy name the browser part **X3Companion for Chrome**, because
+  IT has to install it and the policy has to say what it reads.
+- `/x3companion/privacy` is written to serve as the Chrome Web Store privacy
+  policy URL (it includes the Limited Use statement).
+- Screenshots in `public/x3companion/` use invented data only. Keep it that way.
+- The Sage trademark notice at the bottom of every page must stay.
+- The features page marks user control and home pages as "Built for each
+  company", not live. Update `features.platforms` in both dictionaries when
+  that changes.

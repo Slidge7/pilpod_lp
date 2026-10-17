@@ -65,7 +65,8 @@
 }
 :root[data-theme='s7'] .amb-s7,
 :root[data-theme='reqtone'] .amb-reqtone,
-:root[data-theme='pilpod'] .amb-pilpod {
+:root[data-theme='pilpod'] .amb-pilpod,
+:root[data-theme='x3'] .amb-x3 {
   opacity: 1;
   visibility: visible;
   transition: opacity 0.7s var(--ease-soft), visibility 0s;
@@ -79,7 +80,8 @@
 }
 :root[data-theme='s7'] .amb-s7 .glow,
 :root[data-theme='reqtone'] .amb-reqtone .glow,
-:root[data-theme='pilpod'] .amb-pilpod .glow {
+:root[data-theme='pilpod'] .amb-pilpod .glow,
+:root[data-theme='x3'] .amb-x3 .glow {
   animation-play-state: running;
 }
 
@@ -221,6 +223,32 @@
 :root[data-mode='light'] .rt-glow-b { --a: 0.034; }
 :root[data-mode='light'] .pp-glow-a { --a: 0.07; }
 :root[data-mode='light'] .pp-glow-b { --a: 0.05; }
+
+/* X3Companion — the product's green, and a faint amber for the pilot. */
+.x3-glow-a {
+  --c: 20 150 104;
+  --a: 0.11;
+  width: 60vw;
+  height: 60vw;
+  min-width: 480px;
+  min-height: 480px;
+  top: -26vw;
+  right: -10vw;
+  animation: driftA 54s var(--ease-soft) infinite alternate;
+}
+.x3-glow-b {
+  --c: 240 168 48;
+  --a: 0.05;
+  width: 46vw;
+  height: 46vw;
+  min-width: 420px;
+  min-height: 420px;
+  top: 52vh;
+  left: -16vw;
+  animation: driftB 66s var(--ease-soft) infinite alternate;
+}
+:root[data-mode='light'] .x3-glow-a { --a: 0.08; }
+:root[data-mode='light'] .x3-glow-b { --a: 0.04; }
 
 @keyframes driftA {
   from {

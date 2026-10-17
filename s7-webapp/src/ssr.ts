@@ -67,7 +67,7 @@ function build(route: Route, lang: Lang): Page {
     theme: route.theme,
     id: route.id,
     canonical: ORIGIN + (meta.canonicalPath === '/' ? '/' : meta.canonicalPath),
-    indexable: (meta.robots ?? 'index, follow').includes('index,'),
+    indexable: !/\bnoindex\b/.test(meta.robots ?? ''),
   };
 }
 

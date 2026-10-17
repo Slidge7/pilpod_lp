@@ -1,5 +1,5 @@
 /* ============================================================
-   Product pages — ReqTone and PilPod
+   Product pages — ReqTone, PilPod and X3Companion
    ============================================================
 
    Both wear their own product palette on an S7 page: surfaces, ink and accent
@@ -12,13 +12,15 @@
    ============================================================ */
 
 :root[data-theme='reqtone'] h2,
-:root[data-theme='pilpod'] h2 {
+:root[data-theme='pilpod'] h2,
+:root[data-theme='x3'] h2 {
   font-size: clamp(1.75rem, 1.4rem + 1.8vw, 2.75rem);
   line-height: 1.08;
   max-width: 20ch;
 }
 :root[data-theme='reqtone'] .label,
-:root[data-theme='pilpod'] .label {
+:root[data-theme='pilpod'] .label,
+:root[data-theme='x3'] .label {
   color: var(--ink-3);
   margin-bottom: clamp(2rem, 5vw, 3rem);
 }
@@ -468,11 +470,13 @@
 
 /* A product page's reveal is a touch shorter than the studio's */
 :root[data-theme='reqtone'] .rv,
-:root[data-theme='pilpod'] .rv {
+:root[data-theme='pilpod'] .rv,
+:root[data-theme='x3'] .rv {
   transform: translateY(20px);
 }
 :root[data-theme='reqtone'] .rv-on,
-:root[data-theme='pilpod'] .rv-on {
+:root[data-theme='pilpod'] .rv-on,
+:root[data-theme='x3'] .rv-on {
   transform: none;
   transition-duration: 0.9s;
 }

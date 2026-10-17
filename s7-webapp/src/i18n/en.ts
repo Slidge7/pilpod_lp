@@ -9,7 +9,7 @@
  * interpolated into templates, so anything added here is trusted content —
  * never put user input in a dictionary.
  */
-import type { Pair, Feature } from './types';
+import type { Pair, Feature, Triple, DocSection } from './types';
 import { REQTONE_VERSION } from '../app/releases';
 
 export const en = {
@@ -558,6 +558,592 @@ export const en = {
     vMessage: 'A little more detail, please — at least 20 characters.',
     privacyNote:
       'What you send is stored in our own database and used only to answer you. No newsletter, no third parties, no tracking.',
+  },
+
+  x3: {
+    nav: {
+      label: 'X3Companion',
+      overview: 'Overview',
+      features: 'Features',
+      docs: 'Docs',
+      privacy: 'Privacy',
+      cta: 'Request a demo',
+    },
+
+    common: {
+      ctaDemo: 'Request a demo',
+      closeHeading: 'See it inside your own Sage X3.',
+      closeBody:
+        'A first call about your Sage is enough to know what X3Companion can change for your team — and what it would take.',
+      legal:
+        'X3Companion is an independent product by S7. It is not made, sponsored or endorsed by Sage. Sage and Sage X3 are trademarks of The Sage Group plc or its licensors.',
+    },
+
+    /* --------------------------------------------------------- overview -- */
+    home: {
+      meta: {
+        title: 'X3Companion — Change anything in Sage X3, without touching its code | S7',
+        description:
+          'X3Companion lets you edit any Sage X3 screen, add new screens and features, control what each user sees and does, and talk to Sage X3 in plain language — all without touching the Sage X3 code base. On your own network.',
+        ogTitle: 'X3Companion — Change anything in Sage X3, without touching its code',
+        ogDescription:
+          'Edit any screen, add new features, control every user and talk to your data — inside Sage X3, with zero lines of X3 code.',
+        jsonLdDescription:
+          'A layer for Sage X3 that edits existing screens, adds new screens and features, controls what each user sees and does, and adds an AI assistant — inside the Sage X3 web client, without modifying the Sage X3 code base.',
+      },
+      kind: 'Change anything in Sage X3 — without touching its code',
+      lead: 'Every change to Sage X3 usually means 4GL, a scarce X3 developer, a development folder, a patch — and more work at the next upgrade. X3Companion is a layer on top of Sage: <b>edit any screen, add new ones, decide what each user sees and does, and talk to your data — all streamed into Sage X3, without a single line of X3 code.</b>',
+      specs: [
+        ['X3 code changed', 'None'],
+        ['Works in', 'Sage X3, as your users know it'],
+        ['Hosted', 'On your own network'],
+        ['Built with', 'React · Java · Rust'],
+      ] as Pair[],
+      ctaFeatures: 'Explore the features',
+      statusPill: 'Pilot · deployed by S7',
+
+      pillarsLabel: 'What it unlocks',
+      pillarsHeading: 'One layer. Three things Sage could not do before.',
+      pillars: [
+        ['Edit any screen. Add new ones.', 'Change what Sage X3 screens show, add sections, columns and buttons, or create entire new screens and features — inside Sage.', 'Screens & features'],
+        ['Control every user.', 'Decide what each user sees and what they can do, and give each one a home page made for their job.', 'User control'],
+        ['Talk to Sage X3.', 'Ask a question in plain language and get the answer from your own data, as a table or a chart.', 'AI in Sage X3'],
+      ] as Triple[],
+
+      whyLabel: 'Why it exists',
+      whyHeading: 'Sage X3 is a solid ERP. It is a hard place to change.',
+      whyLead:
+        'The usual way to change X3 is to develop inside it. That choice decides the language, who can do the work, how it is tested, how it ships — and what happens every time Sage is updated.',
+      whyCols: ['', 'Developing inside X3', 'With X3Companion'],
+      whyRows: [
+        ['Language', 'X3 4GL, known by few developers', 'React, Java, Rust — what modern developers already use'],
+        ['Who can build it', 'A specialised X3 developer, hard to find and to replace', 'Any full-stack developer'],
+        ['Where the work lives', 'Inside Sage, in the folder’s dictionary and scripts', 'Outside Sage, in its own repository, under version control'],
+        ['Testing', 'By hand, in a Sage test folder', 'Automated tests in seconds, without touching Sage'],
+        ['Shipping', 'Patches, validation, a maintenance window', 'Published from X3Companion; Sage is not touched'],
+        ['Sage upgrades', 'Specific code to review, re-port and re-test', 'No X3 code to port; only the table definitions are re-checked'],
+        ['When something breaks', 'It can break the screen people enter orders in', 'The new feature shows an error; Sage keeps working'],
+      ] as Triple[],
+
+      shotLabel: 'In Sage',
+      shotHeading: 'Built outside Sage. Shown inside it.',
+      shotLead:
+        'Same fonts, same sections, same filters and the same French your team reads all day. Users do not know — or need to know — that none of it is X3 code.',
+      shotCaption: 'Récap devis — a new screen added to Sage X3: every quote for a period, with its order, delivery and invoicing status.',
+      shotAlt: 'The Récap devis screen inside Sage X3: period filters, then a table of quotes with ordered, delivered and invoiced status.',
+      shotNote: 'Invented data',
+      shotLink: 'All the features',
+
+      flowLabel: 'How it works',
+      flowHeading: 'Sage stays as it is. Everything new is added on top.',
+      flowLead:
+        'X3Companion runs on a machine next to Sage, on your network. It reads Sage, applies your rules, and streams the new screens and features into Sage X3 for each user. No change inside X3, and no S7 cloud in the middle.',
+      flow: [
+        ['Untouched', 'Sage X3', 'Your folder, your code, your setup — exactly as they are today.'],
+        ['Your network', 'X3Companion', 'Reads Sage safely and holds every new screen, feature and rule.'],
+        ['Your rules', 'Per user, per role', 'Who sees what, who can do what, whose home page shows what.'],
+        ['Your users', 'Sage X3, upgraded', 'The new screens and features appear inside Sage, as part of it.'],
+      ] as Triple[],
+      flowLink: 'Read the technical overview',
+
+      trustLabel: 'Why IT says yes',
+      trust: [
+        ['Zero lines of X3 code', 'Nothing added to the folder’s dictionary — no script, no screen, no patch. Remove X3Companion and Sage is exactly as it was.'],
+        ['Upgrades stop being a project', 'Everything built depends on tables, not on X3 code. A Sage update means re-checking definitions, not re-porting programs.'],
+        ['Your data stays home', 'It runs on your network, reads through a read-only login, and sends nothing to S7 — ever.'],
+      ] as Pair[],
+    },
+
+    /* --------------------------------------------------------- features -- */
+    features: {
+      meta: {
+        title: 'Features — X3Companion for Sage X3 | S7',
+        description:
+          'Edit any Sage X3 screen, add new screens and features, control what each user sees and does with per-role home pages, and talk to Sage X3 with an AI assistant — without touching the Sage X3 code base.',
+        ogTitle: 'X3Companion features — screens, user control and AI in Sage X3',
+        ogDescription: 'What X3Companion adds to Sage X3, with examples: new screens and features, a user control layer, and AI.',
+      },
+      label: 'Features',
+      h1: 'Everything it adds to Sage X3.',
+      lead: 'Three families of features, all streamed into the Sage X3 screens your team already uses — and none of them written in X3.',
+
+      screensLabel: '01 — Screens & features',
+      screensHeading: 'Edit any screen. Add new screens and features.',
+      screensLead:
+        'Whatever your team keeps exporting to Excel, asking IT for, or doing by hand between three screens can live inside Sage X3 itself — next to the screens they already use.',
+      screensGroups: [
+        [
+          'Change existing screens',
+          [
+            '<b>Add a section</b> — all of a customer’s quotes, orders and invoices on the customer screen',
+            '<b>Add a column or an indicator</b> — the customer’s open balance on the order screen',
+            '<b>Rename labels</b> in your company’s own vocabulary',
+            '<b>Hide the fields</b> nobody in your company fills in',
+            '<b>Highlight what matters</b> — overdue invoices in red, blocked customers flagged',
+          ],
+        ],
+        [
+          'Add new screens',
+          [
+            '<b>Recaps</b> of quotes and orders, with their delivery and invoicing status',
+            '<b>Dashboards</b> per sales rep, per site, per product family',
+            '<b>Collections follow-up</b> — who owes what, since when',
+            '<b>Stock views</b> by warehouse, with what is reserved and what is coming',
+            '<b>Analyses</b> of conversion, margins and delays, against last period',
+          ],
+        ],
+        [
+          'Add new features',
+          [
+            '<b>The full trail</b> of any document, quote to invoice, in one click',
+            '<b>Delays</b> measured between every step of the sales cycle',
+            '<b>Exports</b> to Excel or CSV from any new screen',
+            '<b>Buttons and shortcuts</b> that take users straight where they need to go',
+            '<b>Alerts</b> when something needs someone’s attention',
+          ],
+        ],
+      ] as Feature[],
+      shotsHeading: 'Already running in Sage X3',
+      shots: [
+        ['Récap devis', 'A new screen: every quote for a period, with its rep, its order, and whether it was delivered and invoiced — with totals and CSV export.', 'The Récap devis screen inside Sage X3: period filters, then a table of quotes with ordered, delivered and invoiced status.'],
+        ['Délais', 'A new feature on any order: the time between each step, from quote to invoice.', 'An order’s Délais tab: quote to order, order to delivery and delivery to invoice durations, a cycle bar and a timeline.'],
+        ['Récap commande', 'A new screen: every order with who created it, its quote, deliveries and invoices.', 'The Récap commande screen inside Sage X3: a table of orders with delivery and invoicing status.'],
+      ] as Triple[],
+      shotsNote: 'Screens shown with invented data · same fonts, sections and filters as Sage',
+
+      usersLabel: '02 — User control',
+      usersHeading: 'A control layer for every user.',
+      usersLead:
+        'Sage X3 rights are set screen by screen, deep in its setup. X3Companion adds a layer above them: decide, user by user or role by role, what appears and what is allowed — from one place, applied within a minute.',
+      usersGroups: [
+        [
+          'What each user sees',
+          [
+            '<b>Hide cost prices and margins</b> from sales reps',
+            '<b>Show each rep only their own</b> customers, quotes and figures',
+            '<b>Mask columns and sections</b> that are not someone’s business',
+            '<b>Simplify screens</b> for occasional users: only the fields they need',
+          ],
+        ],
+        [
+          'What each user can do',
+          [
+            '<b>Allow or block</b> a screen, a button or an export, per user',
+            '<b>Read-only access</b> for interns, auditors or a new hire',
+            '<b>Turn a feature on</b> for one team before everyone else',
+            '<b>Revoke access at once</b> when someone leaves',
+          ],
+        ],
+      ] as Feature[],
+      homesHeading: 'A home page made for each job',
+      homesLead: 'Instead of the same Sage menu for everyone, each user opens Sage X3 on what they actually work on.',
+      homes: [
+        ['Sales rep', ['My quotes to follow up', 'My orders not yet delivered', 'My month against target']],
+        ['Accountant', ['Invoices overdue, by age', 'Deliveries not yet invoiced', 'Today’s payments']],
+        ['Sales manager', ['Team conversion this quarter', 'Biggest open quotes', 'Delays, rep by rep']],
+        ['Warehouse', ['Today’s shipments', 'Orders waiting on stock', 'Late deliveries']],
+      ] as Feature[],
+
+      aiLabel: '03 — AI in Sage X3',
+      aiHeading: 'Talk to Sage X3.',
+      aiLead:
+        'An assistant on every Sage screen. Ask in plain language — French, English or both — and get the answer from your own data, as a sentence, a table or a chart. No report to request, no export to rebuild.',
+      aiChatBar: 'Assistant · in Sage X3',
+      aiQ1: 'Which quotes over 50,000 MAD from last month have not become orders yet?',
+      aiA1: 'Four quotes, 286,400 MAD in total. The oldest is 27 days old.',
+      aiTableHead: ['Quote', 'Customer', 'Rep', 'Amount excl. tax'],
+      aiTableRows: [
+        ['DE2618231', 'ATLAS NEGOCE', 'N. Berrada', '98,200'],
+        ['DE2618254', 'RIF DISTRIBUTION', 'K. Tazi', '74,650'],
+        ['DE2618270', 'OCEAN TRADING', 'S. Alami', '61,300'],
+        ['DE2618288', 'SOUSS AGRI', 'K. Tazi', '52,250'],
+      ],
+      aiQ2: 'And compare Karim’s conversion rate with the team this quarter.',
+      aiA2: 'Karim converted 38% of his quotes this quarter, against 44% for the team. Chart below.',
+      aiChatNote: 'Invented example',
+      aiPoints: [
+        ['Your data, your vocabulary', 'Teach it how your company talks — “REP_0 is the sales rep”, “our currency is MAD” — once, for everyone.'],
+        ['Numbers from Sage, not invented', 'Every figure in an answer comes straight from your database. The AI chooses what to look up; it never makes up the result.'],
+        ['It reads, it does not touch', 'The assistant can only read, through the same safeguards as every other feature, and you decide who can use it.'],
+      ] as Pair[],
+
+      statusLabel: 'Where it stands',
+      statusHeading: 'What is live, and what is built for you.',
+      statusBody:
+        'X3Companion is in pilot on Sage X3 V12 over SQL Server. New screens and the assistant are running today. The user control layer and home pages are set up for each company during deployment — and if you need a screen Sage does not have, we build it on X3Companion.',
+      platforms: [
+        ['Sage X3', 'V12 · SQL Server'],
+        ['X3 code changed', 'None'],
+        ['New screens & features', 'Live in pilot'],
+        ['AI assistant', 'Live · optional'],
+        ['User control & home pages', 'Built for each company'],
+        ['Price', 'On request'],
+      ] as Pair[],
+      ctaDocs: 'Technical docs',
+    },
+
+    /* ------------------------------------------------------------- docs -- */
+    docs: {
+      meta: {
+        title: 'Docs — How X3Companion works with Sage X3 | S7',
+        description:
+          'Technical overview of X3Companion for Sage X3: architecture, requirements, deployment, table definitions, security, the AI assistant, upgrades and FAQ.',
+        ogTitle: 'X3Companion docs — architecture, requirements and security',
+        ogDescription: 'How X3Companion adds features to Sage X3 without touching its code: what runs where, what IT needs, and how it stays safe.',
+      },
+      label: 'Docs',
+      h1: 'How X3Companion works.',
+      lead: 'The technical overview for IT teams and Sage administrators: what runs where, what it needs, how it is deployed, and why it cannot hurt Sage.',
+      toc: 'On this page',
+
+      s: {
+        overview: 'Overview',
+        arch: 'Architecture',
+        req: 'Requirements',
+        deploy: 'Deployment',
+        defs: 'Table definitions',
+        security: 'Security',
+        ai: 'AI assistant',
+        upgrades: 'Upgrades & compatibility',
+        faq: 'FAQ',
+      },
+
+      overview: [
+        'X3Companion adds screens, features, per-user rules and an AI assistant to Sage X3 <b>without modifying Sage X3</b>: nothing is added to the folder’s dictionary, no 4GL is written, no patch is installed.',
+        'It works in two places. A server application next to Sage reads the Sage X3 database and holds everything you configure. In each user’s browser, X3Companion for Chrome adds the new screens and features to the Sage X3 web client, on your Sage address only. The two talk over your local network.',
+      ],
+
+      archLead: 'Four components, three of them yours already. Only X3Companion Server and X3Companion for Chrome are added.',
+      flow: [
+        ['Untouched', 'Sage X3 database', 'SQL Server, your Sage folder. Read through a dedicated read-only login.'],
+        ['Your network', 'X3Companion Server', 'A Windows application. Reads Sage through table definitions, holds settings and rules, runs the assistant.'],
+        ['Same machine', 'REST API', 'Serves the data and the settings. Authenticated by approved device or by token.'],
+        ['Users’ PCs', 'X3Companion for Chrome', 'Adds the new screens and features to the Sage X3 web client.'],
+      ] as Triple[],
+      archHead: ['Component', 'Runs on', 'Role'],
+      archRows: [
+        ['X3Companion Server', 'A Windows PC or server on your network', 'Connects to the Sage X3 database, reads it through table definitions, applies your settings, serves the REST API and runs the optional AI assistant. Written in Rust.'],
+        ['REST API', 'The same machine, one TCP port (47821 by default)', 'Every screen and feature gets its data here. Documented, versioned (<code>/v1</code>), and usable by other clients — a portal, a mobile app, a reporting tool.'],
+        ['X3Companion for Chrome', 'Google Chrome on each user’s PC', 'Runs only on your Sage X3 address. Adds the new screens, sections, menu entries and the assistant to the Sage pages, styled like Sage.'],
+        ['Admin app', 'The server machine', 'Where an administrator connects the database, approves PCs, and chooses which features, columns and layouts users get.'],
+      ],
+
+      reqLead: 'Nothing is installed in Sage X3. This is everything X3Companion needs around it.',
+      reqHead: ['What', 'Needed'],
+      reqRows: [
+        ['Sage X3', 'Version 12 on Microsoft SQL Server (Oracle not supported yet)'],
+        ['Server machine', 'Windows 10, 11 or Windows Server, with Microsoft Edge WebView2 (built into Windows 10 and 11)'],
+        ['Database access', 'A SQL Server login with <code>SELECT</code> on the Sage folder’s schema — nothing else'],
+        ['Network', 'One TCP port on the server, opened in Windows Firewall for the users’ PCs only'],
+        ['Users’ PCs', 'Google Chrome'],
+        ['Internet', 'None — except <code>api.anthropic.com</code> if you turn on the AI assistant (an HTTP proxy is supported)'],
+        ['Sage licences', 'No Sage development licence, no extra Sage user'],
+      ],
+
+      deployLead: 'S7 deploys X3Companion with your IT team. A typical deployment follows six steps.',
+      deploySteps: [
+        ['Install', 'X3Companion Server on a Windows machine that can reach Sage’s SQL Server.'],
+        ['Connect', 'with a read-only SQL login, created by a script we provide. The connection is tested before it is saved.'],
+        ['Check', 'the table definitions against your Sage folder and against figures your team already knows.'],
+        ['Link', 'X3Companion for Chrome to your Sage X3 address and to your server, and install it on the users’ PCs.'],
+        ['Approve', 'each PC from the admin app: the PC shows a pairing code, the administrator checks it and approves.'],
+        ['Choose', 'the screens, features, columns and layouts each team gets. Changes reach users within a minute.'],
+      ] as Pair[],
+
+      defs: [
+        'X3Companion never hard-codes Sage tables. It reads them through <b>table definitions</b>: small JSON files that describe a table, its columns and how they relate (customers, quotes, orders, deliveries, invoices, sales reps…).',
+        'Built-in definitions come from Sage X3 V12, and each one is marked as verified once checked against a real database. When a company’s Sage differs — a custom column, a renamed field — a copy of the definition is adjusted for that company only, without touching any code.',
+        'The Sage folder (<code>PROD</code>, <code>SEED</code>…) is a setting. Only tables and columns that appear in a validated definition can ever reach a query.',
+      ],
+
+      securityLead: 'X3Companion sits next to the system your company runs on. These rules are enforced in the code and covered by tests.',
+      securityGroups: [
+        [
+          'Database',
+          [
+            '<b>Read-only by design</b> — only <code>SELECT</code> statements are built, with <code>ApplicationIntent=ReadOnly</code>, on a login that can only read',
+            '<b>No SQL from text</b> — table and column names come only from validated definitions; every value is a bound parameter',
+            '<b>Never blocks Sage</b> — reads use <code>NOLOCK</code> by default; every connection and query has a timeout',
+          ],
+        ],
+        [
+          'Access',
+          [
+            '<b>Local by default</b> — the API listens on <code>127.0.0.1</code> until an administrator opens it to the network',
+            '<b>Every PC approved</b> — each PC creates its own non-exportable key, shows a pairing code and waits for approval; access can be revoked at any time',
+            '<b>Short-lived sessions</b> — single-use challenges and 15-minute device tokens, checked against the PC’s status on every request',
+            '<b>Copies do not work</b> — a copied installation registers as a new, unapproved PC',
+          ],
+        ],
+        [
+          'Secrets',
+          [
+            '<b>Windows Credential Manager</b> — the database password, the API token and the AI key never touch a config file',
+            '<b>Nothing on users’ PCs</b> — users never see the database password or the API token',
+            '<b>No S7 cloud</b> — nothing is sent to S7; there is no telemetry',
+          ],
+        ],
+      ] as Feature[],
+
+      ai: [
+        'The assistant is optional and off until an administrator turns it on with an Anthropic API key. It appears as a button on every Sage page.',
+        '<b>The AI never writes SQL.</b> It asks for data through a structured request — which table, which filters, which totals — that the server checks against the table definitions and builds itself, with the same read-only safeguards as every other feature.',
+        '<b>Numbers come from the database, not from the model.</b> Tables and charts in an answer are built from the data the server returned; the model never re-types the figures.',
+        '<b>What leaves your network:</b> the question, the current screen’s context, and the data needed to answer it, sent from the server to the AI provider (currently Anthropic) under your company’s own account. Conversations are stored on your server.',
+        '<b>Your vocabulary:</b> business instructions (“REP_0 is the sales rep”, “our currency is MAD”) are set once by the administrator and used for every question.',
+      ],
+
+      upgrades: [
+        'Because nothing is written inside Sage X3, a Sage update has nothing of X3Companion’s to break or to port. After an update, the table definitions are re-checked; if Sage changed a table, the definition is updated — no program is rewritten.',
+        'Today X3Companion supports <b>Sage X3 V12 on SQL Server</b>. The database layer is built behind an interface so Oracle can be added; other X3 versions are a matter of table definitions.',
+        'Uninstalling X3Companion removes it completely and leaves Sage exactly as it was.',
+      ],
+
+      faq: [
+        ['Does X3Companion modify Sage X3?', 'No. No dictionary change, no 4GL, no patch, no new Sage screen. It reads the database and adds its features in the browser.'],
+        ['Can it change data in Sage?', 'Not today: every feature reads only, through a login that has no right to write.'],
+        ['Do we need a Sage developer?', 'No. Features are built with a standard web stack. You need someone who knows your Sage data — which S7 provides during deployment.'],
+        ['What happens when we update Sage?', 'Nothing breaks inside Sage, because nothing of ours is in it. The table definitions are re-checked and adjusted if a table changed.'],
+        ['Is any data sent to S7?', 'No. X3Companion runs on your network. Only the optional AI assistant sends data outside, to the AI provider, under your own account.'],
+        ['Does it work in other browsers?', 'Users need Google Chrome for the screens and features added to Sage. Sage X3 itself keeps working in any browser.'],
+        ['Can other tools use the data?', 'Yes. The REST API is general: a portal, a mobile app or a reporting tool can read the same Sage data the same safe way.'],
+      ] as Pair[],
+    },
+
+    /* ---------------------------------------------------------- privacy -- */
+    privacy: {
+      meta: {
+        title: 'Privacy policy — X3Companion | S7',
+        description:
+          'How X3Companion and X3Companion for Chrome handle data: what they read, what is stored, where data is sent, and what is never done.',
+        ogTitle: 'X3Companion privacy policy',
+        ogDescription: 'What X3Companion reads, stores and sends — and what it never does.',
+      },
+      label: 'Privacy',
+      h1: 'Privacy policy.',
+      updated: 'X3Companion and X3Companion for Chrome · Last updated 16 October 2026',
+      extNote: 'Submitting or reviewing the Chrome extension? Its own policy lists every permission and data type.',
+      extLink: 'Chrome extension privacy policy',
+      toc: 'Sections',
+      sections: [
+        {
+          id: 'short',
+          title: 'In short',
+          paras: [
+            'X3Companion works only inside your organization’s Sage X3 web client and talks only to your organization’s own X3Companion Server on its local network. <b>S7 receives no data at all.</b> There is no analytics, no tracking and no advertising.',
+          ],
+          list: [],
+        },
+        {
+          id: 'controller',
+          title: 'Who is responsible for the data',
+          paras: [
+            'X3Companion is deployed by organizations that run Sage X3 and X3Companion Server on their own network. The organization operates that server, decides who may use X3Companion, and is responsible for the business data processed there. S7 provides the software and never has access to that server or its data.',
+          ],
+          list: [],
+        },
+        {
+          id: 'reads',
+          title: 'What X3Companion reads',
+          paras: ['X3Companion for Chrome, in each user’s browser, reads:'],
+          list: [
+            '<b>The open Sage X3 screen, on your organization’s Sage address only</b> — which customer or document is displayed — and Sage’s navigation menu, to show the matching information, add its screens to Sage’s menu and give context to the assistant.',
+            '<b>Business data returned by your organization’s server</b> — customers, sales reps, quotes, orders, deliveries, invoices, their amounts and creation times, and the names of the Sage users who created or last changed each document — to display X3Companion’s screens and the assistant’s answers.',
+            '<b>Questions typed in the assistant</b>, to answer them.',
+          ],
+        },
+        {
+          id: 'not-read',
+          title: 'What it does not read',
+          paras: [
+            'X3Companion for Chrome does not run on, read or record any other website, and does not collect browsing history. It reads no passwords. X3Companion Server reads the Sage X3 database through a read-only login, and only the tables and columns described in its table definitions.',
+          ],
+          list: [],
+        },
+        {
+          id: 'stored',
+          title: 'What is stored, and where',
+          paras: [],
+          list: [
+            '<b>On each user’s PC</b>, in the browser’s storage for X3Companion only: the on/off switch, the PC’s registration with your server (a device id, an approval code, a device key and a session token used to authenticate the PC, and the user name your administrator assigned), and display preferences such as page size, filters and the open assistant conversation. Removing X3Companion for Chrome deletes them.',
+            '<b>On your organization’s server</b>: X3Companion’s settings, the list of approved PCs, saved assistant conversations, and secrets (database password, API token, AI key) in Windows Credential Manager.',
+          ],
+        },
+        {
+          id: 'sent',
+          title: 'Where data is sent',
+          paras: [
+            'Only to your organization’s X3Companion Server, at the address configured for your organization, on its local network. Nothing is sent to S7 or to any other service.',
+            '<b>AI assistant.</b> If your organization turns the assistant on, its server sends your question, the current screen’s context and the data needed to answer it to the AI provider your organization configured (currently Anthropic), under your organization’s own account and terms. The browser never contacts the AI provider directly.',
+          ],
+          list: [],
+        },
+        {
+          id: 'never',
+          title: 'What is never done',
+          paras: [],
+          list: [
+            'No sale of data, no advertising, no profiling, no use for creditworthiness or lending.',
+            'No analytics or tracking scripts, and no code loaded from elsewhere.',
+            'No change to data in Sage X3: X3Companion only reads.',
+          ],
+        },
+        {
+          id: 'limited-use',
+          title: 'Chrome Web Store — Limited Use',
+          paras: [
+            'The use of information received by X3Companion for Chrome adheres to the Chrome Web Store User Data Policy, including the Limited Use requirements.',
+          ],
+          list: [],
+        },
+        {
+          id: 'choices',
+          title: 'Your choices',
+          paras: [
+            'You can switch X3Companion off from its toolbar button at any time, or remove it from Chrome. Your administrator can revoke your PC. For access to, or deletion of, data held on your organization’s server — including saved assistant conversations — contact your organization’s administrator.',
+          ],
+          list: [],
+        },
+        {
+          id: 'contact',
+          title: 'Changes and contact',
+          paras: [
+            'If this policy changes, the new version is published on this page with a new date, and users are informed in X3Companion when data handling changes. Questions: <a href="mailto:contact@s7.ma">contact@s7.ma</a>.',
+          ],
+          list: [],
+        },
+      ] as DocSection[],
+    },
+    extPrivacy: {
+      meta: {
+        title: 'X3Companion Chrome extension — Privacy policy | S7',
+        description:
+          'Privacy policy of the X3Companion Chrome extension: its single purpose, the permissions it uses, the data it handles, where that data goes, and the Chrome Web Store Limited Use commitment.',
+        ogTitle: 'X3Companion Chrome extension — Privacy policy',
+        ogDescription: 'What the X3Companion Chrome extension reads, stores and sends — and what it never does.',
+      },
+      label: 'Privacy · Chrome extension',
+      h1: 'X3Companion for Chrome — privacy policy.',
+      updated: 'Chrome extension “X3Companion” · Publisher: S7 (Service7), Morocco · Last updated 16 October 2026',
+      toc: 'Sections',
+      back: 'Privacy policy for the whole of X3Companion',
+      before: [
+        {
+          id: 'short',
+          title: 'In short',
+          paras: [
+            'The X3Companion Chrome extension works only on your organization’s Sage X3 web address, and talks only to your organization’s own X3Companion Server on its local network. <b>The publisher, S7, receives no data from the extension — none.</b> There is no analytics, no tracking, no advertising, and no code loaded from outside the extension package.',
+          ],
+          list: [],
+        },
+        {
+          id: 'purpose',
+          title: 'Single purpose',
+          paras: [
+            'The extension adds read-only sales views — customer documents, quote and order recaps, the quote-to-invoice trail, quote analytics — and a data assistant to an organization’s own Sage X3 web client. All of its data comes from, and goes only to, that organization’s X3Companion Server.',
+          ],
+          list: [],
+        },
+        {
+          id: 'controller',
+          title: 'Who is responsible for the data',
+          paras: [
+            'The extension is installed by organizations that run Sage X3 and X3Companion Server on their own network. Each organization operates its server, decides which users and PCs may use the extension, and is responsible for the business data processed there. S7 publishes the extension and never has access to an organization’s server or data.',
+          ],
+          list: [],
+        },
+      ] as DocSection[],
+
+      permsTitle: 'Permissions and why they are needed',
+      permsLead: 'The extension asks Chrome for these permissions and uses them only as described.',
+      permsHead: ['Permission', 'What it is used for'],
+      permsRows: [
+        ['<code>storage</code>', 'Keeps, on this PC only, the on/off switch, this PC’s registration with your organization’s server, and display preferences.'],
+        ['<code>scripting</code>', 'While the extension is switched on, registers one script packaged in the extension on your organization’s Sage X3 address only, so it knows which customer or document Sage has open. It is unregistered when the extension is switched off.'],
+        ['Your Sage X3 address', 'The only website the extension runs on: it adds its views (Documents section, Récap devis, Analyse devis, Récap commande, the assistant) to these pages.'],
+        ['Your X3Companion Server address', 'The only place the extension sends requests to, to fetch the data it displays. It is your organization’s own server, on its local network.'],
+      ],
+
+      dataTitle: 'Data the extension handles',
+      dataLead: 'Everything below comes from your organization’s own systems and is displayed to the user inside Sage X3.',
+      dataHead: ['Type of data', 'What exactly', 'Why'],
+      dataRows: [
+        ['Personally identifiable information', 'Sage customer names and codes, sales reps’ names, names of the Sage users who created or changed documents, and the user name the administrator assigns to the PC', 'To show customers, reps and who created each document'],
+        ['Financial information', 'Quote, order, delivery and invoice amounts read from Sage', 'To show recaps, totals and analytics'],
+        ['Authentication information', 'A device key and a short-lived session token, so your organization’s server can recognise this PC. No passwords are read or stored', 'To make sure only approved PCs receive data'],
+        ['Website content', 'On your Sage X3 address only: the customer or document number on the open screen, and Sage’s own menu', 'To show the matching data and add the extension’s screens to Sage’s menu'],
+        ['Assistant questions', 'What the user types in the assistant', 'To answer it'],
+      ],
+      dataNot:
+        'The extension does <b>not</b> collect health information, personal communications, location, web browsing history or user activity, and does not run on, read or record any website other than your organization’s Sage X3 address.',
+
+      after: [
+        {
+          id: 'stored',
+          title: 'What is stored on your PC',
+          paras: [
+            'In Chrome’s storage for this extension only: the on/off switch; this PC’s registration with your organization’s server (a device id, an approval code, a device key and a session token used to authenticate the PC, and the user name your administrator assigned); and display preferences such as page size, filters and the open assistant conversation. <b>Removing the extension deletes all of it.</b>',
+          ],
+          list: [],
+        },
+        {
+          id: 'sent',
+          title: 'Where data is sent',
+          paras: [
+            'Only to your organization’s X3Companion Server, at the address configured for your organization, on its local network. The extension sends nothing to S7 or to any other service.',
+            '<b>Assistant.</b> If your organization turns the assistant on, its <b>server</b> sends the question, the current screen’s context and the data needed to answer it to the AI provider your organization configured (currently Anthropic), under your organization’s own account and terms. The extension itself never contacts the AI provider.',
+          ],
+          list: [],
+        },
+        {
+          id: 'never',
+          title: 'What is never done',
+          paras: [],
+          list: [
+            'No sale or transfer of user data to third parties, outside the uses described here.',
+            'No use or transfer of user data for purposes unrelated to the extension’s single purpose.',
+            'No use or transfer of user data to determine creditworthiness or for lending.',
+            'No advertising, no profiling, no analytics or tracking scripts.',
+            'No remote code: all JavaScript is inside the extension package; the server returns data only.',
+            'No change to data in Sage X3: the extension only reads.',
+          ],
+        },
+        {
+          id: 'limited-use',
+          title: 'Chrome Web Store User Data Policy — Limited Use',
+          paras: [
+            'The use of information received by the X3Companion extension adheres to the <a href="https://developer.chrome.com/docs/webstore/program-policies/user-data-faq" rel="noopener">Chrome Web Store User Data Policy</a>, including the Limited Use requirements.',
+          ],
+          list: [],
+        },
+        {
+          id: 'security',
+          title: 'Security',
+          paras: [
+            'Each PC creates its own key, which cannot be exported, and works only after your organization’s administrator approves it. Session tokens last 15 minutes and are checked against the PC’s approval on every request. The administrator can revoke a PC at any time, and a copied browser profile is treated as a new, unapproved PC.',
+          ],
+          list: [],
+        },
+        {
+          id: 'choices',
+          title: 'Your choices and your data',
+          paras: [
+            'You can switch the extension off from its toolbar button at any time, or remove it from Chrome, which deletes everything it stored on your PC. Your administrator can revoke your PC. For access to, correction or deletion of data held on your organization’s server — including saved assistant conversations — contact your organization’s administrator, who controls that data.',
+          ],
+          list: [],
+        },
+        {
+          id: 'contact',
+          title: 'Changes and contact',
+          paras: [
+            'If this policy changes, the new version is published at this address with a new date, and users are informed in the extension when the way it handles data changes.',
+            'Publisher: S7 (Service7), Morocco — <a href="mailto:contact@s7.ma">contact@s7.ma</a>.',
+          ],
+          list: [],
+        },
+      ] as DocSection[],
+    },
+
   },
 
   notFound: {

@@ -41,6 +41,11 @@ export function renderAmbient(): string {
     <span class="glow pp-glow-b"></span>
     <span class="dev-grid"></span>
   </div>
+  <div class="amb amb-x3">
+    <span class="glow x3-glow-a"></span>
+    <span class="glow x3-glow-b"></span>
+    <span class="dev-grid"></span>
+  </div>
   <span class="grain"></span>
   <span class="pointer-light"></span>
 </div>`;

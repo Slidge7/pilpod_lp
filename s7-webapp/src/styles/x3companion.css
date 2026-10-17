@@ -1,0 +1,1236 @@
+/* ============================================================
+   X3Companion
+   ============================================================
+
+   The hero, the feature cards, the engineering ledger and the status table
+   are the shared furniture from product.css. What is X3Companion's own: the
+   three pillar cards, the inside-vs-beside table, the screenshot gallery, the
+   per-role home pages, the assistant conversation, the flow diagram and the
+   deployment block.
+   ============================================================ */
+
+/* ------------------------------------------------------------ gallery --- */
+
+.x3-shots {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.25rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 900px) {
+  .x3-shots {
+    grid-template-columns: 1fr 1fr;
+  }
+  .x3-shots figure:first-child {
+    grid-column: 1 / -1;
+  }
+}
+
+.x3-shots figure {
+  margin: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  overflow: hidden;
+  transition: border-color 0.4s var(--ease-soft);
+}
+.x3-shots figure:hover {
+  border-color: var(--line-strong);
+}
+.x3-shots img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1280 / 800;
+  background: #f3f5f4;
+  border-bottom: 1px solid var(--line);
+}
+.x3-shots figcaption {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  padding: 0.95rem 1.15rem 1.05rem;
+  font-size: 0.9062rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--ink-3);
+}
+.x3-shots figcaption b {
+  flex: none;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+.x3-shots-note {
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+/* --------------------------------------------------------------- flow --- */
+
+.x3-flow {
+  display: grid;
+  gap: 0;
+  grid-template-columns: 1fr;
+  counter-reset: none;
+}
+.x3-flow li {
+  position: relative;
+  padding: clamp(1.25rem, 2.4vw, 1.6rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+}
+/* The connector between two boxes: vertical on a phone… */
+.x3-flow li + li {
+  margin-top: 2.25rem;
+}
+.x3-flow li + li::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: calc(-2.25rem - 1px);
+  width: 1px;
+  height: 2.25rem;
+  background: linear-gradient(var(--line-strong), var(--accent));
+}
+.x3-flow li + li::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - 4px);
+  top: -6px;
+  border: 4px solid transparent;
+  border-top: 5px solid var(--accent);
+  border-bottom: 0;
+}
+/* …horizontal from a tablet up. */
+@media (min-width: 960px) {
+  .x3-flow {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 2.5rem;
+  }
+  .x3-flow li + li {
+    margin-top: 0;
+  }
+  .x3-flow li + li::before {
+    left: calc(-2.5rem - 1px);
+    top: 50%;
+    width: 2.5rem;
+    height: 1px;
+    background: linear-gradient(90deg, var(--line-strong), var(--accent));
+  }
+  .x3-flow li + li::after {
+    left: -6px;
+    top: calc(50% - 4px);
+    border: 4px solid transparent;
+    border-left: 5px solid var(--accent);
+    border-right: 0;
+  }
+}
+
+.x3-flow .where {
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.x3-flow h3 {
+  margin-top: 0.7rem;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.x3-flow p {
+  margin-top: 0.5rem;
+  font-size: 0.9062rem;
+  font-weight: 300;
+  line-height: 1.55;
+  color: var(--ink-3);
+}
+/* The box that is ours is the one that wears the accent. */
+.x3-flow li.is-ours {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--accent) 18%, transparent) inset;
+}
+.x3-flow li.is-ours .where {
+  color: var(--accent);
+}
+
+/* --------------------------------------------------------- deployment --- */
+
+.x3-deploy {
+  display: grid;
+  gap: clamp(1.5rem, 4vw, 2.5rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .x3-deploy {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  }
+}
+.x3-deploy .loop li {
+  align-items: baseline;
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.55;
+}
+.x3-deploy .loop li b {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+.x3-deploy .loop li span {
+  font-weight: 450;
+}
+.x3-deploy .fg {
+  padding: clamp(1.25rem, 2.5vw, 1.6rem);
+}
+
+/* ------------------------------------------------------------- close --- */
+
+.x3-close {
+  margin-top: clamp(2rem, 5vw, 2.75rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem 1rem;
+  align-items: center;
+}
+.x3-legal {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--line-soft);
+  max-width: 80ch;
+  font-size: 0.8125rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ink-4);
+}
+
+/* ---------------------------------------------------------- why / vs --- */
+
+/*
+ * The argument of the page: developing inside X3 against building beside it.
+ * A real table (it is tabular data, and screen readers announce it as such);
+ * below 760px each row becomes a card and every cell carries its column name.
+ */
+.x3-vs {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+.x3-vs table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+.x3-vs thead th {
+  padding: 0.85rem 1.2rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--rail);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: left;
+  color: var(--ink-3);
+}
+.x3-vs thead td {
+  width: 22%;
+  background: var(--rail);
+  border-bottom: 1px solid var(--line);
+}
+.x3-vs thead th.ours {
+  color: var(--accent);
+}
+.x3-vs tbody tr + tr > * {
+  border-top: 1px solid var(--line-soft);
+}
+.x3-vs tbody th,
+.x3-vs tbody td {
+  padding: 1rem 1.2rem;
+  vertical-align: top;
+  text-align: left;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+.x3-vs tbody th {
+  font-weight: 450;
+  letter-spacing: -0.015em;
+  color: var(--ink);
+}
+.x3-vs td.usual {
+  font-weight: 300;
+  color: var(--ink-3);
+}
+.x3-vs td.ours {
+  font-weight: 400;
+  color: var(--ink-2);
+  background: color-mix(in srgb, var(--accent) 5%, transparent);
+  border-left: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+}
+.x3-vs thead th.ours {
+  background: color-mix(in srgb, var(--accent) 8%, var(--rail));
+  border-left: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+}
+.x3-vs tbody tr {
+  transition: background 0.3s var(--ease-soft);
+}
+.x3-vs tbody tr:hover {
+  background: var(--row-hover);
+}
+
+@media (max-width: 759.98px) {
+  .x3-vs thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+  .x3-vs table,
+  .x3-vs tbody,
+  .x3-vs tr,
+  .x3-vs tbody th,
+  .x3-vs tbody td {
+    display: block;
+    width: auto;
+  }
+  .x3-vs tbody tr {
+    padding: 1.1rem 1.15rem 1.2rem;
+  }
+  .x3-vs tbody tr + tr {
+    border-top: 1px solid var(--line);
+  }
+  .x3-vs tbody tr + tr > * {
+    border-top: 0;
+  }
+  .x3-vs tbody th,
+  .x3-vs tbody td {
+    padding: 0;
+  }
+  .x3-vs tbody td {
+    margin-top: 0.7rem;
+  }
+  .x3-vs td.ours {
+    padding: 0.7rem 0.85rem;
+    border-left: 0;
+    border-radius: var(--r-sm);
+    border: 1px solid color-mix(in srgb, var(--accent) 22%, var(--line));
+  }
+  .x3-vs tbody td::before {
+    content: attr(data-col);
+    display: block;
+    margin-bottom: 0.25rem;
+    font-family: var(--mono);
+    font-size: 0.625rem;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-4);
+  }
+  .x3-vs td.ours::before {
+    color: var(--accent);
+  }
+}
+
+/* Sage's own box in the flow is the one that does not change. */
+.x3-flow li.is-sage {
+  background: transparent;
+  border-style: dashed;
+}
+
+/* ------------------------------------------------------------ pillars --- */
+
+.x3-pillars {
+  display: grid;
+  gap: clamp(1rem, 2vw, 1.25rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 860px) {
+  .x3-pillars {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.x3-pillar {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(1.5rem, 3vw, 2rem);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 0.4s var(--ease-soft), background 0.4s var(--ease-soft),
+    transform 0.4s var(--ease-soft);
+}
+.x3-pillar:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  background: var(--raised);
+}
+.x3-pillar .n {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--accent);
+}
+.x3-pillar h3 {
+  margin-top: 1.25rem;
+  font-size: clamp(1.25rem, 1.1rem + 0.5vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.x3-pillar p {
+  margin-top: 0.85rem;
+  margin-bottom: 1.5rem;
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.6;
+  color: var(--ink-3);
+}
+.x3-pillar .go {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  transition: color 0.3s var(--ease-soft);
+}
+.x3-pillar .go svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s var(--ease-soft);
+}
+.x3-pillar:hover .go {
+  color: var(--accent);
+}
+.x3-pillar:hover .go svg {
+  transform: translateX(3px);
+}
+
+/* ------------------------------------------------------- sub-sections --- */
+
+.x3-sub {
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+  margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+  font-size: clamp(1.25rem, 1.1rem + 0.6vw, 1.625rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--ink);
+}
+.x3-sub-head {
+  margin-top: clamp(3rem, 7vw, 4.5rem);
+  margin-bottom: clamp(1.25rem, 3vw, 1.75rem);
+}
+.x3-sub-head .x3-sub {
+  margin: 0;
+}
+.x3-sub-head p {
+  margin-top: 0.75rem;
+  max-width: 56ch;
+  font-weight: 300;
+  color: var(--ink-3);
+}
+.x3-shots {
+  margin-top: 0;
+}
+
+/* Two feature cards side by side, never three. */
+@media (min-width: 1080px) {
+  .feat.x3-two {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* ---------------------------------------------------------- home pages --- */
+
+.x3-homes {
+  display: grid;
+  gap: clamp(0.85rem, 1.6vw, 1rem);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 600px) {
+  .x3-homes {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (min-width: 1080px) {
+  .x3-homes {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+.x3-home {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+.x3-home .who {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--rail);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-2);
+}
+.x3-home .who i {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 35%, var(--raised));
+  flex: none;
+}
+.x3-home ul {
+  padding: 0.75rem;
+  display: grid;
+  gap: 0.6rem;
+}
+.x3-home li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid var(--line-soft);
+  border-radius: var(--r-sm);
+  background: var(--surface);
+  font-size: 0.875rem;
+  font-weight: 400;
+  color: var(--ink-2);
+}
+/* A sketch of the tile's content, so it reads as a widget and not a list. */
+.x3-home li span {
+  display: block;
+  height: 6px;
+  width: 100%;
+  border-radius: 3px;
+  background: linear-gradient(
+    90deg,
+    color-mix(in srgb, var(--accent) 55%, transparent) 0 var(--fill, 62%),
+    var(--line) var(--fill, 62%) 100%
+  );
+  order: 2;
+}
+.x3-home li:nth-child(2) span {
+  --fill: 38%;
+}
+.x3-home li:nth-child(3) span {
+  --fill: 80%;
+}
+
+/* ------------------------------------------------------------------ AI --- */
+
+.x3-ai {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4rem);
+  grid-template-columns: 1fr;
+  align-items: start;
+}
+@media (min-width: 960px) {
+  .x3-ai {
+    grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+  }
+}
+.x3-ai-lead {
+  margin-top: 1.5rem;
+  max-width: 44ch;
+  font-weight: 300;
+  color: var(--ink-3);
+}
+.x3-ai-points {
+  margin-top: clamp(2.5rem, 6vw, 3.5rem);
+}
+
+.x3-chat {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+.x3-chat .loop-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 0.95rem;
+  border-bottom: 1px solid var(--line);
+  background: var(--rail);
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.x3-chat .loop-bar i {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  flex: none;
+}
+.x3-chat-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  padding: clamp(1rem, 2.5vw, 1.4rem);
+}
+.x3-chat .q {
+  align-self: flex-end;
+  max-width: 82%;
+  padding: 0.7rem 0.95rem;
+  border-radius: 14px 14px 4px 14px;
+  background: var(--btn-primary-bg);
+  color: #fff;
+  font-size: 0.9062rem;
+  line-height: 1.5;
+}
+.x3-chat .a {
+  align-self: flex-start;
+  width: min(100%, 92%);
+  padding: 0.8rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 14px 14px 14px 4px;
+  background: var(--surface);
+  font-size: 0.9062rem;
+  line-height: 1.5;
+  color: var(--ink-2);
+}
+.x3-chat .a table {
+  margin-top: 0.7rem;
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--mono);
+  font-size: 0.7188rem;
+}
+.x3-chat .a th,
+.x3-chat .a td {
+  padding: 0.4rem 0.45rem;
+  text-align: left;
+  border-bottom: 1px solid var(--line-soft);
+  white-space: nowrap;
+}
+.x3-chat .a th {
+  font-weight: 500;
+  color: var(--ink-4);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.625rem;
+}
+.x3-chat .a td {
+  color: var(--ink-2);
+}
+.x3-chat .a .num {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 520px) {
+  .x3-chat .a {
+    width: 100%;
+  }
+  .x3-chat .a th:nth-child(3),
+  .x3-chat .a td:nth-child(3) {
+    display: none;
+  }
+  .x3-chat .a th,
+  .x3-chat .a td {
+    padding-inline: 0.3rem;
+    white-space: normal;
+  }
+  .x3-chat .a th.num,
+  .x3-chat .a td.num {
+    white-space: nowrap;
+  }
+}
+.x3-chat .bars {
+  margin-top: 0.8rem;
+  display: grid;
+  gap: 0.4rem;
+}
+.x3-chat .bars span {
+  position: relative;
+  display: block;
+  height: 22px;
+  border-radius: 4px;
+  background: var(--line-soft);
+}
+.x3-chat .bars span::before {
+  content: '';
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--w);
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent) 70%, transparent);
+}
+.x3-chat .bars span.team::before {
+  background: color-mix(in srgb, var(--ink-3) 45%, transparent);
+}
+.x3-chat .bars b {
+  position: absolute;
+  left: calc(var(--w) + 0.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--ink-2);
+}
+.x3-chat-note {
+  padding: 0 1.2rem 0.9rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+
+/* ============================================================
+   The X3Companion section: its own bar, page heads, docs layout
+   ============================================================ */
+
+/* ------------------------------------------------------- product bar --- */
+
+/*
+ * Sits under the studio nav (time strip + 72px bar at rest) and sticks to the
+ * bar's bottom once the strip has collapsed on scroll.
+ */
+.x3-bar {
+  position: sticky;
+  top: 72px;
+  z-index: 40;
+  margin-top: 118px;
+  border-block: 1px solid var(--line);
+  background: var(--nav-glass);
+  -webkit-backdrop-filter: blur(18px) saturate(1.3);
+  backdrop-filter: blur(18px) saturate(1.3);
+}
+.x3-bar-inner {
+  display: flex;
+  align-items: center;
+  gap: clamp(0.75rem, 3vw, 2rem);
+  height: 56px;
+}
+.x3-bar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  flex: none;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+}
+.x3-bar-mark {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+.x3-bar-links {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.x3-bar-links::-webkit-scrollbar {
+  display: none;
+}
+.x3-bar-links a {
+  position: relative;
+  flex: none;
+  padding: 0.45rem 0.75rem;
+  border-radius: var(--r-sm);
+  font-size: 0.875rem;
+  color: var(--ink-3);
+  transition: color 0.25s var(--ease-soft), background 0.25s var(--ease-soft);
+}
+.x3-bar-links a:hover {
+  color: var(--ink);
+  background: rgb(var(--fg-rgb) / 0.05);
+}
+.x3-bar-links a[aria-current='page'] {
+  color: var(--ink);
+}
+.x3-bar-links a[aria-current='page']::after {
+  content: '';
+  position: absolute;
+  left: 0.75rem;
+  right: 0.75rem;
+  bottom: -10px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+.x3-bar-cta {
+  margin-left: auto;
+  flex: none;
+  padding: 0.5rem 0.9rem;
+  font-size: 0.8125rem;
+}
+@media (max-width: 720px) {
+  .x3-bar-brand span,
+  .x3-bar-cta {
+    display: none;
+  }
+  .x3-bar-links {
+    margin-right: -0.5rem;
+  }
+}
+
+/* The hero and page heads no longer need to clear the studio nav. */
+.pd-hero.x3-hero {
+  padding-top: clamp(3.5rem, 9vh, 5.5rem);
+}
+.x3-page-head {
+  padding-block: clamp(3.5rem, 9vh, 5.5rem) clamp(1rem, 4vh, 2rem);
+}
+.x3-page-head h1 {
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  line-height: 1.02;
+  font-weight: 400;
+  letter-spacing: -0.045em;
+  max-width: 18ch;
+}
+.x3-page-lead {
+  margin-top: clamp(1.25rem, 3vw, 1.75rem);
+  max-width: 58ch;
+  font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem);
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--ink-2);
+}
+.x3-updated {
+  margin-top: 1.25rem;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/* Features page: jump links to the three pillars. */
+.x3-jump {
+  margin-top: clamp(1.75rem, 4vw, 2.5rem);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+.x3-jump a {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55rem;
+  padding: 0.55rem 0.95rem;
+  border: 1px solid var(--line);
+  border-radius: 100px;
+  background: var(--surface-raised);
+  font-size: 0.875rem;
+  color: var(--ink-2);
+  transition: border-color 0.3s var(--ease-soft), color 0.3s var(--ease-soft);
+}
+.x3-jump a b {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.x3-jump a:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  color: var(--ink);
+}
+
+/* Anchored sections clear the studio nav and the product bar. */
+:root[data-theme='x3'] main [id] {
+  scroll-margin-top: 150px;
+}
+
+/* "See more" row under a block. */
+.x3-more {
+  margin-top: 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.x3-more a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--accent);
+}
+.x3-more a svg {
+  width: 12px;
+  height: 12px;
+  transition: transform 0.3s var(--ease-soft);
+}
+.x3-more a:hover svg {
+  transform: translateX(3px);
+}
+.x3-more-left {
+  justify-content: flex-start;
+  margin-top: 1.75rem;
+}
+
+/* Overview: one wide screenshot. */
+.x3-shots-one figure {
+  grid-column: 1 / -1;
+}
+
+/* ------------------------------------------------------- closing band --- */
+
+.x3-cta {
+  display: grid;
+  gap: 1.75rem;
+  grid-template-columns: 1fr;
+  align-items: center;
+  padding: clamp(1.75rem, 4vw, 2.75rem);
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-radius: 18px;
+  background:
+    radial-gradient(520px circle at 0% 0%, var(--brand-glow), transparent 65%),
+    var(--surface-raised);
+}
+@media (min-width: 860px) {
+  .x3-cta {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+.x3-cta h2 {
+  max-width: 22ch;
+}
+.x3-cta p {
+  margin-top: 0.85rem;
+  max-width: 52ch;
+  font-weight: 300;
+  color: var(--ink-3);
+}
+.x3-cta-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* ------------------------------------------------------- long-form page --- */
+
+.x3-doc {
+  display: grid;
+  gap: clamp(2rem, 5vw, 4.5rem);
+  grid-template-columns: 1fr;
+  padding-bottom: clamp(2rem, 6vh, 4rem);
+}
+@media (min-width: 1000px) {
+  .x3-doc {
+    grid-template-columns: 220px minmax(0, 1fr);
+  }
+}
+
+.x3-toc nav {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  padding: 1rem 0.5rem 0.75rem;
+}
+@media (min-width: 1000px) {
+  .x3-toc nav {
+    position: sticky;
+    top: 150px;
+    border: 0;
+    background: none;
+    padding: 0;
+  }
+}
+.x3-toc p {
+  padding: 0 0.75rem 0.6rem;
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-4);
+}
+.x3-toc ol {
+  display: grid;
+  gap: 0.1rem;
+}
+@media (min-width: 560px) and (max-width: 999.98px) {
+  .x3-toc ol {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+.x3-toc a {
+  display: flex;
+  gap: 0.6rem;
+  padding: 0.4rem 0.75rem;
+  border-radius: var(--r-sm);
+  font-size: 0.875rem;
+  line-height: 1.4;
+  color: var(--ink-3);
+  transition: color 0.25s var(--ease-soft), background 0.25s var(--ease-soft);
+}
+.x3-toc a b {
+  font-family: var(--mono);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  color: var(--ink-4);
+  padding-top: 0.12rem;
+}
+.x3-toc a:hover {
+  color: var(--ink);
+  background: rgb(var(--fg-rgb) / 0.05);
+}
+.x3-toc a:hover b {
+  color: var(--accent);
+}
+
+.x3-doc-body {
+  min-width: 0;
+  max-width: 820px;
+}
+section.x3-doc-sec {
+  padding-block: 0 clamp(2.5rem, 6vw, 3.75rem);
+}
+section.x3-doc-sec + section.x3-doc-sec {
+  padding-top: clamp(2.5rem, 6vw, 3.75rem);
+  border-top: 1px solid var(--line-soft);
+}
+.x3-doc-sec h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 0.85rem;
+  max-width: none;
+  margin-bottom: 1.25rem;
+  font-size: clamp(1.375rem, 1.2rem + 0.8vw, 1.75rem);
+}
+.x3-doc-sec h2 span {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+}
+.x3-doc-sec > p,
+.x3-doc-sec > ul > li {
+  font-weight: 300;
+  line-height: 1.7;
+  color: var(--ink-2);
+  max-width: 68ch;
+}
+.x3-doc-sec > p + p,
+.x3-doc-sec > p + ul,
+.x3-doc-sec > p + .x3-table,
+.x3-doc-sec > p + .x3-flow,
+.x3-doc-sec > p + .loop,
+.x3-doc-sec > p + .x3-sec,
+.x3-doc-sec > .x3-flow + .x3-table {
+  margin-top: 1.25rem;
+}
+.x3-doc-sec > p b,
+.x3-doc-sec li b {
+  color: var(--ink);
+  font-weight: 450;
+}
+.x3-doc-sec > ul {
+  display: grid;
+  gap: 0.75rem;
+}
+.x3-doc-sec > ul > li {
+  position: relative;
+  padding-left: 1.25rem;
+}
+.x3-doc-sec > ul > li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.8em;
+  width: 7px;
+  height: 1px;
+  background: var(--accent);
+}
+.x3-doc-sec a {
+  color: var(--accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Docs tables */
+.x3-table {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  overflow-x: auto;
+}
+.x3-table table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9062rem;
+}
+.x3-table th,
+.x3-table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  vertical-align: top;
+  line-height: 1.55;
+}
+.x3-table thead th {
+  background: var(--rail);
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 0.625rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.x3-table tbody tr + tr > * {
+  border-top: 1px solid var(--line-soft);
+}
+.x3-table tbody th {
+  font-weight: 450;
+  color: var(--ink);
+  min-width: 9rem;
+}
+.x3-table td {
+  font-weight: 300;
+  color: var(--ink-2);
+  min-width: 12rem;
+}
+
+/* The flow inside the docs column: two by two, never four across. */
+@media (min-width: 960px) {
+  .x3-flow.x3-flow-doc {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2.25rem 2.5rem;
+  }
+  .x3-flow.x3-flow-doc li:nth-child(3)::before,
+  .x3-flow.x3-flow-doc li:nth-child(3)::after {
+    display: none;
+  }
+}
+
+/* Deployment steps in the docs */
+.x3-steps li {
+  align-items: baseline;
+  font-family: var(--font);
+  font-size: 0.9375rem;
+  font-weight: 300;
+  line-height: 1.55;
+}
+.x3-steps li b {
+  font-family: var(--mono);
+  font-size: 0.75rem;
+}
+.x3-steps li span {
+  font-weight: 500;
+  color: var(--ink);
+}
+
+/* Security groups */
+.x3-sec {
+  display: grid;
+  gap: 1rem;
+}
+.x3-sec .fg {
+  padding: clamp(1.15rem, 2.4vw, 1.5rem);
+}
+
+/* FAQ */
+.x3-faq {
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  background: var(--surface-raised);
+  overflow: hidden;
+}
+.x3-faq details + details {
+  border-top: 1px solid var(--line-soft);
+}
+.x3-faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.15rem;
+  cursor: pointer;
+  list-style: none;
+  font-weight: 450;
+  color: var(--ink);
+  transition: background 0.25s var(--ease-soft);
+}
+.x3-faq summary::-webkit-details-marker {
+  display: none;
+}
+.x3-faq summary::after {
+  content: '+';
+  flex: none;
+  font-family: var(--mono);
+  font-size: 1rem;
+  color: var(--accent);
+  transition: transform 0.3s var(--ease-soft);
+}
+.x3-faq details[open] summary::after {
+  transform: rotate(45deg);
+}
+.x3-faq summary:hover {
+  background: var(--row-hover);
+}
+.x3-faq details p {
+  padding: 0 1.15rem 1.1rem;
+  max-width: 64ch;
+  font-weight: 300;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+/* Privacy: pointer to the Chrome extension's own policy. */
+.x3-note {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 0.9rem;
+  max-width: 820px;
+  padding: 0.85rem 1.1rem;
+  border: 1px solid color-mix(in srgb, var(--accent) 30%, var(--line));
+  border-radius: var(--r-md);
+  background: color-mix(in srgb, var(--accent) 6%, var(--surface-raised));
+  font-size: 0.9062rem;
+  font-weight: 300;
+  color: var(--ink-2);
+}
+.x3-note a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-weight: 450;
+  color: var(--accent);
+}
+.x3-note a svg {
+  width: 12px;
+  height: 12px;
+}
+/* Long first column in the extension's data table. */
+.x3-table td:nth-child(2):last-child {
+  min-width: 16rem;
+}

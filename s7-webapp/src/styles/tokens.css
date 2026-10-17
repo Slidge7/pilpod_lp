@@ -4,7 +4,7 @@
 
    Two axes, both attributes on <html>:
 
-     data-theme = s7 | reqtone     which product's palette the page wears
+     data-theme = s7 | reqtone | pilpod | x3   which product's palette the page wears
      data-mode  = dark | light     which end of that palette
 
    That is four token sets from one stylesheet. A route change swaps
@@ -383,6 +383,116 @@
   --row-hover: rgb(var(--fg-rgb) / 0.03);
   --grain-opacity: 0.03;
   --pointer-light: rgba(200, 30, 30, 0.05);
+}
+
+/* ================================================= X3Companion — dark === */
+
+/*
+ * X3Companion's palette: the deep green of its own app icon on a green-black
+ * surface, so it reads as an ERP tool rather than a developer toy. Amber
+ * (--post) is kept for "pilot" status, the same meaning it has on ReqTone.
+ */
+:root[data-theme='x3'] {
+  color-scheme: dark;
+
+  --well: #08100e;
+  --rail: #13201c;
+  --raised: #1a2a25;
+
+  --surface: #0b1412;
+  --surface-raised: #111d1a;
+  --fg-rgb: 255 255 255;
+
+  --line: #22332e;
+  --line-soft: rgb(var(--fg-rgb) / 0.055);
+  --line-strong: #30473f;
+  --grid-line: rgb(var(--fg-rgb) / 0.028);
+
+  --ink: #eef4f1;
+  --ink-2: #c8d6d0;
+  --ink-3: #8ea49b;
+  --ink-4: #6f857c;
+  --body-ink: var(--ink-2);
+
+  --x3-green: #0e7050;
+
+  --accent: #3ccb92;
+  --accent-hover: #67dbac;
+  --accent-ink: #03130c;
+
+  --brand: var(--accent);
+  --brand-lift: var(--accent-hover);
+  --brand-glow: rgba(20, 150, 104, 0.22);
+
+  --post: 240 168 48;
+
+  --select-bg: #0e7050;
+  --select-ink: #ffffff;
+  --focus: var(--accent);
+
+  --code-bg: rgb(var(--fg-rgb) / 0.05);
+  --tz-veil: linear-gradient(180deg, rgba(8, 16, 14, 0.66), rgba(8, 16, 14, 0.32));
+  --nav-glass: rgba(11, 20, 18, 0.8);
+
+  --r-btn: var(--r-md);
+  --btn-primary-bg: #138a62;
+  --btn-primary-bg-hover: #179c6f;
+  --btn-primary-ink: #ffffff;
+  --btn-ghost-ink: var(--ink-2);
+  --btn-ghost-bg: var(--surface-raised);
+  --btn-ghost-bg-hover: var(--raised);
+  --btn-ghost-border-hover: var(--line-strong);
+
+  --row-hover: rgb(var(--fg-rgb) / 0.018);
+  --grain-opacity: 0.05;
+  --pointer-light: rgba(20, 150, 104, 0.06);
+
+  --section-y: clamp(4.5rem, 11vh, 8rem);
+}
+
+/* ================================================ X3Companion — light === */
+
+:root[data-theme='x3'][data-mode='light'] {
+  color-scheme: light;
+
+  --well: #edf3f0;
+  --rail: #eff5f2;
+  --raised: #e7efeb;
+
+  --surface: #f6f9f7;
+  --surface-raised: #ffffff;
+  --fg-rgb: 11 21 18;
+
+  --line: #dfe8e4;
+  --line-soft: rgb(var(--fg-rgb) / 0.07);
+  --line-strong: #c3d2cb;
+  --grid-line: rgb(var(--fg-rgb) / 0.045);
+
+  --ink: #0b1512;
+  --ink-2: #2b3b35;
+  --ink-3: #4e6159;
+  --ink-4: #5a6d65;
+  --body-ink: var(--ink-2);
+
+  --accent: #0b6a47;
+  --accent-hover: #08573a;
+  --accent-ink: #ffffff;
+
+  --brand-glow: rgba(14, 112, 80, 0.14);
+  --post: 154 91 0;
+
+  --select-bg: #0e7050;
+
+  --btn-primary-bg: #0e7050;
+  --btn-primary-bg-hover: #0a5c41;
+
+  --code-bg: rgb(var(--fg-rgb) / 0.06);
+  --tz-veil: linear-gradient(180deg, rgba(246, 249, 247, 0.74), rgba(246, 249, 247, 0.36));
+  --nav-glass: rgba(246, 249, 247, 0.8);
+
+  --row-hover: rgb(var(--fg-rgb) / 0.03);
+  --grain-opacity: 0.03;
+  --pointer-light: rgba(14, 112, 80, 0.05);
 }
 
 /* ------------------------------------------------------------------ fonts -- */

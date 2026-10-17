@@ -45,7 +45,9 @@ function headerOffset(): number {
   // The time strip collapses once the page is scrolled, so the resting height
   // of the bar is what an anchor should clear — not its current height.
   const inner = nav.querySelector<HTMLElement>('.nav-inner');
-  return (inner?.offsetHeight ?? 72) + 12;
+  // A section's own sticky bar (X3Companion) sits under the nav: clear it too.
+  const sub = document.querySelector<HTMLElement>('[data-subnav]');
+  return (inner?.offsetHeight ?? 72) + (sub?.offsetHeight ?? 0) + 12;
 }
 
 /**

@@ -113,6 +113,7 @@ export const home: Route = {
           ${arrowThin()}
         </a>
       </article>
+
     </div>
   </section>
 
