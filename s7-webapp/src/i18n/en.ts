@@ -1024,7 +1024,7 @@ export const en = {
       },
       label: 'Privacy · Chrome extension',
       h1: 'X3Companion for Chrome — privacy policy.',
-      updated: 'Chrome extension “X3Companion” · Publisher: S7 (Service7), Morocco · Last updated 16 October 2026',
+      updated: 'Chrome extension “X3Companion” · Publisher: S7 (Service7), Morocco · Last updated 24 October 2026',
       toc: 'Sections',
       back: 'Privacy policy for the whole of X3Companion',
       before: [
@@ -1055,34 +1055,35 @@ export const en = {
       ] as DocSection[],
 
       permsTitle: 'Permissions and why they are needed',
-      permsLead: 'The extension asks Chrome for these permissions and uses them only as described.',
+      permsLead: 'No website access is granted when the extension is installed. Your IT team enters your organization’s Sage X3 address and X3Companion Server address in the extension’s settings, and Chrome then asks to allow those two addresses only. The extension never asks for any other address, and when an address is changed, access to the old one is given back.',
       permsHead: ['Permission', 'What it is used for'],
       permsRows: [
-        ['<code>storage</code>', 'Keeps, on this PC only, the on/off switch, this PC’s registration with your organization’s server, and display preferences.'],
-        ['<code>scripting</code>', 'While the extension is switched on, registers one script packaged in the extension on your organization’s Sage X3 address only, so it knows which customer or document Sage has open. It is unregistered when the extension is switched off.'],
-        ['Your Sage X3 address', 'The only website the extension runs on: it adds its views (Documents section, Récap devis, Analyse devis, Récap commande, the assistant) to these pages.'],
-        ['Your X3Companion Server address', 'The only place the extension sends requests to, to fetch the data it displays. It is your organization’s own server, on its local network.'],
+        ['<code>storage</code>', 'Keeps, on this PC only, the two addresses entered by your IT team, the on/off switch, this PC’s registration with your organization’s server, and display preferences.'],
+        ['<code>scripting</code>', 'Registers scripts packaged in the extension on your organization’s Sage X3 address only, once Chrome has allowed it: one adds the extension’s views to Sage’s pages; the other, only while the extension is switched on, notices which customer or document Sage has open and adds the extension’s screens to Sage’s menu. They are removed when the address is removed or access is withdrawn.'],
+        ['Your Sage X3 address (entered in the settings)', 'The only website the extension runs on: it adds its views (Documents section, Récap devis, Analyse devis, Récap commande, the assistant) to these pages.'],
+        ['Your X3Companion Server address (entered in the settings)', 'The only place the extension sends requests to, to fetch the data it displays. It is your organization’s own server, on its local network.'],
       ],
 
       dataTitle: 'Data the extension handles',
       dataLead: 'Everything below comes from your organization’s own systems and is displayed to the user inside Sage X3.',
       dataHead: ['Type of data', 'What exactly', 'Why'],
       dataRows: [
-        ['Personally identifiable information', 'Sage customer names and codes, sales reps’ names, names of the Sage users who created or changed documents, and the user name the administrator assigns to the PC', 'To show customers, reps and who created each document'],
+        ['Personally identifiable information', 'Sage customer names and codes, sales reps’ names, names of the Sage users who created or changed documents, the user name the administrator assigns to the PC, and a browser and system label sent when the PC registers (for example “Chrome on Windows”)', 'To show customers, reps and who created each document, and to let the administrator recognise the PC'],
         ['Financial information', 'Quote, order, delivery and invoice amounts read from Sage', 'To show recaps, totals and analytics'],
         ['Authentication information', 'A device key and a short-lived session token, so your organization’s server can recognise this PC. No passwords are read or stored', 'To make sure only approved PCs receive data'],
         ['Website content', 'On your Sage X3 address only: the customer or document number on the open screen, and Sage’s own menu', 'To show the matching data and add the extension’s screens to Sage’s menu'],
+        ['User activity', 'On your Sage X3 address only, while the extension is switched on: Sage’s own data responses and address changes in that page. No clicks, keystrokes or mouse movements are recorded', 'To know which customer or document is open'],
         ['Assistant questions', 'What the user types in the assistant', 'To answer it'],
       ],
       dataNot:
-        'The extension does <b>not</b> collect health information, personal communications, location, web browsing history or user activity, and does not run on, read or record any website other than your organization’s Sage X3 address.',
+        'The extension does <b>not</b> collect health information, personal communications, location or web browsing history, and does not run on, read or record any website other than your organization’s Sage X3 address.',
 
       after: [
         {
           id: 'stored',
           title: 'What is stored on your PC',
           paras: [
-            'In Chrome’s storage for this extension only: the on/off switch; this PC’s registration with your organization’s server (a device id, an approval code, a device key and a session token used to authenticate the PC, and the user name your administrator assigned); and display preferences such as page size, filters and the open assistant conversation. <b>Removing the extension deletes all of it.</b>',
+            'In Chrome’s storage for this extension only: the Sage X3 and X3Companion Server addresses entered by your IT team; the on/off switch; this PC’s registration with your organization’s server (a device id, an approval code, a device key and a session token used to authenticate the PC, and the user name your administrator assigned); and display preferences such as page size, filters and the open assistant conversation. <b>Removing the extension deletes all of it.</b>',
           ],
           list: [],
         },
@@ -1090,7 +1091,7 @@ export const en = {
           id: 'sent',
           title: 'Where data is sent',
           paras: [
-            'Only to your organization’s X3Companion Server, at the address configured for your organization, on its local network. The extension sends nothing to S7 or to any other service.',
+            'Only to your organization’s X3Companion Server, at the address your IT team entered in the extension’s settings, on its local network. When the PC registers, the extension also sends that server a browser and system label (for example “Chrome on Windows”) so your administrator can recognise the PC. The extension sends nothing to S7 or to any other service.',
             '<b>Assistant.</b> If your organization turns the assistant on, its <b>server</b> sends the question, the current screen’s context and the data needed to answer it to the AI provider your organization configured (currently Anthropic), under your organization’s own account and terms. The extension itself never contacts the AI provider.',
           ],
           list: [],

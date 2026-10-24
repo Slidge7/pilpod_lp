@@ -1031,7 +1031,7 @@ export const fr: Dict = {
       },
       label: 'Confidentialité · extension Chrome',
       h1: 'X3Companion pour Chrome — politique de confidentialité.',
-      updated: 'Extension Chrome « X3Companion » · Éditeur : S7 (Service7), Maroc · Dernière mise à jour : 16 octobre 2026',
+      updated: 'Extension Chrome « X3Companion » · Éditeur : S7 (Service7), Maroc · Dernière mise à jour : 24 octobre 2026',
       toc: 'Sections',
       back: "Politique de confidentialité de l'ensemble de X3Companion",
       before: [
@@ -1062,34 +1062,35 @@ export const fr: Dict = {
       ] as DocSection[],
 
       permsTitle: 'Autorisations et pourquoi elles sont nécessaires',
-      permsLead: "L'extension demande ces autorisations à Chrome et ne les utilise que comme décrit.",
+      permsLead: "Aucun accès à un site n'est accordé à l'installation. Votre service informatique saisit l'adresse Sage X3 et l'adresse de X3Companion Server de votre organisation dans les paramètres de l'extension, puis Chrome demande l'autorisation pour ces deux adresses uniquement. L'extension ne demande jamais d'autre adresse, et quand une adresse change, l'accès à l'ancienne est rendu.",
       permsHead: ['Autorisation', 'Utilisation'],
       permsRows: [
-        ['<code>storage</code>', "Conserve, sur ce poste uniquement, l'interrupteur Actif/Inactif, l'enregistrement du poste auprès du serveur de votre organisation et les préférences d'affichage."],
-        ['<code>scripting</code>', "Quand l'extension est active, enregistre un script inclus dans l'extension sur l'adresse Sage X3 de votre organisation uniquement, pour savoir quel client ou document Sage affiche. Il est retiré quand l'extension est désactivée."],
-        ['Votre adresse Sage X3', "Le seul site sur lequel l'extension s'exécute : elle y ajoute ses vues (section Documents, Récap devis, Analyse devis, Récap commande, l'assistant)."],
-        ['Votre adresse X3Companion Server', "Le seul endroit auquel l'extension envoie des requêtes, pour obtenir les données qu'elle affiche. C'est le serveur de votre organisation, sur son réseau local."],
+        ['<code>storage</code>', "Conserve, sur ce poste uniquement, les deux adresses saisies par votre service informatique, l'interrupteur Actif/Inactif, l'enregistrement du poste auprès du serveur de votre organisation et les préférences d'affichage."],
+        ['<code>scripting</code>', "Enregistre des scripts inclus dans l'extension sur l'adresse Sage X3 de votre organisation uniquement, une fois que Chrome l'a autorisée : l'un ajoute les vues de l'extension aux pages de Sage ; l'autre, seulement quand l'extension est active, repère quel client ou document Sage affiche et ajoute les écrans de l'extension au menu de Sage. Ils sont retirés quand l'adresse est supprimée ou l'accès retiré."],
+        ['Votre adresse Sage X3 (saisie dans les paramètres)', "Le seul site sur lequel l'extension s'exécute : elle y ajoute ses vues (section Documents, Récap devis, Analyse devis, Récap commande, l'assistant)."],
+        ['Votre adresse X3Companion Server (saisie dans les paramètres)', "Le seul endroit auquel l'extension envoie des requêtes, pour obtenir les données qu'elle affiche. C'est le serveur de votre organisation, sur son réseau local."],
       ],
 
       dataTitle: "Données traitées par l'extension",
       dataLead: "Tout ce qui suit vient des systèmes de votre organisation et s'affiche à l'utilisateur dans Sage X3.",
       dataHead: ['Type de données', 'Précisément', 'Pourquoi'],
       dataRows: [
-        ['Informations permettant d’identifier une personne', "Noms et codes des clients Sage, noms des représentants, noms des utilisateurs Sage qui ont créé ou modifié les documents, et nom d'utilisateur attribué au poste par l'administrateur", 'Afficher les clients, les représentants et le créateur de chaque document'],
+        ['Informations permettant d’identifier une personne', "Noms et codes des clients Sage, noms des représentants, noms des utilisateurs Sage qui ont créé ou modifié les documents, nom d'utilisateur attribué au poste par l'administrateur, et nom du navigateur et du système envoyé à l'enregistrement du poste (par exemple « Chrome on Windows »)", "Afficher les clients, les représentants et le créateur de chaque document, et permettre à l'administrateur de reconnaître le poste"],
         ['Informations financières', 'Montants des devis, commandes, livraisons et factures lus dans Sage', 'Afficher les récaps, les totaux et les analyses'],
         ["Informations d'authentification", "Une clé de poste et un jeton de session de courte durée, pour que le serveur de votre organisation reconnaisse ce poste. Aucun mot de passe n'est lu ni conservé", 'Garantir que seuls les postes approuvés reçoivent des données'],
         ['Contenu de site web', "Sur votre adresse Sage X3 uniquement : le numéro du client ou du document à l'écran, et le menu de Sage", "Afficher les données correspondantes et ajouter les écrans de l'extension au menu de Sage"],
+        ["Activité de l'utilisateur", "Sur votre adresse Sage X3 uniquement, quand l'extension est active : les réponses de données de Sage et les changements d'adresse dans cette page. Aucun clic, frappe au clavier ni mouvement de souris n'est enregistré", 'Savoir quel client ou document est ouvert'],
         ["Questions à l'assistant", "Ce que l'utilisateur saisit dans l'assistant", 'Y répondre'],
       ],
       dataNot:
-        "L'extension ne collecte <b>pas</b> d'informations de santé, de communications personnelles, de localisation, d'historique de navigation ni d'activité de l'utilisateur, et ne s'exécute sur aucun autre site que l'adresse Sage X3 de votre organisation, ne le lit ni ne l'enregistre.",
+        "L'extension ne collecte <b>pas</b> d'informations de santé, de communications personnelles, de localisation ni d'historique de navigation, et ne s'exécute sur aucun autre site que l'adresse Sage X3 de votre organisation, ne le lit ni ne l'enregistre.",
 
       after: [
         {
           id: 'stored',
           title: 'Ce qui est conservé sur votre poste',
           paras: [
-            "Dans le stockage Chrome réservé à cette extension uniquement : l'interrupteur Actif/Inactif ; l'enregistrement du poste auprès du serveur de votre organisation (identifiant, code d'approbation, clé du poste et jeton de session servant à l'authentifier, nom d'utilisateur attribué par l'administrateur) ; et les préférences d'affichage (taille de page, filtres, conversation ouverte avec l'assistant). <b>Supprimer l'extension efface tout.</b>",
+            "Dans le stockage Chrome réservé à cette extension uniquement : les adresses de Sage X3 et de X3Companion Server saisies par votre service informatique ; l'interrupteur Actif/Inactif ; l'enregistrement du poste auprès du serveur de votre organisation (identifiant, code d'approbation, clé du poste et jeton de session servant à l'authentifier, nom d'utilisateur attribué par l'administrateur) ; et les préférences d'affichage (taille de page, filtres, conversation ouverte avec l'assistant). <b>Supprimer l'extension efface tout.</b>",
           ],
           list: [],
         },
@@ -1097,7 +1098,7 @@ export const fr: Dict = {
           id: 'sent',
           title: 'Où les données sont envoyées',
           paras: [
-            "Uniquement au serveur X3Companion Server de votre organisation, à l'adresse configurée pour elle, sur son réseau local. L'extension n'envoie rien à S7 ni à aucun autre service.",
+            "Uniquement au serveur X3Companion Server de votre organisation, à l'adresse saisie par votre service informatique dans les paramètres de l'extension, sur son réseau local. Lors de l'enregistrement du poste, l'extension envoie aussi à ce serveur le nom du navigateur et du système (par exemple « Chrome on Windows ») pour que votre administrateur reconnaisse le poste. L'extension n'envoie rien à S7 ni à aucun autre service.",
             "<b>Assistant.</b> Si votre organisation active l'assistant, son <b>serveur</b> envoie la question, le contexte de l'écran ouvert et les données nécessaires à la réponse au fournisseur d'IA qu'elle a configuré (actuellement Anthropic), sous le compte et les conditions de votre organisation. L'extension ne contacte jamais ce fournisseur directement.",
           ],
           list: [],

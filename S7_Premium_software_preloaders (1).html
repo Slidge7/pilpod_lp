@@ -1,0 +1,480 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>S7 — Premium software</title>
+<script>
+(() => {
+  'use strict';
+  const KEY = 's7-preloader', SK = 's7-style';
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const force = /[?&]intro=1/.test(location.search);
+  let seen = false; try { seen = sessionStorage.getItem(KEY) === '1'; } catch (_) {}
+  if (reduced || (seen && !force)) return;
+
+  // style: ?style=1..5  >  saved choice  >  1
+  const q = location.search.match(/[?&]style=(10|[1-9])/);
+  let style = q ? +q[1] : 1;
+  if (!q) { try { style = +localStorage.getItem(SK) || 1; } catch (_) {} }
+
+  const css = document.createElement('style');
+  css.textContent = `
+    html.s7-hold #clock { visibility: hidden; }
+    #s7-intro { position: fixed; inset: 0; z-index: 2147483647; overflow: hidden; }
+    #s7-intro .bg { position: absolute; inset: 0; transition: opacity .7s ease;
+      background: radial-gradient(ellipse at 50% 46%, rgba(150,24,37,.22), transparent 45%), #080809; }
+    #s7-intro.out .bg { opacity: 0; }
+    #s7-intro .wrap { position: absolute; left: 50%; top: 50%; transform: translate(-50%,-50%) scale(2.6); will-change: transform; }
+    .s7p { position: relative; display: inline-flex; align-items: center; gap: 10px; height: 36px; padding: 0 16px 0 5px;
+      border: 1px solid rgba(214,64,74,.38); background: rgba(120,20,30,.28); border-radius: 999px; white-space: nowrap;
+      font-family: "JetBrains Mono", ui-monospace, monospace; font-variant-numeric: tabular-nums; color: #f4eaea; }
+    .s7p .flag { width: 28px; height: 24px; border-radius: 4px; display: block; flex: none; }
+    .s7p .tz { display: inline-flex; overflow: hidden; height: 1.3em; line-height: 1.3em; font-size: 12px; letter-spacing: .16em; color: #e98b92; }
+    .s7p .l { display: inline-block; }
+    .s7p .time { display: inline-flex; align-items: baseline; font-size: 17px; font-weight: 700; }
+    .s7p .d { display: inline-block; overflow: hidden; height: 1.3em; line-height: 1.3em; }
+    .s7p .g { display: block; }
+    .s7p .g > b { display: block; font-weight: inherit; }
+    .s7p .sep, .s7p .s { color: #6f5b5d; font-weight: 500; }
+    .s7p.gl { position: absolute; left: 0; top: 0; pointer-events: none; mix-blend-mode: screen; }
+    .s7p.gr, .s7p.gr * { color: #ff2a3a !important; }
+    .s7p.gc, .s7p.gc * { color: #2affea !important; }
+    .s7p.gr, .s7p.gc { background: none; border-color: transparent; }
+    .s7p.gr .flag, .s7p.gc .flag { opacity: 0; }
+    #s7-intro .scan { position: absolute; inset: 0; border-radius: 999px; pointer-events: none; opacity: 0;
+      background: repeating-linear-gradient(0deg, rgba(255,255,255,.09) 0 1px, transparent 1px 3px); }
+    .s7p .trace { display: none; position: absolute; inset: -1px; width: calc(100% + 2px); height: calc(100% + 2px); overflow: visible; pointer-events: none; }
+  `;
+  document.head.appendChild(css);
+  document.documentElement.classList.add('s7-hold');
+
+  const E = 'cubic-bezier(.16,1,.3,1)';
+  const utc = () => { const n = new Date(), p = v => String(v).padStart(2, '0'); return p(n.getUTCHours()) + p(n.getUTCMinutes()) + p(n.getUTCSeconds()); };
+  const L = [...'GMT'].map(c => `<span class="l">${c}</span>`).join('');
+  const D = (i, extra = '') => `<span class="d ${extra}"><span class="g" data-i="${i}">0</span></span>`;
+  const overlay = document.createElement('div');
+  overlay.id = 's7-intro'; overlay.setAttribute('role', 'presentation');
+  overlay.innerHTML = `<div class="bg"></div><div class="wrap"><div class="s7p">
+    <svg class="trace" aria-hidden="true"><rect x="0" y="0" width="100%" height="100%" rx="18" ry="18" pathLength="1" fill="none" stroke="#e98b92" stroke-width="1.4" stroke-dasharray="1" stroke-dashoffset="1"/></svg>
+    <svg class="flag" viewBox="0 0 90 60" aria-hidden="true"><rect width="90" height="60" fill="#c1272d"/><path d="M45 13 L55 43.75 L28.8 24.8 L61.2 24.8 L35 43.75 Z" fill="none" stroke="#006233" stroke-width="2.4" stroke-linejoin="miter"/></svg>
+    <span class="tz">${L}</span>
+    <span class="time">${D(0)}${D(1)}<span class="sep">:</span>${D(2)}${D(3)}<span class="sep">:</span>${D(4,'s')}${D(5,'s')}</span>
+  </div></div>`;
+  document.documentElement.appendChild(overlay);
+  const prevOverflow = document.documentElement.style.overflow;
+  document.documentElement.style.overflow = 'hidden';
+
+  const wrap = overlay.querySelector('.wrap'), pill = overlay.querySelector('.s7p');
+  const letters = [...overlay.querySelectorAll('.l')], gs = [...overlay.querySelectorAll('.g')];
+  const tz = overlay.querySelector('.tz'), flag = overlay.querySelector('.flag'), time = overlay.querySelector('.time');
+  const locked = Array(6).fill(false);
+  const S = Math.min(2.6, (innerWidth - 48) / wrap.offsetWidth);
+  wrap.style.transform = `translate(-50%,-50%) scale(${S})`;
+  const setAll = () => { const s = utc(); gs.forEach((g, i) => { if (!locked[i] && g.textContent !== s[i]) g.textContent = s[i]; }); };
+  setAll();
+  const live = setInterval(setAll, 200);
+  const an = (el, kf, o) => el.animate(kf, Object.assign({ duration: 800, easing: E, fill: 'both' }, o));
+  const timers = [];
+
+  // ---- 5 styles: each runs on the centered clock pill + GMT text, returns ms until hand-off
+  const styles = {
+    // 1 Focus: blur-to-sharp, GMT tightens from wide tracking
+    1() {
+      an(pill, [{ opacity: 0, filter: 'blur(14px)', transform: 'scale(.72)' }, { opacity: 1, filter: 'blur(0)', transform: 'scale(1)' }], { duration: 1000 });
+      an(tz, [{ letterSpacing: '1em', opacity: 0 }, { letterSpacing: '.16em', opacity: 1 }], { duration: 1100, delay: 150 });
+      return 1500;
+    },
+    // 2 Curtain: pill opens from center, GMT and digits slide up
+    2() {
+      an(pill, [{ clipPath: 'inset(0 50% 0 50% round 999px)' }, { clipPath: 'inset(0 0 0 0 round 999px)' }], { duration: 850, easing: 'cubic-bezier(.65,0,.35,1)' });
+      letters.forEach((l, i) => an(l, [{ transform: 'translateY(115%)' }, { transform: 'none' }], { delay: 500 + i * 80 }));
+      gs.forEach((g, i) => an(g, [{ transform: 'translateY(115%)' }, { transform: 'none' }], { delay: 650 + i * 45 }));
+      return 1650;
+    },
+    // 3 Odometer: digits spin up to the current time, GMT drops in
+    3() {
+      an(pill, [{ opacity: 0 }, { opacity: 1 }], { duration: 350 });
+      letters.forEach((l, i) => an(l, [{ transform: 'translateY(-115%)' }, { transform: 'none' }], { delay: 200 + i * 90 }));
+      const s = utc();
+      gs.forEach((g, i) => {
+        locked[i] = true; const t = +s[i];
+        g.innerHTML = Array.from({ length: 10 }, (_, k) => `<b>${(t + 1 + k) % 10}</b>`).join('');
+        const a = an(g, [{ transform: 'translateY(0)' }, { transform: 'translateY(-90%)' }], { duration: 900 + i * 130, easing: 'cubic-bezier(.22,1,.36,1)', delay: 150 });
+        a.onfinish = () => { a.cancel(); locked[i] = false; g.textContent = utc()[i]; };
+      });
+      return 1750;
+    },
+    // 4 Decode: random characters resolve into GMT and the time
+    4() {
+      an(pill, [{ opacity: 0 }, { opacity: 1 }], { duration: 300 });
+      const pool = '0123456789ABCDEF#%/<>', rnd = () => pool[Math.random() * pool.length | 0];
+      const t0 = performance.now(), word = 'GMT';
+      gs.forEach((_, i) => locked[i] = true);
+      const iv = setInterval(() => {
+        const dt = performance.now() - t0, s = utc();
+        letters.forEach((l, i) => { l.textContent = dt > 450 + i * 130 ? word[i] : rnd(); });
+        gs.forEach((g, i) => {
+          const done = dt > 550 + i * 110;
+          g.textContent = done ? s[i] : rnd(); if (done) locked[i] = false;
+        });
+        if (dt > 1300) clearInterval(iv);
+      }, 45);
+      timers.push(iv);
+      return 1700;
+    },
+    // 5 Trace: outline draws itself, then fills, then flag, GMT and time appear
+    5() {
+      overlay.querySelector('.trace').style.display = 'block';
+      an(pill, [{ borderColor: 'transparent', backgroundColor: 'transparent' }, { borderColor: 'rgba(214,64,74,.38)', backgroundColor: 'rgba(120,20,30,.28)' }], { duration: 450, delay: 950 });
+      an(overlay.querySelector('.trace rect'), [{ strokeDashoffset: 1 }, { strokeDashoffset: 0 }], { duration: 1000, easing: 'cubic-bezier(.65,0,.35,1)' });
+      an(overlay.querySelector('.trace'), [{ opacity: 1 }, { opacity: 0 }], { duration: 400, delay: 1000 });
+      [flag, tz, time].forEach((el, i) => an(el, [{ opacity: 0, transform: 'translateY(6px)' }, { opacity: 1, transform: 'none' }], { duration: 500, delay: 650 + i * 150 }));
+      return 1750;
+    },
+    // 6 Unfold: GMT, HH, MM and SS are strips of folded paper (horizontal accordion).
+    // Each strip opens panel by panel and its layout width is driven by the fold angle,
+    // so the pill grows exactly as fast as the paper opens.
+    6() {
+      an(pill, [{ opacity: 0 }, { opacity: 1 }], { duration: 400 });
+      an(flag, [{ opacity: 0, transform: 'scale(.6)' }, { opacity: 1, transform: 'none' }], { duration: 700, delay: 150 });
+      const par = i => gs[i].parentElement;
+      const defs = [[tz, tz, 0], [par(0), par(1), 300], [par(2), par(3), 560], [par(4), par(5), 820]];
+      const N = 4, MAX = 80 * Math.PI / 180, DUR = 1200;
+      const mkDiv = css => { const d = document.createElement('div'); d.style.cssText = css; return d; };
+
+      const units = defs.map(([a, b, delay]) => {
+        const w = b.offsetLeft + b.offsetWidth - a.offsetLeft, h = a.offsetHeight, pw = w / N;
+        const box = document.createElement('span');               // layout slot: its width follows the fold
+        box.style.cssText = `position:relative;display:inline-flex;align-items:baseline;flex:none;width:${w * Math.cos(MAX)}px`;
+        a.before(box); box.append(a); if (b !== a) box.append(b);
+        a.style.flex = b.style.flex = 'none';
+        const fold = mkDiv(`position:absolute;left:0;top:${a.offsetTop}px;width:${w}px;height:${h}px;perspective:900px;perspective-origin:30% 50%;pointer-events:none`);
+        const panels = [], shades = []; let parent = fold;
+        for (let k = 0; k < N; k++) {
+          const p = mkDiv(`position:absolute;top:0;left:${k ? '100%' : '0'};width:${pw}px;height:100%;transform-style:preserve-3d;transform-origin:0 50%`);
+          const clip = mkDiv('position:absolute;inset:0;overflow:hidden;backface-visibility:hidden;background:linear-gradient(180deg,rgba(244,234,234,.11),rgba(244,234,234,.03))');
+          const inner = mkDiv(`position:absolute;top:0;left:${-k * pw}px;width:${w}px;height:${h}px;display:flex;align-items:center`);
+          if (a === b) inner.appendChild(a.cloneNode(true));
+          else { const t = document.createElement('span'); t.className = 'time'; t.append(a.cloneNode(true), b.cloneNode(true)); inner.appendChild(t); }
+          const sh = mkDiv('position:absolute;inset:0;background:' + (k % 2
+            ? 'linear-gradient(90deg,rgba(255,255,255,.32),rgba(255,255,255,0))'
+            : 'linear-gradient(90deg,rgba(0,0,0,.8),rgba(0,0,0,.12))'));
+          clip.append(inner, sh); p.appendChild(clip); parent.appendChild(p); parent = p;
+          panels.push(p); shades.push(sh);
+        }
+        box.appendChild(fold);
+        a.style.visibility = b.style.visibility = 'hidden';
+        return { a, b, box, fold, panels, shades, w, delay, done: false };
+      });
+
+      const ease = t => 1 - Math.pow(1 - t, 4);
+      const t0 = performance.now();
+      const frame = now => {
+        if (!overlay.isConnected) return;
+        const s = utc(); let pending = 0;
+        units.forEach(u => {
+          if (u.done) return;
+          const t = Math.min(Math.max((now - t0 - u.delay) / DUR, 0), 1), th = MAX * (1 - ease(t));
+          u.box.style.width = (u.w * Math.cos(th)) + 'px';
+          const sn = Math.sin(th) / Math.sin(MAX);
+          u.panels.forEach((p, k) => { p.style.transform = `rotateY(${(k ? (k % 2 ? -2 : 2) : 1) * th}rad)`; });
+          u.shades.forEach(sh => { sh.style.opacity = sn; });
+          u.fold.querySelectorAll('.g').forEach(g => { g.textContent = s[g.dataset.i]; });
+          if (t >= 1) {
+            u.done = true; u.fold.remove(); u.box.style.width = '';
+            u.a.style.visibility = u.b.style.visibility = '';
+          } else pending++;
+        });
+        if (pending) requestAnimationFrame(frame);
+      };
+      frame(t0);
+      requestAnimationFrame(frame);
+      return 820 + DUR + 150;
+    },
+    // 7 Sweep: a bright band wipes across the pill and reveals it
+    7() {
+      pill.style.maskImage = 'linear-gradient(100deg,#000 38%,transparent 56%)';
+      pill.style.maskSize = '320% 100%';
+      an(pill, [{ maskPosition: '100% 0', filter: 'brightness(2.4)' }, { maskPosition: '0% 0', filter: 'brightness(1)' }], { duration: 1300, easing: 'cubic-bezier(.65,0,.35,1)' })
+        .onfinish = () => { pill.style.maskImage = 'none'; };
+      an(tz, [{ textShadow: '0 0 14px #ff4b57' }, { textShadow: '0 0 0 transparent' }], { duration: 1500, delay: 400 });
+      return 1700;
+    },
+    // 8 Spring: flag, GMT and each digit pop in with an overshoot
+    8() {
+      an(pill, [{ opacity: 0, transform: 'scaleX(.4)' }, { opacity: 1, transform: 'none' }], { duration: 700, easing: 'cubic-bezier(.34,1.4,.64,1)' });
+      const pop = [{ transform: 'scale(0)', opacity: 0 }, { transform: 'scale(1)', opacity: 1 }];
+      const spring = 'cubic-bezier(.34,1.7,.64,1)';
+      an(flag, pop, { duration: 650, delay: 250, easing: spring });
+      letters.forEach((l, i) => an(l, pop, { duration: 650, delay: 380 + i * 90, easing: spring }));
+      gs.forEach((g, i) => an(g.parentElement, pop, { duration: 650, delay: 650 + i * 80, easing: spring }));
+      return 1700;
+    },
+    // 9 Type: the pill appears, then GMT and the time are typed out character by character
+    9() {
+      an(pill, [{ opacity: 0 }, { opacity: 1 }], { duration: 400 });
+      const seq = [flag, ...letters, ...gs.map(g => g.parentElement)];
+      seq.forEach((el, i) => an(el, [{ opacity: 0, color: '#fff' }, { opacity: 1, color: '#fff', offset: .01 }, { opacity: 1, color: '' }], { duration: 260, delay: 450 + i * 95, easing: 'linear' }));
+      return 450 + seq.length * 95 + 400;
+    },
+    // 10 Glitch in time: the clock jumps between real time zones. The label and the digits always agree
+    // (GMT+2 shows UTC+2h, GMT-5 shows UTC-5h ...), so the glitch is in the time itself, never in the characters.
+    10() {
+      const mk = cls => { const c = pill.cloneNode(true); c.classList.add('gl', cls); c.querySelectorAll('.trace').forEach(t => t.remove()); wrap.appendChild(c); return c; };
+      const red = mk('gr'), cyan = mk('gc'), slice = mk('gs2');
+      const scan = document.createElement('div'); scan.className = 'scan'; wrap.appendChild(scan);
+      const pills = [pill, red, cyan, slice];
+      const Ts = pills.map(p => p.querySelector('.tz')), Gs = pills.map(p => [...p.querySelectorAll('.g')]);
+      const R = a => (Math.random() * 2 - 1) * a;
+      const seq = [1, 2, -1, 0, 1, 0], STEP = 340;
+      const fmt = o => {
+        if (!o) return 'GMT';
+        const a = Math.abs(o), h = Math.trunc(a), m = Math.round((a - h) * 60);
+        return 'GMT' + (o < 0 ? '-' : '+') + h + (m ? ':' + String(m).padStart(2, '0') : '');
+      };
+      const shifted = o => {
+        const d = new Date(Date.now() + o * 3600000), p = v => String(v).padStart(2, '0');
+        return p(d.getUTCHours()) + p(d.getUTCMinutes()) + p(d.getUTCSeconds());
+      };
+      const show = (i, o) => { Ts[i].textContent = fmt(o); const s = shifted(o); Gs[i].forEach((g, k) => { g.textContent = s[k]; }); };
+      const t0 = performance.now(), SETTLE = seq.length * STEP, TOTAL = SETTLE + 350;
+      let cur = 0, prev = 0, ghost = 0, lastFx = -1e9;
+      const FX = 170;
+      gs.forEach((_, i) => locked[i] = true);
+      pills.forEach(p => p.style.opacity = 0);
+      const iv = setInterval(() => {
+        const dt = performance.now() - t0, I = Math.max(0, 1 - dt / TOTAL);
+        const k = Math.min(Math.floor(dt / STEP), seq.length - 1);
+        cur = seq[k]; prev = k ? seq[k - 1] : 0; ghost = seq[Math.min(k + 1, seq.length - 1)];
+        show(0, cur); show(1, prev); show(2, ghost); show(3, cur);
+        // the glitch effect itself only re-rolls every FX ms (slow, readable jitter); the time values update every tick
+        if (dt - lastFx >= FX) {
+          lastFx = dt;
+          const vis = dt > 80 && !(dt < 600 && Math.random() < .3 * (1 - dt / 600));
+          const burst = dt < SETTLE && Math.random() < .3 + .5 * I;
+          pill.style.opacity = vis ? 1 : 0;
+          pill.style.transform = burst ? `translateX(${R(4 * I)}px) skewX(${R(7 * I)}deg)` : 'none';
+          red.style.opacity = cyan.style.opacity = vis && burst ? .8 : 0;
+          red.style.transform = `translateX(${R(8 * I)}px)`;
+          cyan.style.transform = `translateX(${R(8 * I)}px)`;
+          const a = Math.random() * 78, h = 8 + Math.random() * 20;
+          slice.style.clipPath = `inset(${a}% 0 ${Math.max(0, 100 - a - h)}% 0)`;
+          slice.style.transform = `translateX(${R(22 * I)}px)`;
+          slice.style.opacity = vis && burst ? 1 : 0;
+          scan.style.opacity = vis ? .3 * I + (burst ? .2 : 0) : 0;
+        }
+        if (dt > TOTAL) {
+          clearInterval(iv);
+          [red, cyan, slice, scan].forEach(e => e.remove());
+          pill.style.transform = 'none'; pill.style.opacity = 1; tz.innerHTML = L;
+          gs.forEach((_, i) => { locked[i] = false; });
+          an(pill, [{ filter: 'brightness(2.4)', textShadow: '0 0 16px rgba(255,60,70,.95)' }, { filter: 'brightness(1)', textShadow: '0 0 0 transparent' }], { duration: 650 });
+        }
+      }, 40);
+      timers.push(iv);
+      return TOTAL + 650;
+    }
+  };
+
+  const cleanup = () => {
+    timers.forEach(clearInterval); clearInterval(live);
+    try { sessionStorage.setItem(KEY, '1'); } catch (_) {}
+    document.documentElement.classList.remove('s7-hold');
+    document.documentElement.style.overflow = prevOverflow;
+    overlay.remove(); css.remove();
+  };
+
+  // hand-off: the big pill flies to the real header clock while the curtain fades
+  const handoff = () => {
+    const real = document.getElementById('clock');
+    overlay.classList.add('out');
+    if (!real) { setTimeout(cleanup, 700); return; }
+    const r = real.getBoundingClientRect();
+    const dx = r.left + r.width / 2 - innerWidth / 2, dy = r.top + r.height / 2 - innerHeight / 2;
+    const a = wrap.animate([
+      { transform: `translate(-50%,-50%) scale(${S})` },
+      { transform: `translate(calc(-50% + ${dx}px), calc(-50% + ${dy}px)) scale(1)` }
+    ], { duration: 800, easing: 'cubic-bezier(.65,0,.35,1)', fill: 'forwards' });
+    a.onfinish = cleanup;
+    setTimeout(cleanup, 1200);
+  };
+
+  const hold = (styles[style] || styles[1])();
+  setTimeout(handoff, hold + 250);
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0a0b;
+    --ink: #f4eaea;
+    --muted: #8a8485;
+    --dim: #6f5b5d;
+    --red: #e98b92;
+    --pill-border: rgba(214, 64, 74, .38);
+    --pill-bg: rgba(120, 20, 30, .28);
+    --sans: "Inter Tight", system-ui, sans-serif;
+    --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html { background: var(--bg); color-scheme: dark; }
+  body {
+    min-height: 100svh;
+    font-family: var(--sans);
+    color: var(--ink);
+    background:
+      radial-gradient(900px 520px at 0% 8%, #3a0f15 0%, transparent 70%),
+      var(--bg);
+  }
+
+  /* ---------- Clock bar ---------- */
+  .bar {
+    position: fixed; inset: 0 0 auto 0; z-index: 100;
+    height: 56px; padding: 0 clamp(16px, 4vw, 48px);
+    display: flex; align-items: center; justify-content: center; gap: clamp(18px, 3vw, 44px);
+    font-family: var(--mono);
+  }
+  .bar::after {
+    content: ""; position: absolute; inset: auto 0 0 0; height: 1px;
+    background: rgba(255, 255, 255, .07);
+  }
+  .city { display: grid; gap: 2px; min-width: 96px; }
+  .city b { font-weight: 400; font-size: 11px; letter-spacing: .14em; color: var(--muted); text-transform: uppercase; }
+  .city span { font-size: 15px; font-weight: 500; color: #9b9495; font-variant-numeric: tabular-nums; }
+  .city span i { font-style: normal; font-size: 11px; color: var(--muted); margin-left: 4px; }
+
+  #clock {
+    display: inline-flex; align-items: center; gap: 10px;
+    height: 36px; padding: 0 16px 0 5px;
+    border: 1px solid var(--pill-border); background: var(--pill-bg);
+    border-radius: 999px; will-change: transform, clip-path;
+    font-variant-numeric: tabular-nums;
+  }
+  .flag { width: 28px; height: 24px; border-radius: 4px; display: block; flex: none; }
+  .tz { font-size: 12px; letter-spacing: .16em; color: var(--red); }
+  .time { display: inline-flex; align-items: baseline; font-size: 17px; font-weight: 700; color: var(--ink); }
+  .d { display: inline-block; overflow: hidden; height: 1.3em; line-height: 1.3em; }
+  .g { display: block; }
+  .sep { color: var(--dim); font-weight: 500; }
+  .time .s { color: var(--dim); }
+
+  /* ---------- Page ---------- */
+  main { padding: 150px 24px 80px; text-align: center; }
+  nav.links { display: flex; justify-content: center; gap: clamp(20px, 4vw, 52px); font-size: 17px; color: #8d8788; margin-bottom: 14vh; }
+  nav.links a { color: inherit; text-decoration: none; }
+  nav.links a:hover { color: var(--ink); }
+  h1 { font-weight: 500; font-size: clamp(40px, 7vw, 88px); letter-spacing: -.035em; line-height: 1; margin-bottom: 22px; }
+  .lede { max-width: 46ch; margin: 0 auto; color: #8d8788; font-size: 18px; line-height: 1.5; }
+
+  .replay {
+    position: fixed; right: 16px; bottom: 16px; z-index: 120;
+    font: 12px var(--mono); color: var(--muted); background: transparent;
+    border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 8px 14px; cursor: pointer;
+  }
+  .replay:hover { color: var(--ink); border-color: rgba(255,255,255,.3); }
+  .replay:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  .styles {
+    position: fixed; left: 16px; bottom: 16px; z-index: 120; display: flex; align-items: center; gap: 6px;
+    font: 12px var(--mono); color: var(--muted); flex-wrap: wrap; max-width: calc(100vw - 32px); bottom: 56px;
+  }
+  .styles button {
+    font: inherit; color: inherit; background: transparent; cursor: pointer;
+    border: 1px solid rgba(255,255,255,.12); border-radius: 999px; padding: 8px 12px;
+  }
+  .styles button:hover { color: var(--ink); border-color: rgba(255,255,255,.3); }
+  .styles button[aria-pressed="true"] { color: var(--ink); border-color: var(--pill-border); background: var(--pill-bg); }
+  .styles button:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
+
+  @media (max-width: 760px) {
+    .city { display: none; }
+    nav.links { flex-wrap: wrap; gap: 14px 22px; font-size: 15px; }
+  }
+
+  </style>
+</head>
+<body>
+<header class="bar">
+  <div class="city" data-tz="America/New_York"><b>New York</b><span><em class="t"></em><i></i></span></div>
+  <div class="city" data-tz="America/Sao_Paulo"><b>São Paulo</b><span><em class="t"></em><i></i></span></div>
+
+  <div id="clock" role="timer" aria-label="Current GMT time">
+    <svg class="flag" viewBox="0 0 90 60" aria-hidden="true">
+      <rect width="90" height="60" fill="#c1272d"/>
+      <path d="M45 13 L55 43.75 L28.8 24.8 L61.2 24.8 L35 43.75 Z" fill="none" stroke="#006233" stroke-width="2.4" stroke-linejoin="miter"/>
+    </svg>
+    <span class="tz">GMT</span>
+    <span class="time" aria-hidden="true">
+      <span class="d"><span class="g">1</span></span><span class="d"><span class="g">0</span></span>
+      <span class="sep">:</span>
+      <span class="d"><span class="g">0</span></span><span class="d"><span class="g">0</span></span>
+      <span class="sep">:</span>
+      <span class="d s"><span class="g">0</span></span><span class="d s"><span class="g">0</span></span>
+    </span>
+  </div>
+
+  <div class="city" data-tz="Europe/London"><b>London</b><span><em class="t"></em><i></i></span></div>
+  <div class="city" data-tz="Europe/Paris"><b>Paris</b><span><em class="t"></em><i></i></span></div>
+</header>
+
+<main id="main">
+  <nav class="links">
+    <a href="#">Products</a><a href="#">Services</a><a href="#">The Standard</a><a href="#">About</a><a href="#">Contact</a>
+  </nav>
+  <h1 >Premium software.<br>Built to last.</h1>
+  <p class="lede">S7 designs and engineers desktop applications and developer tools that are fast, local-first and privately yours.</p>
+</main>
+<div class="styles" role="group" aria-label="Preloader style">
+  <span>Preloader</span>
+  <button type="button" data-s="1">1 Focus</button>
+  <button type="button" data-s="2">2 Curtain</button>
+  <button type="button" data-s="3">3 Odometer</button>
+  <button type="button" data-s="4">4 Decode</button>
+  <button type="button" data-s="5">5 Trace</button>
+  <button type="button" data-s="6">6 Unfold</button>
+  <button type="button" data-s="7">7 Sweep</button>
+  <button type="button" data-s="8">8 Spring</button>
+  <button type="button" data-s="9">9 Type</button>
+  <button type="button" data-s="10">10 Glitch</button>
+</div>
+<button class="replay" id="replay" type="button">Replay intro (R)</button>
+<script>
+(() => {
+  const $ = (s, c = document) => c.querySelector(s);
+  const $$ = (s, c = document) => [...c.querySelectorAll(s)];
+  const glyphs = $$('#clock .g'), cities = $$('.city');
+  const pad = n => String(n).padStart(2, '0');
+  const fm = cities.map(c => ({
+    t: new Intl.DateTimeFormat('en-GB', { timeZone: c.dataset.tz, hour: '2-digit', minute: '2-digit', hour12: false }),
+    o: new Intl.DateTimeFormat('en-US', { timeZone: c.dataset.tz, timeZoneName: 'shortOffset' }),
+  }));
+  function tick() {
+    const n = new Date();
+    const s = pad(n.getUTCHours()) + pad(n.getUTCMinutes()) + pad(n.getUTCSeconds());
+    glyphs.forEach((g, i) => { if (g.textContent !== s[i]) g.textContent = s[i]; });
+    cities.forEach((c, i) => {
+      $('.t', c).textContent = fm[i].t.format(n);
+      const o = fm[i].o.formatToParts(n).find(p => p.type === 'timeZoneName');
+      $('i', c).textContent = o ? o.value : '';
+    });
+    setTimeout(tick, 1000 - n.getMilliseconds() + 4);
+  }
+  tick();
+  const replay = () => { try { sessionStorage.removeItem('s7-preloader'); } catch (e) {} location.reload(); };
+  const q = location.search.match(/[?&]style=(10|[1-9])/);
+  let cur = q ? +q[1] : 1;
+  if (!q) { try { cur = +localStorage.getItem('s7-style') || 1; } catch (e) {} }
+  const pick = n => { try { localStorage.setItem('s7-style', n); } catch (e) {} history.replaceState(null, '', location.pathname); replay(); };
+  $$('.styles button').forEach(b => {
+    b.setAttribute('aria-pressed', String(+b.dataset.s === cur));
+    b.addEventListener('click', () => pick(b.dataset.s));
+  });
+  $('#replay').addEventListener('click', replay);
+  addEventListener('keydown', e => { if (e.metaKey || e.ctrlKey) return; if (e.key.toLowerCase() === 'r') replay(); else if (/^[0-9]$/.test(e.key)) pick(e.key === '0' ? '10' : e.key); });
+})();
+</script>
+</body>
+</html>
